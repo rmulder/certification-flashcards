@@ -21,21 +21,6 @@ const stub = (
   cards: [],
 })
 
-export const dvaC02Config = stub(
-  'dva-c02',
-  'DVA-C02',
-  'AWS Certified Developer - Associate',
-  'associate',
-  'Associate certification for developing and deploying AWS applications.',
-  [
-    { id: 'development', name: 'Development with AWS Services', weight: 32, description: 'SDKs, APIs, CI/CD' },
-    { id: 'security', name: 'Security', weight: 26, description: 'Auth, encryption, secrets' },
-    { id: 'deployment', name: 'Deployment', weight: 24, description: 'Containers, serverless, IaC' },
-    { id: 'troubleshooting', name: 'Troubleshooting and Optimization', weight: 18, description: 'Debugging and performance' },
-  ],
-  { questionCount: 65, passPercent: 72 },
-)
-
 export const deaC01Config = stub(
   'dea-c01',
   'DEA-C01',

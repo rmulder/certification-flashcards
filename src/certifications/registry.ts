@@ -1,10 +1,10 @@
 import type { CertificationConfig } from './types'
 import { clfC02Config } from './clf-c02'
 import { aifC01Config } from './aif-c01'
+import { dvaC02Config } from './dva-c02'
 import {
   aipC01Config,
   deaC01Config,
-  dvaC02Config,
   saaC03Config,
 } from './stubs'
 
