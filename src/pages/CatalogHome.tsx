@@ -55,23 +55,27 @@ function CertCard({
 }) {
   const progress = loadCertProgress(cert.id)
   const cardCount = cert.cards.length
+  const isClickable = cert.available
 
   return (
     <div
-      className={`domain-card ${cert.available ? '' : 'cert-unavailable'}`}
+      className={`domain-card ${isClickable ? '' : 'cert-unavailable'}${cert.retired ? ' cert-retired' : ''}`}
       onClick={onSelect}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
-        if (cert.available && (e.key === 'Enter' || e.key === ' ')) {
+        if (isClickable && (e.key === 'Enter' || e.key === ' ')) {
           e.preventDefault()
           onSelect()
         }
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap' }}>
         <h3>{cert.code}</h3>
-        <span className="tag">{LEVEL_LABEL[cert.level]}</span>
+        <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
+          {cert.retired && <span className="tag tag-retired">Retired</span>}
+          <span className="tag">{LEVEL_LABEL[cert.level]}</span>
+        </div>
       </div>
       <p>{cert.name}</p>
       <p className="progress-label" style={{ marginTop: '0.5rem' }}>
@@ -79,7 +83,12 @@ function CertCard({
           ? `${cardCount} cards · ${progress.mockExamsTaken} mock exams taken`
           : 'Coming soon'}
       </p>
-      {!cert.available && (
+      {cert.retired && (
+        <p className="hint-text" style={{ marginTop: '0.5rem', textAlign: 'left' }}>
+          Exam retired — content available for review. See MLA-C01 for the current exam.
+        </p>
+      )}
+      {!cert.available && !cert.retired && (
         <p className="hint-text" style={{ marginTop: '0.5rem', textAlign: 'left' }}>
           Content is being added
         </p>

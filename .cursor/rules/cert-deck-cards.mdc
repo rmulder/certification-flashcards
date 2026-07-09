@@ -1,0 +1,29 @@
+# Certification deck card schema (do not re-discover)
+
+When adding or editing cert decks under `src/certifications/`, use this schema directly. Do **not** grep, search, or re-read types to "find" the schema — it is fixed.
+
+```typescript
+import type { Card } from '../../../core/types'
+
+export const exampleCards: Card[] = [
+  {
+    id: 'cert-domain-001',
+    domain: 'domain-id',       // matches CertificationConfig.domains[].id
+    task: '1.1',
+    tags: ['cert-code', 'topic'],
+    question: '...',
+    options: ['A', 'B', 'C', 'D'],
+    correctAnswers: [0],       // always an array; [0, 2] for multi-select
+    explanation: '...',
+  },
+]
+```
+
+**Never use:** `type`, `correctAnswer` (singular), or other fields.
+
+**Workflow for new certs:**
+1. Create `src/certifications/{cert-id}/cards/domain*.ts` + `index.ts`
+2. Wire in `src/certifications/registry.ts`, remove from `stubs.ts`
+3. Run `npm run build` from project root to verify
+
+**Mock exam defaults:** Associate/professional certs use 65–75 questions; pass percent matches scaled exam minimum (e.g. 72% = 720/1000, 75% = 750/1000).

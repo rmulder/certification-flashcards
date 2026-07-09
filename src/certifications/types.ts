@@ -15,6 +15,8 @@ export interface CertificationConfig {
   description: string
   /** When false, cert appears in catalog but study modes are disabled */
   available: boolean
+  /** Exam retired by vendor; content remains studyable when available is true */
+  retired?: boolean
   domains: DomainInfo[]
   mockExam: MockExamSettings
   cards: Card[]

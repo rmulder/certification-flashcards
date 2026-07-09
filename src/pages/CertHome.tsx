@@ -47,6 +47,13 @@ export function CertHome({
         <span className="tag tag-domain">{LEVEL_LABEL[config.level]}</span>
       </div>
 
+      {config.retired && (
+        <div className="retired-notice" role="status">
+          This exam was retired by AWS in March 2026. All study modes remain available for
+          review. For current certification prep, use <strong>MLA-C01</strong>.
+        </div>
+      )}
+
       <div className="stats-grid">
         <div className="stat-card">
           <div className="stat-value">{cards.length}</div>

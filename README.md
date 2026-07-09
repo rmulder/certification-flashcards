@@ -9,9 +9,31 @@ A local study app for IT certification exams. Runs entirely in your browser with
 | CLF-C02 | AWS Certified Cloud Practitioner | **Available** (190 cards) |
 | AIF-C01 | AWS Certified AI Practitioner | **Available** (190 cards) |
 | DVA-C02 | AWS Certified Developer - Associate | **Available** (190 cards) |
-| DEA-C01 | AWS Certified Data Engineer - Associate | Coming soon |
-| SAA-C03 | AWS Certified Solutions Architect - Associate | Coming soon |
-| AIP-C01 | AWS Certified Generative AI Developer - Professional | Coming soon |
+| DEA-C01 | AWS Certified Data Engineer - Associate | **Available** (190 cards) |
+| SAA-C03 | AWS Certified Solutions Architect - Associate | **Available** (190 cards) |
+| SAP-C02 | AWS Certified Solutions Architect - Professional | **Available** (190 cards) |
+| AIP-C01 | AWS Certified Generative AI Developer - Professional | **Available** (190 cards) |
+| DOP-C02 | AWS Certified DevOps Engineer - Professional | **Available** (190 cards) |
+| MLA-C01 | AWS Certified Machine Learning Engineer - Associate | **Available** (190 cards) |
+| MLS-C01 | AWS Certified Machine Learning - Specialty | **Available** (190 cards, retired exam) |
+| ANS-C01 | AWS Certified Advanced Networking - Specialty | **Available** (190 cards, retires Aug 2026) |
+
+### Google Cloud
+
+| Code | Exam | Status |
+|------|------|--------|
+| GCP CDL | Google Cloud Digital Leader | **Available** (190 cards) |
+| GCP GAIL | Google Cloud Generative AI Leader | **Available** (190 cards) |
+| GCP ACE | Google Cloud Associate Cloud Engineer | **Available** (190 cards) |
+| GCP PMLE | Google Cloud Professional Machine Learning Engineer | **Available** (190 cards) |
+
+### Microsoft
+
+| Code | Exam | Status |
+|------|------|--------|
+| AZ-900 | Microsoft Certified: Azure Fundamentals | **Available** (190 cards) |
+| AI-901 | Microsoft Certified: Azure AI Fundamentals | **Available** (190 cards) |
+| AI-102 | Microsoft Certified: Azure AI Engineer Associate | **Available** (190 cards) |
 
 ## Features
 
@@ -68,8 +90,9 @@ src/
 │   └── types/        # Shared types
 ├── certifications/
 │   ├── registry.ts   # All registered certs
-│   ├── stubs.ts      # Placeholder configs for upcoming certs
-│   └── clf-c02/      # CLF-C02 cards and config
+│   ├── clf-c02/      # CLF-C02 cards and config
+│   ├── aif-c01/      # AIF-C01 cards and config
+│   └── …             # One folder per certification
 └── pages/
     ├── CatalogHome.tsx
     └── CertHome.tsx

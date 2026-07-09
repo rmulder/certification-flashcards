@@ -169,6 +169,30 @@ button:disabled {
   transform: none;
 }
 
+.domain-card.cert-retired {
+  border-color: rgba(243, 156, 18, 0.35);
+}
+
+.domain-card.cert-retired:hover {
+  border-color: var(--warning);
+}
+
+.tag-retired {
+  background: rgba(243, 156, 18, 0.15);
+  color: var(--warning);
+}
+
+.retired-notice {
+  background: rgba(243, 156, 18, 0.1);
+  border: 1px solid rgba(243, 156, 18, 0.35);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  padding: 0.875rem 1rem;
+}
+
 .domain-card h3 {
   font-size: 1rem;
   margin-bottom: 0.35rem;
