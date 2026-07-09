@@ -1,11 +1,12 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { CertProgress, View } from './core/types'
+import type { CertificationConfig } from './certifications/types'
 import {
   loadCertProgress,
   resetCertProgress,
   saveCertProgress,
 } from './core/lib/storage'
-import { getCertification } from './certifications/registry'
+import { getCertification, getLoadedCertification, loadCertification } from './certifications/registry'
 import { CatalogHome } from './pages/CatalogHome'
 import { CertHome } from './pages/CertHome'
 import { StudySession } from './core/components/StudySession'
@@ -15,6 +16,8 @@ import { ProgressDashboard } from './core/components/ProgressDashboard'
 
 function App() {
   const [selectedCertId, setSelectedCertId] = useState<string | null>(null)
+  const [config, setConfig] = useState<CertificationConfig | undefined>()
+  const [loadingCert, setLoadingCert] = useState(false)
   const [view, setView] = useState<View>('catalog')
   const [domain, setDomain] = useState<string | 'all'>('all')
   const [weakOnly, setWeakOnly] = useState(false)
@@ -22,7 +25,34 @@ function App() {
     selectedCertId ? loadCertProgress(selectedCertId) : loadCertProgress('clf-c02'),
   )
 
-  const config = selectedCertId ? getCertification(selectedCertId) : undefined
+  useEffect(() => {
+    if (!selectedCertId || view === 'catalog') {
+      setConfig(undefined)
+      setLoadingCert(false)
+      return
+    }
+
+    const cached = getLoadedCertification(selectedCertId)
+    if (cached) {
+      setConfig(cached)
+      setLoadingCert(false)
+      return
+    }
+
+    let cancelled = false
+    setLoadingCert(true)
+
+    loadCertification(selectedCertId).then((loaded) => {
+      if (!cancelled) {
+        setConfig(loaded)
+        setLoadingCert(false)
+      }
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [selectedCertId, view])
 
   const updateProgress = useCallback(
     (next: CertProgress) => {
@@ -77,10 +107,27 @@ function App() {
     )
   }
 
-  if (!config || !selectedCertId) {
+  if (!selectedCertId) {
     return (
       <div className="app">
         <CatalogHome onSelectCert={selectCert} />
+      </div>
+    )
+  }
+
+  if (loadingCert || !config) {
+    const meta = getCertification(selectedCertId)
+    return (
+      <div className="app">
+        <div className="header">
+          <div>
+            <h1>{meta?.code ?? 'Loading…'}</h1>
+            <span className="header-sub">Loading flashcards…</span>
+          </div>
+          <button type="button" className="btn btn-secondary" onClick={goCatalog}>
+            Back to catalog
+          </button>
+        </div>
       </div>
     )
   }

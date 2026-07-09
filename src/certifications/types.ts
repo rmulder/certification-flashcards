@@ -6,7 +6,7 @@ export type CertLevel =
   | 'professional'
   | 'specialty'
 
-export interface CertificationConfig {
+export interface CertificationMeta {
   id: string
   code: string
   name: string
@@ -17,7 +17,15 @@ export interface CertificationConfig {
   available: boolean
   /** Exam retired by vendor; content remains studyable when available is true */
   retired?: boolean
+  /** Banner text shown on cert home when retired is true */
+  retiredNotice?: string
+  /** Self-paced deck with no official proctored exam */
+  studyTrack?: boolean
   domains: DomainInfo[]
   mockExam: MockExamSettings
+  cardCount: number
+}
+
+export interface CertificationConfig extends CertificationMeta {
   cards: Card[]
 }

@@ -50,5 +50,6 @@ export const clfC02Config: CertificationConfig = {
     questionCount: 50,
     passPercent: 70,
   },
+  cardCount: cards.length,
   cards,
 }

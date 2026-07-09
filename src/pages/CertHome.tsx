@@ -49,8 +49,8 @@ export function CertHome({
 
       {config.retired && (
         <div className="retired-notice" role="status">
-          This exam was retired by AWS in March 2026. All study modes remain available for
-          review. For current certification prep, use <strong>MLA-C01</strong>.
+          {config.retiredNotice ??
+            'This exam was retired. All study modes remain available for review.'}
         </div>
       )}
 

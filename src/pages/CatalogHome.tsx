@@ -1,4 +1,4 @@
-import type { CertificationConfig } from '../certifications/types'
+import type { CertificationMeta } from '../certifications/types'
 import { CERTIFICATIONS, VENDORS } from '../certifications/registry'
 import { loadCertProgress } from '../core/lib/storage'
 
@@ -50,11 +50,11 @@ function CertCard({
   cert,
   onSelect,
 }: {
-  cert: CertificationConfig
+  cert: CertificationMeta
   onSelect: () => void
 }) {
   const progress = loadCertProgress(cert.id)
-  const cardCount = cert.cards.length
+  const cardCount = cert.cardCount
   const isClickable = cert.available
 
   return (
@@ -83,9 +83,14 @@ function CertCard({
           ? `${cardCount} cards · ${progress.mockExamsTaken} mock exams taken`
           : 'Coming soon'}
       </p>
+      {cert.studyTrack && (
+        <p className="hint-text" style={{ marginTop: '0.5rem', textAlign: 'left' }}>
+          Self-paced study track — no official proctored exam
+        </p>
+      )}
       {cert.retired && (
         <p className="hint-text" style={{ marginTop: '0.5rem', textAlign: 'left' }}>
-          Exam retired — content available for review. See MLA-C01 for the current exam.
+          Retired exam — content available for review
         </p>
       )}
       {!cert.available && !cert.retired && (
