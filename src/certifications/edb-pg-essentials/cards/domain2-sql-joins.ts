@@ -1,0 +1,318 @@
+import type { Card } from '../../../core/types'
+
+export const sqlJoinCards: Card[] = [
+  {
+    id: 'pg-ess-089',
+    domain: 'sql-knowledge',
+    task: '2.3',
+    tags: ['inner-join'],
+    question: 'Which query lists orders with their customer names using an INNER JOIN?',
+    options: [
+      'SELECT * FROM orders, customers',
+      'SELECT * FROM orders INNER JOIN customers ON orders.customer_id = customers.id',
+      'SELECT * FROM orders LEFT JOIN customers WITHOUT MATCH',
+      'SELECT * FROM orders UNION customers',
+    ],
+    correctAnswers: [1],
+    explanation: 'INNER JOIN requires a matching join key. Old comma syntax in FROM is implicit CROSS JOIN with WHERE filter — prefer explicit JOIN.',
+  },
+  {
+    id: 'pg-ess-090',
+    domain: 'sql-knowledge',
+    task: '2.3',
+    tags: ['left-join'],
+    question: 'Which JOIN keeps all customers even if they have no orders?',
+    options: [
+      'INNER JOIN orders ON ...',
+      'LEFT JOIN orders ON customers.id = orders.customer_id',
+      'RIGHT JOIN orders ON ...',
+      'CROSS JOIN orders',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'LEFT JOIN preserves every row from the left table (customers). Missing matches show NULLs for order columns.',
+  },
+  {
+    id: 'pg-ess-091',
+    domain: 'sql-knowledge',
+    task: '2.3',
+    tags: ['right-join'],
+    question: 'RIGHT JOIN customers ON orders.customer_id = customers.id is equivalent to:',
+    options: [
+      'INNER JOIN with the same condition',
+      'LEFT JOIN orders ON orders.customer_id = customers.id',
+      'CROSS JOIN',
+      'FULL JOIN only when reversed',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'RIGHT JOIN is less common; swap table order and use LEFT JOIN for the same result. PostgreSQL supports RIGHT JOIN.',
+  },
+  {
+    id: 'pg-ess-092',
+    domain: 'sql-knowledge',
+    task: '2.3',
+    tags: ['full-join'],
+    question: 'FULL OUTER JOIN returns:',
+    options: [
+      'Only matching rows from both tables',
+      'All rows from both tables, with NULLs where no match exists',
+      'Only rows with NULL keys',
+      'The Cartesian product',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'FULL OUTER JOIN combines LEFT and RIGHT: all rows from both sides, pairing matches and NULL-padding non-matches.',
+  },
+  {
+    id: 'pg-ess-093',
+    domain: 'sql-knowledge',
+    task: '2.3',
+    tags: ['cross-join'],
+    question: 'CROSS JOIN produces:',
+    options: [
+      'Only rows with equal keys',
+      'Every combination of rows from both tables',
+      'Only NULL rows',
+      'A sorted merge of both tables',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'CROSS JOIN is the Cartesian product: |A| × |B| rows. Use carefully — often indicates missing join condition.',
+  },
+  {
+    id: 'pg-ess-094',
+    domain: 'sql-knowledge',
+    task: '2.3',
+    tags: ['self-join'],
+    question: 'A self-join is used to:',
+    options: [
+      'Join a table to itself, often via aliased copies',
+      'Join two identical databases',
+      'Join only primary keys',
+      'Avoid using WHERE',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Example: employees e1 JOIN employees e2 ON e1.manager_id = e2.id to find each employee\'s manager name.',
+  },
+  {
+    id: 'pg-ess-095',
+    domain: 'sql-knowledge',
+    task: '2.3',
+    tags: ['natural-join'],
+    question: 'NATURAL JOIN:',
+    options: [
+      'Joins on all columns with the same name in both tables',
+      'Joins only indexed columns',
+      'Is the same as CROSS JOIN',
+      'Requires the USING clause',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'NATURAL JOIN auto-matches same-named columns. Generally avoid in production — implicit and breaks when columns are added.',
+  },
+  {
+    id: 'pg-ess-096',
+    domain: 'sql-knowledge',
+    task: '2.3',
+    tags: ['using'],
+    question: 'SELECT * FROM orders JOIN customers USING (customer_id) differs from ON how?',
+    options: [
+      'USING requires identical column names in both tables and coalesces them in output',
+      'USING is slower than ON always',
+      'USING only works with OUTER JOIN',
+      'USING cannot be used with SELECT *',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'JOIN ... USING (col) is shorthand when both tables share column name. Result has one `customer_id` column, not two.',
+  },
+  {
+    id: 'pg-ess-097',
+    domain: 'sql-knowledge',
+    task: '2.3',
+    tags: ['multiple-joins'],
+    question: 'In `FROM a JOIN b ON ... JOIN c ON ...`, joins are evaluated:',
+    options: [
+      'Right to left always',
+      'Left to right (a join b, then result join c) unless parentheses change precedence',
+      'Random order',
+      'Only after WHERE',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Chain joins left-to-right. Use parentheses to control order: FROM (a JOIN b) JOIN c vs FROM a JOIN (b JOIN c).',
+  },
+  {
+    id: 'pg-ess-098',
+    domain: 'sql-knowledge',
+    task: '2.4',
+    tags: ['join-filter'],
+    question: 'Filtering on a LEFT JOINed table\'s column in WHERE can:',
+    options: [
+      'Have no effect on row count',
+      'Turn the LEFT JOIN into effective INNER JOIN behavior by removing NULL-extended rows',
+      'Always return all left rows',
+      'Cause a syntax error',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'WHERE orders.id IS NOT NULL after LEFT JOIN customers removes customers without orders. Put filters on the outer table in ON to preserve outer rows.',
+  },
+  {
+    id: 'pg-ess-099',
+    domain: 'sql-knowledge',
+    task: '2.4',
+    tags: ['lateral'],
+    question: 'LATERAL allows a subquery in FROM to:',
+    options: [
+      'Reference columns from tables earlier in the FROM list',
+      'Run only once for the whole query',
+      'Replace GROUP BY',
+      'Skip indexes',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'LATERAL subqueries are correlated per row: SELECT * FROM users u, LATERAL (SELECT ... WHERE o.user_id = u.id LIMIT 3) top_orders.',
+  },
+  {
+    id: 'pg-ess-100',
+    domain: 'sql-knowledge',
+    task: '2.4',
+    tags: ['anti-join'],
+    question: 'Which pattern finds customers with NO orders?',
+    options: [
+      'INNER JOIN orders',
+      'LEFT JOIN orders WHERE orders.id IS NULL',
+      'CROSS JOIN orders',
+      'UNION orders',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Anti-join pattern: LEFT JOIN then WHERE right_side.key IS NULL. NOT EXISTS is often clearer and can perform better.',
+  },
+  {
+    id: 'pg-ess-101',
+    domain: 'sql-knowledge',
+    task: '2.4',
+    tags: ['semi-join'],
+    question: 'Which pattern finds customers who have at least one order (without duplicating customer rows)?',
+    options: [
+      'INNER JOIN orders (may duplicate customers with multiple orders)',
+      'EXISTS (SELECT 1 FROM orders WHERE orders.customer_id = customers.id)',
+      'CROSS JOIN orders',
+      'FULL OUTER JOIN orders',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'EXISTS is a semi-join — returns each customer once if any matching order exists. DISTINCT on INNER JOIN is an alternative.',
+  },
+  {
+    id: 'pg-ess-102',
+    domain: 'sql-knowledge',
+    task: '2.5',
+    tags: ['join-types', 'multi-select'],
+    question: 'Which joins can produce NULL values in columns from the preserved side? (Select TWO)',
+    options: ['INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'CROSS JOIN'],
+    correctAnswers: [1, 2],
+    explanation:
+      'OUTER joins (LEFT, RIGHT, FULL) pad non-matching rows with NULL. INNER and CROSS never NULL-pad from missing keys (CROSS has no key concept).',
+  },
+  {
+    id: 'pg-ess-103',
+    domain: 'sql-knowledge',
+    task: '2.5',
+    tags: ['comma-join'],
+    question: 'SELECT * FROM a, b WHERE a.id = b.a_id is equivalent to:',
+    options: [
+      'CROSS JOIN b',
+      'INNER JOIN b ON a.id = b.a_id',
+      'LEFT JOIN b',
+      'NATURAL JOIN b',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Comma in FROM with equality in WHERE is old-style inner join. Modern SQL prefers explicit INNER JOIN for clarity.',
+  },
+  {
+    id: 'pg-ess-104',
+    domain: 'sql-knowledge',
+    task: '2.5',
+    tags: ['table-alias'],
+    question: 'Why alias tables in multi-table queries?',
+    options: [
+      'Required by PostgreSQL for all queries',
+      'Shorter references and required for self-joins',
+      'To encrypt column names',
+      'To create temporary tables automatically',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Aliases (FROM orders o) shorten column qualification (o.id) and are essential when joining a table to itself with two aliases.',
+  },
+  {
+    id: 'pg-ess-105',
+    domain: 'sql-knowledge',
+    task: '2.6',
+    tags: ['join-aggregate'],
+    question: 'To count orders per customer, which GROUP BY is correct after joining customers and orders?',
+    options: [
+      'GROUP BY orders.id',
+      'GROUP BY customers.id, customers.name',
+      'GROUP BY without any columns',
+      'GROUP BY COUNT(*)',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Group by the customer key (and name if selected). GROUP BY orders.id would count per order, not per customer.',
+  },
+  {
+    id: 'pg-ess-106',
+    domain: 'sql-knowledge',
+    task: '2.6',
+    tags: ['join-update'],
+    question: 'Can UPDATE reference another table in PostgreSQL?',
+    options: [
+      'No — UPDATE is single-table only',
+      'Yes — using FROM clause: UPDATE t SET ... FROM other WHERE ...',
+      'Only with triggers',
+      'Only in a transaction block',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'UPDATE accounts SET balance = balance + 100 FROM bonuses WHERE accounts.id = bonuses.account_id;',
+  },
+  {
+    id: 'pg-ess-107',
+    domain: 'sql-knowledge',
+    task: '2.6',
+    tags: ['join-delete'],
+    question: 'DELETE rows in `orders` that have no matching `customers` using:',
+    options: [
+      'DELETE orders WHERE NOT EXISTS (SELECT 1 FROM customers c WHERE c.id = orders.customer_id)',
+      'DELETE orders CROSS JOIN customers',
+      'TRUNCATE orders ONLY',
+      'DROP orders',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DELETE supports USING in PostgreSQL: DELETE FROM orders o USING customers c WHERE ... or NOT EXISTS subquery for orphan detection.',
+  },
+  {
+    id: 'pg-ess-108',
+    domain: 'sql-knowledge',
+    task: '2.6',
+    tags: ['foreign-key', 'join'],
+    question: 'A FOREIGN KEY constraint on orders.customer_id primarily ensures:',
+    options: [
+      'Fast JOIN performance',
+      'Referential integrity — customer_id must exist in customers (or be NULL if allowed)',
+      'Unique order numbers',
+      'Automatic indexes on all columns',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'FK enforces parent row exists. JOINs work without FKs but FKs document relationships and prevent orphan rows at insert time.',
+  },
+]

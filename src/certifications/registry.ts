@@ -32,6 +32,7 @@ import { dataquestGenAiStudyMeta } from './dataquest-gen-ai-study/meta'
 import { aiPlusFoundationMeta } from './ai-plus-foundation/meta'
 import { ibmRagAgenticAiStudyMeta } from './ibm-rag-agentic-ai-study/meta'
 import { pmiCpmaiMeta } from './pmi-cpmai/meta'
+import { edbPgEssentialsMeta } from './edb-pg-essentials/meta'
 
 const EAGER_CONFIGS: CertificationConfig[] = [
   clfC02Config,
@@ -85,6 +86,8 @@ export const CERTIFICATIONS: CertificationMeta[] = [
   gh300Meta,
   // HashiCorp
   tfAssociateMeta,
+  // PostgreSQL
+  edbPgEssentialsMeta,
 ]
 
 const configCache = new Map<string, CertificationConfig>(
@@ -130,6 +133,8 @@ const LAZY_LOADERS: Record<string, () => Promise<CertificationConfig>> = {
   'ibm-rag-agentic-ai-study': () =>
     import('./ibm-rag-agentic-ai-study').then((m) => m.ibmRagAgenticAiStudyConfig),
   'pmi-cpmai': () => import('./pmi-cpmai').then((m) => m.pmiCpmaiConfig),
+  'edb-pg-essentials': () =>
+    import('./edb-pg-essentials').then((m) => m.edbPgEssentialsConfig),
 }
 
 export function getCertification(id: string): CertificationMeta | undefined {
