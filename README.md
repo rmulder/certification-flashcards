@@ -70,6 +70,12 @@ A local study app for IT certification exams. Runs entirely in your browser with
 |------|------|--------|
 | TF-004 | HashiCorp Certified: Terraform Associate (004) | **Available** (190 cards) |
 
+### PostgreSQL
+
+| Code | Exam | Status |
+|------|------|--------|
+| PG-ESS | EDB Essentials for PostgreSQL | **Available** (167 cards, SQL-focused) |
+
 ## Features
 
 - **Catalog home** — pick a certification to study
@@ -127,6 +133,7 @@ src/
 │   ├── registry.ts   # All registered certs
 │   ├── clf-c02/      # CLF-C02 cards and config
 │   ├── aif-c01/      # AIF-C01 cards and config
+│   ├── edb-pg-essentials/  # EDB Essentials for PostgreSQL
 │   └── …             # One folder per certification
 └── pages/
     ├── CatalogHome.tsx
