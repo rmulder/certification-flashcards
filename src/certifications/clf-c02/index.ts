@@ -1,14 +1,22 @@
 import type { CertificationConfig } from '../types'
 import { cloudConceptsCards } from './cards/domain1-cloud-concepts'
+import { cloudConceptsSupplementCards } from './cards/domain1-cloud-concepts-supplement'
 import { securityCards } from './cards/domain2-security'
+import { securitySupplementCards } from './cards/domain2-security-supplement'
 import { technologyCards } from './cards/domain3-technology'
+import { technologySupplementCards } from './cards/domain3-technology-supplement'
 import { billingCards } from './cards/domain4-billing'
+import { billingSupplementCards } from './cards/domain4-billing-supplement'
 
 const cards = [
   ...cloudConceptsCards,
+  ...cloudConceptsSupplementCards,
   ...securityCards,
+  ...securitySupplementCards,
   ...technologyCards,
+  ...technologySupplementCards,
   ...billingCards,
+  ...billingSupplementCards,
 ]
 
 export const clfC02Config: CertificationConfig = {
@@ -47,7 +55,7 @@ export const clfC02Config: CertificationConfig = {
     },
   ],
   mockExam: {
-    questionCount: 50,
+    questionCount: 65,
     passPercent: 70,
   },
   cardCount: cards.length,

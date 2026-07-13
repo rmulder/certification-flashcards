@@ -37,6 +37,39 @@ export function shuffle<T>(items: T[]): T[] {
   return copy
 }
 
+export function normalizeQuestionKey(question: string): string {
+  return question.trim().toLowerCase().replace(/\s+/g, ' ')
+}
+
+type ClaimedCards = {
+  ids: Set<string>
+  questions: Set<string>
+}
+
+function isClaimed(card: Card, claimed: ClaimedCards): boolean {
+  return (
+    claimed.ids.has(card.id) ||
+    claimed.questions.has(normalizeQuestionKey(card.question))
+  )
+}
+
+function claimCard(card: Card, claimed: ClaimedCards): void {
+  claimed.ids.add(card.id)
+  claimed.questions.add(normalizeQuestionKey(card.question))
+}
+
+/** Remove duplicate cards by id or identical question text (keeps first occurrence). */
+export function dedupeCards(cards: Card[]): Card[] {
+  const claimed: ClaimedCards = { ids: new Set(), questions: new Set() }
+  const result: Card[] = []
+  for (const card of cards) {
+    if (isClaimed(card, claimed)) continue
+    claimCard(card, claimed)
+    result.push(card)
+  }
+  return result
+}
+
 export function filterCards(
   cards: Card[],
   domain?: string | 'all',
@@ -53,7 +86,7 @@ export function filterCards(
       return !rating || rating === 'unknown' || rating === 'learning'
     })
   }
-  return filtered
+  return dedupeCards(filtered)
 }
 
 export function shuffleCardOptions(card: Card, sessionSeed: number): Card {
@@ -79,35 +112,44 @@ export function shuffleCardOptions(card: Card, sessionSeed: number): Card {
   return { ...card, options, correctAnswers }
 }
 
+export function buildQuizDeck(cards: Card[], questionCount: number): Card[] {
+  const pool = dedupeCards(cards)
+  return shuffle(pool).slice(0, Math.min(questionCount, pool.length))
+}
+
 export function buildMockExam(
   cards: Card[],
   domains: DomainInfo[],
   settings: MockExamSettings,
 ): Card[] {
+  const uniqueCards = dedupeCards(cards)
   const selected: Card[] = []
-  const used = new Set<string>()
+  const claimed: ClaimedCards = { ids: new Set(), questions: new Set() }
   const { questionCount } = settings
+
+  function tryAdd(card: Card): boolean {
+    if (isClaimed(card, claimed)) return false
+    claimCard(card, claimed)
+    selected.push(card)
+    return true
+  }
 
   for (const domain of domains) {
     const count = Math.round((domain.weight / 100) * questionCount)
-    const pool = shuffle(cards.filter((c) => c.domain === domain.id))
+    const pool = shuffle(uniqueCards.filter((c) => c.domain === domain.id))
+    let domainAdded = 0
     for (const card of pool) {
       if (selected.length >= questionCount) break
-      if (used.has(card.id)) continue
-      if (selected.filter((s) => s.domain === domain.id).length >= count) {
-        continue
-      }
-      selected.push(card)
-      used.add(card.id)
+      if (domainAdded >= count) break
+      if (tryAdd(card)) domainAdded++
     }
   }
 
-  while (selected.length < questionCount) {
-    const remaining = cards.filter((c) => !used.has(c.id))
-    if (remaining.length === 0) break
-    const card = remaining[Math.floor(Math.random() * remaining.length)]
-    selected.push(card)
-    used.add(card.id)
+  if (selected.length < questionCount) {
+    for (const card of shuffle(uniqueCards)) {
+      if (selected.length >= questionCount) break
+      tryAdd(card)
+    }
   }
 
   return shuffle(selected)

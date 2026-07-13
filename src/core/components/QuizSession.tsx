@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Card, CertProgress, QuizResult } from '../types'
 import {
+  buildQuizDeck,
   buildQuizResult,
+  dedupeCards,
   filterCards,
   isAnswerCorrect,
-  shuffle,
   shuffleCardOptions,
 } from '../lib/quiz'
 import { recordQuizAnswer } from '../lib/storage'
@@ -55,10 +56,10 @@ export function QuizSession({
       weakOnly,
       progressRef.current.cards,
     )
-    const pool = filtered.length ? filtered : allCards
-    const chosen = shuffle(pool)
-      .slice(0, Math.min(questionCount, pool.length))
-      .map((c) => shuffleCardOptions(c, seed))
+    const pool = filtered.length ? filtered : dedupeCards(allCards)
+    const chosen = buildQuizDeck(pool, questionCount).map((c) =>
+      shuffleCardOptions(c, seed),
+    )
     setDeck(chosen)
     setIndex(0)
     const empty = new Map<string, number[]>()
@@ -168,7 +169,7 @@ export function QuizSession({
         </span>
       </div>
 
-      <div className="study-card quiz-card" style={{ cursor: 'default' }}>
+      <div className="study-card quiz-card" style={{ cursor: 'default' }} key={card.id}>
         <McqQuestion
           card={card}
           selected={selected}

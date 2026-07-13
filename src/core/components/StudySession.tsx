@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Card, CardRating, CertProgress, DomainInfo } from '../types'
-import { filterCards, shuffle, shuffleCardOptions } from '../lib/quiz'
+import { filterCards, shuffle, shuffleCardOptions, dedupeCards } from '../lib/quiz'
 import { updateCardRating } from '../lib/storage'
 import { CardFlip } from './CardFlip'
 
@@ -37,7 +37,7 @@ export function StudySession({
       weakOnly,
       progressRef.current.cards,
     )
-    const pool = filtered.length ? filtered : allCards
+    const pool = dedupeCards(filtered.length ? filtered : allCards)
     setDeck(shuffle(pool).map((c) => shuffleCardOptions(c, seed)))
     setIndex(0)
     setFlipped(false)

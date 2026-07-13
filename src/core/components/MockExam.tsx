@@ -193,7 +193,7 @@ export function MockExam({
         />
       </div>
 
-      <div className="study-card quiz-card" style={{ cursor: 'default' }}>
+      <div className="study-card quiz-card" style={{ cursor: 'default' }} key={card.id}>
         <McqQuestion
           card={card}
           selected={selected}
