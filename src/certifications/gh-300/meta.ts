@@ -5,7 +5,7 @@ export const gh300Meta: CertificationMeta = {
   id: 'gh-300',
   code: 'GH-300',
   name: 'GitHub Copilot',
-  vendor: 'GitHub',
+  vendor: 'Programming Languages and Databases',
   level: 'associate',
   description:
     'Validates expertise using GitHub Copilot for productivity, prompt engineering, responsible AI, and privacy safeguards.',

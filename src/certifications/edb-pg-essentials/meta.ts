@@ -4,7 +4,7 @@ export const edbPgEssentialsMeta: CertificationMeta = {
   id: 'edb-pg-essentials',
   code: 'PG-ESS',
   name: 'EDB Essentials for PostgreSQL',
-  vendor: 'PostgreSQL',
+  vendor: 'Programming Languages and Databases',
   level: 'associate',
   description:
     'Foundational PostgreSQL certification with deep SQL syntax coverage — queries, joins, aggregates, DML/DDL, CTEs, and window functions.',
@@ -58,5 +58,5 @@ export const edbPgEssentialsMeta: CertificationMeta = {
     questionCount: 50,
     passPercent: 70,
   },
-  cardCount: 164,
+  cardCount: 167,
 }

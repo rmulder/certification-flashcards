@@ -33,6 +33,9 @@ import { aiPlusFoundationMeta } from './ai-plus-foundation/meta'
 import { ibmRagAgenticAiStudyMeta } from './ibm-rag-agentic-ai-study/meta'
 import { pmiCpmaiMeta } from './pmi-cpmai/meta'
 import { edbPgEssentialsMeta } from './edb-pg-essentials/meta'
+import { pcapPythonMeta } from './pcap-python/meta'
+import { ocpJava21Meta } from './ocp-java-21/meta'
+import { sfPd1Meta } from './sf-pd1/meta'
 
 const EAGER_CONFIGS: CertificationConfig[] = [
   clfC02Config,
@@ -82,12 +85,13 @@ export const CERTIFICATIONS: CertificationMeta[] = [
   ai901Meta,
   az900Meta,
   ai102Meta,
-  // GitHub
+  // Programming Languages and Databases
   gh300Meta,
-  // HashiCorp
   tfAssociateMeta,
-  // PostgreSQL
   edbPgEssentialsMeta,
+  pcapPythonMeta,
+  ocpJava21Meta,
+  sfPd1Meta,
 ]
 
 const configCache = new Map<string, CertificationConfig>(
@@ -135,6 +139,9 @@ const LAZY_LOADERS: Record<string, () => Promise<CertificationConfig>> = {
   'pmi-cpmai': () => import('./pmi-cpmai').then((m) => m.pmiCpmaiConfig),
   'edb-pg-essentials': () =>
     import('./edb-pg-essentials').then((m) => m.edbPgEssentialsConfig),
+  'pcap-python': () => import('./pcap-python').then((m) => m.pcapPythonConfig),
+  'ocp-java-21': () => import('./ocp-java-21').then((m) => m.ocpJava21Config),
+  'sf-pd1': () => import('./sf-pd1').then((m) => m.sfPd1Config),
 }
 
 export function getCertification(id: string): CertificationMeta | undefined {

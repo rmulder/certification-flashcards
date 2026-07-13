@@ -58,23 +58,16 @@ A local study app for IT certification exams. Runs entirely in your browser with
 | AI-901 | Microsoft Certified: Azure AI Fundamentals | **Available** (190 cards) |
 | AI-102 | Microsoft Certified: Azure AI Engineer Associate | **Available** (190 cards) |
 
-### GitHub
+### Programming Languages and Databases
 
 | Code | Exam | Status |
 |------|------|--------|
 | GH-300 | GitHub Copilot | **Available** (190 cards) |
-
-### HashiCorp
-
-| Code | Exam | Status |
-|------|------|--------|
 | TF-004 | HashiCorp Certified: Terraform Associate (004) | **Available** (190 cards) |
-
-### PostgreSQL
-
-| Code | Exam | Status |
-|------|------|--------|
 | PG-ESS | EDB Essentials for PostgreSQL | **Available** (167 cards, SQL-focused) |
+| PCAP-31-03 | PCAP™ – Certified Associate Python Programmer | **Available** (190 cards) |
+| 1Z0-830 | Oracle Certified Professional: Java SE 21 Developer | **Available** (190 cards) |
+| PD1 | Salesforce Certified Platform Developer I | **Available** (190 cards) |
 
 ## Features
 

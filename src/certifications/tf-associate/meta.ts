@@ -5,7 +5,7 @@ export const tfAssociateMeta: CertificationMeta = {
   id: 'tf-associate',
   code: 'TF-004',
   name: 'HashiCorp Certified: Terraform Associate (004)',
-  vendor: 'HashiCorp',
+  vendor: 'Programming Languages and Databases',
   level: 'associate',
   description:
     'Associate certification for IaC concepts, Terraform workflow, configuration, modules, state, and HCP Terraform.',
