@@ -1,6 +1,7 @@
 import type { CertificationConfig } from '../certifications/types'
 import type { CertProgress, View } from '../core/types'
-import { getCardProgress } from '../core/lib/storage'
+import { RatingCountStats } from '../core/components/RatingCountStats'
+import { countRatings } from '../core/lib/progress-stats'
 
 interface CertHomeProps {
   config: CertificationConfig
@@ -26,13 +27,7 @@ export function CertHome({
 }: CertHomeProps) {
   const { cards, domains, mockExam } = config
 
-  const knownCount = cards.filter(
-    (c) => getCardProgress(progress, c.id).rating === 'known',
-  ).length
-  const weakCount = cards.filter((c) => {
-    const r = getCardProgress(progress, c.id).rating
-    return r === 'unknown' || r === 'learning'
-  }).length
+  const ratingCounts = countRatings(cards, progress)
 
   return (
     <div>
@@ -55,26 +50,29 @@ export function CertHome({
       )}
 
       <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-value">{cards.length}</div>
-          <div className="stat-label">Total cards</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-value">{knownCount}</div>
-          <div className="stat-label">Known</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-value">{weakCount}</div>
-          <div className="stat-label">To review</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-value">{progress.mockExamsTaken}</div>
-          <div className="stat-label">Mock exams</div>
-        </div>
+        <RatingCountStats
+          counts={ratingCounts}
+          showTotal
+          mockExamsTaken={progress.mockExamsTaken}
+        />
       </div>
+      <p className="readiness-summary" role="status">
+        {ratingCounts.toReview === 0 ? (
+          <>
+            All {config.code} cards are <strong>Known</strong> — use mock exams for final exam
+            readiness checks.
+          </>
+        ) : (
+          <>
+            <strong>{ratingCounts.toReview}</strong> of {ratingCounts.total} {config.code} cards
+            left before everything is Known ({ratingCounts.unknown} not reviewed,{' '}
+            {ratingCounts.learning} learning).
+          </>
+        )}
+      </p>
 
       <div className="action-row">
-        <button className="btn-primary" onClick={() => onNavigate('mock-exam')}>
+        <button className="btn-primary" onClick={() => onNavigate('mock-exam', 'all', false)}>
           Start Mock Exam ({mockExam.questionCount} questions)
         </button>
         <button
@@ -83,7 +81,7 @@ export function CertHome({
         >
           Quick Quiz
         </button>
-        <button className="btn-secondary" onClick={() => onNavigate('study', 'all')}>
+        <button className="btn-secondary" onClick={() => onNavigate('study', 'all', false)}>
           Study All Cards
         </button>
         <button className="btn-secondary" onClick={() => onNavigate('progress')}>
@@ -95,18 +93,16 @@ export function CertHome({
       <div className="card-grid">
         {domains.map((domain) => {
           const domainCards = cards.filter((c) => c.domain === domain.id)
-          const known = domainCards.filter(
-            (c) => getCardProgress(progress, c.id).rating === 'known',
-          ).length
+          const domainCounts = countRatings(domainCards, progress)
           const pct = domainCards.length
-            ? Math.round((known / domainCards.length) * 100)
+            ? Math.round((domainCounts.known / domainCards.length) * 100)
             : 0
 
           return (
             <div
               key={domain.id}
               className="domain-card"
-              onClick={() => onNavigate('study', domain.id)}
+              onClick={() => onNavigate('study', domain.id, false)}
             >
               <h3>{domain.name}</h3>
               <p>{domain.description}</p>
@@ -116,7 +112,10 @@ export function CertHome({
               <div className="progress-bar">
                 <div className="progress-fill" style={{ width: `${pct}%` }} />
               </div>
-              <p className="progress-label">{pct}% known</p>
+              <p className="progress-label">
+                {pct}% known · {domainCounts.unknown} not reviewed · {domainCounts.learning}{' '}
+                learning
+              </p>
             </div>
           )
         })}
@@ -127,7 +126,7 @@ export function CertHome({
           className="btn-secondary"
           onClick={() => onNavigate('quiz', 'all', true)}
         >
-          Quiz weak cards only
+          Quiz weak cards only ({ratingCounts.toReview})
         </button>
         <button
           className="btn-back"

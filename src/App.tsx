@@ -55,10 +55,13 @@ function App() {
   }, [selectedCertId, view])
 
   const updateProgress = useCallback(
-    (next: CertProgress) => {
+    (next: CertProgress | ((prev: CertProgress) => CertProgress)) => {
       if (!selectedCertId) return
-      setProgress(next)
-      saveCertProgress(selectedCertId, next)
+      setProgress((prev) => {
+        const resolved = typeof next === 'function' ? next(prev) : next
+        saveCertProgress(selectedCertId, resolved)
+        return resolved
+      })
     },
     [selectedCertId],
   )
@@ -173,6 +176,7 @@ function App() {
 
       {view === 'mock-exam' && (
         <MockExam
+          certCode={config.code}
           cards={cards}
           domains={domains}
           mockExam={mockExam}
@@ -184,6 +188,8 @@ function App() {
 
       {view === 'progress' && (
         <ProgressDashboard
+          certCode={config.code}
+          certName={config.name}
           cards={cards}
           domains={domains}
           progress={progress}

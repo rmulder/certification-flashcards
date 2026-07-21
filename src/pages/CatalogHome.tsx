@@ -1,5 +1,6 @@
 import type { CertificationMeta } from '../certifications/types'
 import { CERTIFICATIONS, VENDORS } from '../certifications/registry'
+import { countRatingsFromProgress } from '../core/lib/progress-stats'
 import { loadCertProgress } from '../core/lib/storage'
 
 interface CatalogHomeProps {
@@ -56,6 +57,9 @@ function CertCard({
   const progress = loadCertProgress(cert.id)
   const cardCount = cert.cardCount
   const isClickable = cert.available
+  const ratingCounts = cert.available
+    ? countRatingsFromProgress(cardCount, progress)
+    : null
 
   return (
     <div
@@ -79,9 +83,17 @@ function CertCard({
       </div>
       <p>{cert.name}</p>
       <p className="progress-label" style={{ marginTop: '0.5rem' }}>
-        {cert.available
-          ? `${cardCount} cards · ${progress.mockExamsTaken} mock exams taken`
-          : 'Coming soon'}
+        {cert.available ? (
+          <>
+            {cardCount} cards · {ratingCounts!.unknown} not reviewed · {ratingCounts!.learning}{' '}
+            learning · {ratingCounts!.known} known
+            {progress.mockExamsTaken > 0
+              ? ` · ${progress.mockExamsTaken} mock exam${progress.mockExamsTaken === 1 ? '' : 's'}`
+              : ''}
+          </>
+        ) : (
+          'Coming soon'
+        )}
       </p>
       {cert.studyTrack && (
         <p className="hint-text" style={{ marginTop: '0.5rem', textAlign: 'left' }}>

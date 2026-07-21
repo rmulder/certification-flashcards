@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Card, CardRating, CertProgress, DomainInfo } from '../types'
+import { cardsInScope, countRatings, formatRatingBreakdown } from '../lib/progress-stats'
 import { filterCards, shuffle, shuffleCardOptions, dedupeCards } from '../lib/quiz'
 import { updateCardRating } from '../lib/storage'
 import { CardFlip } from './CardFlip'
@@ -9,7 +10,7 @@ interface StudySessionProps {
   domains: DomainInfo[]
   domain: string | 'all'
   progress: CertProgress
-  onProgressChange: (p: CertProgress) => void
+  onProgressChange: (p: CertProgress | ((prev: CertProgress) => CertProgress)) => void
   onBack: () => void
   weakOnly?: boolean
 }
@@ -48,11 +49,12 @@ export function StudySession({
     domain === 'all'
       ? 'All domains'
       : domains.find((d) => d.id === domain)?.name ?? domain
+  const scopeCounts = countRatings(cardsInScope(allCards, domain), progress)
 
   const rate = useCallback(
     (rating: CardRating) => {
       if (!card) return
-      onProgressChange(updateCardRating(progress, card.id, rating))
+      onProgressChange((prev) => updateCardRating(prev, card.id, rating))
       setFlipped(false)
       if (index < deck.length - 1) setIndex((i) => i + 1)
     },
@@ -99,6 +101,7 @@ export function StudySession({
         <div>
           <h1>Study Mode</h1>
           <span className="header-sub">{domainLabel}</span>
+          <span className="header-sub rating-breakdown">{formatRatingBreakdown(scopeCounts)}</span>
         </div>
         <span className="counter">
           {index + 1} / {deck.length}

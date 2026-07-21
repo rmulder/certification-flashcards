@@ -252,4 +252,325 @@ export const securitySupplementCards: Card[] = [
     explanation:
       'AWS Config records configuration history and supports conformance packs to check resources against desired settings.',
   },
+  {
+    id: 'sc-061',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['security-groups', 'ec2', 'sample-exam'],
+    question:
+      'A company needs to control incoming and outgoing traffic to an Amazon EC2 instance. Which AWS service or feature can the company associate with the EC2 instance to meet this requirement?',
+    options: [
+      'Network ACL',
+      'Security group',
+      'AWS WAF',
+      'VPC route tables',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'A security group is a virtual firewall on an EC2 instance ENI—you define allowed protocols, ports, and source or destination IP ranges for inbound and outbound traffic. NACLs apply at the subnet level; WAF protects web applications; route tables direct traffic rather than filter it.',
+  },
+  {
+    id: 'sc-062',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['cloudhsm', 'encryption', 'sample-exam'],
+    question:
+      'A security engineer wants a single-tenant AWS solution to create, control, and manage their own cryptographic keys to meet data security regulatory requirements. Which AWS service should the engineer use?',
+    options: [
+      'AWS Key Management Service (AWS KMS)',
+      'AWS Certificate Manager (ACM)',
+      'AWS CloudHSM',
+      'AWS Systems Manager',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'AWS CloudHSM provides dedicated hardware security modules (HSMs) for single-tenant key control. KMS is multi-tenant and AWS-managed; ACM manages TLS certificates; Systems Manager manages operational data and automation.',
+  },
+  {
+    id: 'sc-063',
+    domain: 'security-compliance',
+    task: '2.3',
+    tags: ['secrets-manager', 'credentials', 'sample-exam'],
+    question:
+      'Which AWS service should be used to store database credentials with the highest security?',
+    options: [
+      'AWS Identity and Access Management (IAM)',
+      'AWS Secrets Manager',
+      'Amazon S3',
+      'AWS Key Management Service (AWS KMS)',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Secrets Manager securely stores, encrypts, rotates, and retrieves secrets such as database credentials, passwords, and API keys. IAM manages access identities; S3 is object storage; KMS manages encryption keys rather than storing credential payloads.',
+  },
+  {
+    id: 'sc-064',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['security-groups', 'vpc', 'sample-exam'],
+    question:
+      'A company wants to establish a security layer in their VPC that will act as a firewall to control subnet traffic.',
+    options: [
+      'Routing tables',
+      'Network access control lists (network ACLs)',
+      'Security groups',
+      'Amazon GuardDuty',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Per this exam item, security groups act as stateful firewalls you associate with instances to allow or deny traffic. NACLs are stateless subnet-level filters; route tables route traffic; GuardDuty detects threats rather than filtering traffic.',
+  },
+  {
+    id: 'sc-065',
+    domain: 'security-compliance',
+    task: '2.1',
+    tags: ['shared-responsibility', 'sample-exam'],
+    question:
+      'Which group shares responsibility with AWS for the security and compliance of AWS accounts and resources?',
+    options: ['Outsourced vendors', 'Customers', 'Reseller partners', 'Internet providers'],
+    correctAnswers: [1],
+    explanation:
+      'In the AWS Shared Responsibility Model, customers are responsible for security in the cloud—including identity, access control, and data—while AWS secures the cloud infrastructure.',
+  },
+  {
+    id: 'sc-066',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['security-groups', 'nacl', 'cidr', 'sample-exam'],
+    question:
+      'Which of the following AWS services or features allow CIDR block notation when providing an IP address range? (Select TWO.)',
+    options: [
+      'Security groups',
+      'Amazon Machine Image (AMI)',
+      'Network access control list (network ACL)',
+      'AWS Budgets',
+      'Amazon Elastic Block Store (Amazon EBS)',
+    ],
+    correctAnswers: [0, 2],
+    explanation:
+      'Security groups (instance-level) and network ACLs (subnet-level) use CIDR notation in allow/deny rules for inbound and outbound traffic. AMIs are launch templates; Budgets track spend; EBS provides block storage volumes.',
+  },
+  {
+    id: 'sc-067',
+    domain: 'security-compliance',
+    task: '2.1',
+    tags: ['shared-responsibility', 'sample-exam'],
+    question:
+      'Which tasks are customer responsibilities, according to the AWS Shared Responsibility Model? (Select TWO.)',
+    options: [
+      'Configure the AWS-provided security group firewall.',
+      'Classify the company\'s assets on the AWS cloud.',
+      'Determine which Availability Zones to use for Amazon S3 buckets.',
+      'Patch or update Amazon DynamoDB.',
+      'Select Amazon EC2 instances to run AWS Lambda.',
+      'AWS Config',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Customers handle security in the cloud: network access controls such as security group rules and governance tasks like asset classification. AWS patches managed services such as DynamoDB; Lambda is serverless without customer-chosen EC2; AWS Config is a service you enable, not a customer responsibility category in this item.',
+  },
+  {
+    id: 'sc-068',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['waf', 'http', 'sample-exam'],
+    question:
+      'Which AWS service or feature provides protection against HTTP attacks for users running public-facing web applications?',
+    options: [
+      'Security Groups',
+      'Network ACLs',
+      'AWS Shield Standard',
+      'AWS WAF',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'AWS WAF is a web application firewall that filters HTTP/HTTPS traffic with rules to block exploits such as SQL injection, XSS, and unwanted bots. Security groups and NACLs control network access; Shield Standard mitigates common DDoS attacks at the network edge rather than application-layer HTTP rules.',
+  },
+  {
+    id: 'sc-069',
+    domain: 'security-compliance',
+    task: '2.4',
+    tags: ['abuse', 'compliance', 'sample-exam'],
+    question:
+      'A company suspects their AWS resources are being used for illegal activities. Which AWS group or team should the company notify?',
+    options: [
+      'AWS Abuse Team',
+      'AWS Support Team',
+      'AWS Technical Account Managers',
+      'AWS Professional Services Team',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Report suspected abuse of AWS resources (such as spam, malware, or unauthorized access) to the AWS Abuse Team. AWS Support handles account and technical issues; TAMs are Enterprise Support contacts; Professional Services helps with implementation projects.',
+  },
+  {
+    id: 'sc-070',
+    domain: 'security-compliance',
+    task: '2.3',
+    tags: ['iam', 'groups', 'sample-exam'],
+    question:
+      'A company is setting up its AWS cloud environment. The company\'s administrators need to group users and apply permissions to the group. Which AWS service or feature can the company use to meet these requirements?',
+    options: [
+      'AWS Organizations',
+      'Resource Groups',
+      'Resource Tagging',
+      'AWS Identity and Access Management (IAM)',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'IAM lets you create users and groups and attach policies that grant permissions to all members of a group. Organizations manages multiple accounts; Resource Groups and tags organize resources for operations and billing, not user permission grouping.',
+  },
+  {
+    id: 'sc-071',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['cloudtrail', 'audit', 'sample-exam'],
+    question:
+      'Which AWS service will help a company identify the user who deleted an Amazon EC2 instance yesterday?',
+    options: [
+      'Amazon CloudWatch',
+      'AWS Trusted Advisor',
+      'AWS CloudTrail',
+      'Amazon Inspector',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'CloudTrail logs AWS API calls, including who terminated an EC2 instance and when. CloudWatch monitors metrics and logs; Trusted Advisor recommends optimizations; Inspector scans for vulnerabilities.',
+  },
+  {
+    id: 'sc-072',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['waf', 'threats', 'sample-exam'],
+    question:
+      'A company needs to configure rules to identify threats and protect applications from malicious access on the network. Which AWS service should the company use to meet these requirements?',
+    options: [
+      'AWS Identity and Access Management (IAM)',
+      'Amazon QuickSight',
+      'AWS WAF',
+      'Amazon Detective',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'AWS WAF lets you define rules to block malicious web request patterns and common application-layer threats. IAM controls who can call AWS APIs; QuickSight is business intelligence; Detective investigates security findings after the fact rather than inline filtering.',
+  },
+  {
+    id: 'sc-073',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['cloudtrail', 'api', 'sample-exam'],
+    question:
+      'Which AWS service should a cloud engineer use to visualize API calls to AWS services?',
+    options: [
+      'Amazon CloudWatch',
+      'AWS CloudTrail',
+      'AWS Config',
+      'AWS Artifact',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'CloudTrail logs AWS API activity in your account for audit and review, including the CloudTrail console event history view. CloudWatch monitors performance metrics and application logs; Config tracks resource configuration changes; Artifact provides compliance documents.',
+  },
+  {
+    id: 'sc-074',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['inspector', 'vulnerability', 'sample-exam'],
+    question:
+      'A company needs an automated vulnerability management service that continuously scans AWS workloads for software vulnerabilities. Which AWS service will meet these requirements?',
+    options: [
+      'Amazon GuardDuty',
+      'Amazon Inspector',
+      'AWS Security Hub',
+      'AWS Shield',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon Inspector continuously discovers and scans EC2, containers, and Lambda for CVEs and unintended network exposure. GuardDuty detects suspicious activity; Security Hub aggregates findings; Shield provides DDoS protection.',
+  },
+  {
+    id: 'sc-075',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['waf', 'shield', 'sample-exam'],
+    question:
+      'Which AWS services or tools are designed to protect a workload from SQL injection, cross-site scripting, and DDoS attacks? (Select TWO.)',
+    options: [
+      'VPC endpoint',
+      'AWS Shield Standard',
+      'AWS Config',
+      'AWS WAF',
+    ],
+    correctAnswers: [1, 3],
+    explanation:
+      'Per this exam item, AWS WAF filters application-layer web threats such as SQL injection and XSS, and AWS Shield Standard provides baseline DDoS protection for AWS edge services. VPC endpoints enable private access to AWS APIs; Config tracks resource configuration compliance.',
+  },
+  {
+    id: 'sc-076',
+    domain: 'security-compliance',
+    task: '2.4',
+    tags: ['artifact', 'pci', 'compliance', 'sample-exam'],
+    question:
+      'A company has an online shopping website and wants to store customer credit card data. The company must comply with Payment Card Industry (PCI) standards. Which AWS service helps the company access compliance documentation and reports for PCI?',
+    options: [
+      'Amazon Cloud Directory',
+      'AWS Artifact',
+      'AWS Trusted Advisor',
+      'Amazon Inspector',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'AWS Artifact provides on-demand AWS compliance reports, certifications, and agreements (including PCI-related documentation) for customer audits. Cloud Directory is a directory database; Trusted Advisor recommends optimizations; Inspector scans for vulnerabilities.',
+  },
+  {
+    id: 'sc-077',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['inspector', 'assessment', 'sample-exam'],
+    question:
+      'How can an AWS user perform security assessments on Amazon EC2 instances, NAT gateways, and Elastic Load Balancers in an AWS-approved manner?',
+    options: [
+      'Flood a target with requests',
+      'Use Amazon Inspector',
+      'Conduct penetration testing',
+      'Use the AWS Service Health Dashboard',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon Inspector runs automated security assessments on EC2, containers, and related workloads and reports findings by severity. Unauthorized flooding resembles attack traffic; penetration testing has separate AWS policies; Service Health Dashboard shows AWS service events, not your resource assessments.',
+  },
+  {
+    id: 'sc-078',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['security-groups', 'ec2', 'sample-exam'],
+    question:
+      'Which of the following acts as a firewall at the instance level to control inbound and outbound access?',
+    options: [
+      'Network access control list',
+      'Security groups',
+      'AWS Trusted Advisor',
+      'Virtual private gateways',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Security groups are stateful firewalls attached to EC2 instance ENIs that control inbound and outbound traffic. Network ACLs filter at the subnet level; Trusted Advisor gives recommendations; virtual private gateways connect on-premises networks to a VPC.',
+  },
+  {
+    id: 'sc-079',
+    domain: 'security-compliance',
+    task: '2.3',
+    tags: ['iam', 'roles', 'sample-exam'],
+    question:
+      'A company has teams with different job functions and responsibilities. The company\'s employees frequently change teams. The company needs to manage the employees\' permissions to be appropriate for the job responsibilities. Which IAM feature should the company use to meet this requirement with the LEAST operational overhead?',
+    options: [
+      'IAM user groups',
+      'IAM roles',
+      'IAM instance profiles',
+      'IAM policies for individual users',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'IAM roles grant temporary permissions users assume when they change function, without attaching new policies to each user individually. Groups help but still require moving users between groups; instance profiles attach roles to EC2; per-user policies create high overhead when teams change often.',
+  },
 ]

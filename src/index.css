@@ -511,6 +511,27 @@ button:disabled {
   color: var(--text-muted);
 }
 
+.readiness-summary {
+  margin: -1rem 0 2rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.readiness-summary strong {
+  color: var(--text);
+}
+
+.header-sub.rating-breakdown {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+}
+
 .review-list {
   display: flex;
   flex-direction: column;

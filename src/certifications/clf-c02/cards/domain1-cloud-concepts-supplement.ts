@@ -196,4 +196,216 @@ export const cloudConceptsSupplementCards: Card[] = [
     explanation:
       'The exam has 50 scored questions and 15 unscored pilot questions. Treat every question seriously since unscored items are not identified.',
   },
+  {
+    id: 'cc-053',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'operational-excellence', 'sample-exam'],
+    question:
+      'Which design principle is included in the operational excellence pillar of the AWS Well-Architected Framework?',
+    options: [
+      'Create annotated documentation',
+      'Anticipate failure',
+      'Ensure performance efficiency',
+      'Optimize costs',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Create annotated documentation supports operational excellence by improving understanding and management of workloads. Anticipating failure aligns with reliability; performance efficiency and cost optimization are separate pillars.',
+  },
+  {
+    id: 'cc-054',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['caf', 'operations', 'sample-exam'],
+    question:
+      'Which perspective includes foundational capabilities of the AWS Cloud Adoption Framework?',
+    options: ['Sustainability', 'Operations', 'Performance Efficiency', 'Reliability'],
+    correctAnswers: [1],
+    explanation:
+      'Operations is a foundational capability in AWS CAF, focusing on support and maintenance processes. Sustainability, performance efficiency, and reliability relate to Well-Architected pillars, not CAF perspective names.',
+  },
+  {
+    id: 'cc-055',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['sustainability', 'carbon', 'sample-exam'],
+    question:
+      'Which AWS service or tool helps companies measure the environmental impact of their AWS usage?',
+    options: [
+      'AWS Customer Carbon Footprint Tool',
+      'AWS Compute Optimizer',
+      'Sustainability Pillar',
+      'OS-Climate',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The AWS Customer Carbon Footprint Tool provides insights into the carbon emissions associated with your AWS usage. Compute Optimizer recommends resource sizing; the Sustainability pillar is Well-Architected guidance, not a measurement tool.',
+  },
+  {
+    id: 'cc-056',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['caf', 'sample-exam'],
+    question:
+      'Which options are perspectives that include foundational capabilities of the AWS Cloud Adoption Framework? (Select TWO.)',
+    options: [
+      'Sustainability',
+      'Security',
+      'Operations',
+      'Performance Efficiency',
+      'Reliability',
+    ],
+    correctAnswers: [2, 3],
+    explanation:
+      'Per this exam item, Operations and Performance Efficiency are CAF perspectives that include foundational capabilities. Sustainability and Reliability are Well-Architected pillar names; Security is a separate CAF perspective in AWS’s six-perspective CAF model.',
+  },
+  {
+    id: 'cc-057',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'sample-exam'],
+    question:
+      'Which of the following promotes AWS Cloud architectural best practices for designing and operating reliable, secure, efficient, and cost-effective systems?',
+    options: [
+      'AWS Serverless Application Model framework',
+      'AWS Business Support',
+      'Principle of least privilege',
+      'AWS Well-Architected Framework',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'The AWS Well-Architected Framework defines pillars and design principles for reliable, secure, efficient, and cost-effective workloads. SAM deploys serverless apps; Business Support is a support plan; least privilege is a security practice used within the framework but is not the overall architectural guidance model.',
+  },
+  {
+    id: 'cc-058',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'operational-excellence', 'sample-exam'],
+    question:
+      'Which pillar of the AWS Well-Architected Framework includes a design principle about measuring the overall efficiency of workloads in terms of business value?',
+    options: [
+      'Operational Excellence',
+      'Security',
+      'Reliability',
+      'Cost Optimization',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Operational Excellence includes measuring workload efficiency against business value through KPIs, goals aligned to objectives, and feedback loops to improve operations. Cost Optimization focuses on spend; Security and Reliability address protection and availability.',
+  },
+  {
+    id: 'cc-059',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['sustainability', 'well-architected', 'sample-exam'],
+    question:
+      'To improve sustainability impact, which recommended practices should a company implement? (Select TWO.)',
+    options: [
+      'Scale infrastructure with user load',
+      'Maximize distance between workloads and user locations',
+      'Eliminate unused assets',
+      'Scale resources with excess capacity',
+      'Scale infrastructure based on user count',
+    ],
+    correctAnswers: [0, 2],
+    explanation:
+      'Matching capacity to actual user load and decommissioning unused resources reduce energy waste and improve sustainability. Maximizing distance to users increases latency and often energy use; maintaining excess capacity and scaling only by headcount without load alignment waste resources.',
+  },
+  {
+    id: 'cc-060',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'reliability', 'sample-exam'],
+    question:
+      'Which of the following represents a cloud concept that this architecture represents by deploying an application across multiple AWS Regions and configuring automatic failover between those Regions?',
+    options: ['Security', 'Reliability', 'Scalability', 'Cost Optimization'],
+    correctAnswers: [1],
+    explanation:
+      'Reliability covers recovering from disruptions and maintaining availability—multi-Region deployment with failover limits impact from regional outages. Security protects data and access; scalability adds capacity; cost optimization reduces spend—they are not the primary concept for cross-Region failover.',
+  },
+  {
+    id: 'cc-061',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['regions', 'global-infrastructure', 'sample-exam'],
+    question:
+      'A company provides a software as a service (SaaS) application. The company has a new customer that is based in a different country. The new customer\'s data needs to be hosted in that country. Which AWS service or infrastructure component should the company use to meet this requirement?',
+    options: [
+      'AWS Shield',
+      'Amazon S3 Object Lock',
+      'AWS Regions',
+      'Placement groups',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'AWS Regions are geographic locations where AWS operates data centers; deploying workloads in the Region that maps to the customer\'s country helps meet data residency requirements. Shield mitigates DDoS; Object Lock prevents object deletion; placement groups influence EC2 physical proximity within an AZ.',
+  },
+  {
+    id: 'cc-062',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'cloudtrail', 'sample-exam'],
+    question:
+      'Which AWS cloud design principle is followed when using AWS CloudTrail?',
+    options: [
+      'Automatically recover',
+      'Perform operations as code',
+      'Measure efficiency',
+      'Ensure traceability',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'CloudTrail records API activity and account events, supporting traceability—knowing who did what and when. Automatic recovery relates to reliability; operations as code uses automation such as IaC; measuring efficiency ties to operational excellence KPIs.',
+  },
+  {
+    id: 'cc-063',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['architecture', 'decoupling', 'sample-exam'],
+    question:
+      'Which of the following is a benefit of decoupling an AWS cloud architecture?',
+    options: [
+      'Reduced latency',
+      'Ability to update components independently',
+      'Decreased costs',
+      'Fewer components to manage',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Decoupling reduces tight dependencies so components interact through defined interfaces (for example queues or events), letting you change one part without disrupting others. It can improve scalability and availability but does not inherently cut latency, cost, or the number of components.',
+  },
+  {
+    id: 'cc-064',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['availability-zone', 'global-infrastructure', 'sample-exam'],
+    question: 'An Availability Zone consists of:',
+    options: [
+      'One or more data centers in a single location',
+      'Two or more data centers in multiple locations',
+      'One or more physical hosts in a single data center',
+      'Two or more physical hosts in multiple data centers',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'An Availability Zone is one or more discrete data centers in a single geographic area within a Region, with independent power, networking, and cooling. Multiple AZs in a Region improve resilience; hosts alone do not define an AZ boundary.',
+  },
+  {
+    id: 'cc-065',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'cost-optimization', 'sample-exam'],
+    question:
+      'Which pillar of the AWS Well-Architected Framework focuses on the return on investment of migrating to the AWS cloud?',
+    options: [
+      'Sustainability',
+      'Cost Optimization',
+      'Operational Excellence',
+      'Reliability',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'The Cost Optimization pillar emphasizes delivering business value from cloud spend, including ROI of migration, rightsizing, and eliminating waste. Sustainability covers environmental impact; Operational Excellence covers operations; Reliability covers availability and recovery.',
+  },
 ]

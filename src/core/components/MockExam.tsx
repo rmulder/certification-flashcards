@@ -11,6 +11,7 @@ import { McqQuestion } from './McqQuestion'
 import { Results } from './Results'
 
 interface MockExamProps {
+  certCode: string
   cards: Card[]
   domains: DomainInfo[]
   mockExam: MockExamSettings
@@ -20,6 +21,7 @@ interface MockExamProps {
 }
 
 export function MockExam({
+  certCode,
   cards,
   domains,
   mockExam,
@@ -35,6 +37,7 @@ export function MockExam({
   const [finished, setFinished] = useState(false)
   const [result, setResult] = useState<QuizResult | null>(null)
   const [started, setStarted] = useState(false)
+  const [resultsProgress, setResultsProgress] = useState<CertProgress | null>(null)
   const progressRef = useRef(progress)
   const answersRef = useRef(answers)
   progressRef.current = progress
@@ -54,6 +57,7 @@ export function MockExam({
     setShowResult(false)
     setFinished(false)
     setResult(null)
+    setResultsProgress(null)
     setStarted(true)
   }
 
@@ -114,7 +118,9 @@ export function MockExam({
 
     const quizResult = buildQuizResult(deck, answersRef.current, domains)
     const pct = Math.round((quizResult.score / quizResult.total) * 100)
-    onProgressChange(recordMockExam(progressRef.current, pct))
+    const updatedProgress = recordMockExam(progressRef.current, pct)
+    onProgressChange(updatedProgress)
+    setResultsProgress(updatedProgress)
     setResult(quizResult)
     setFinished(true)
   }
@@ -163,6 +169,9 @@ export function MockExam({
         domains={domains}
         passPercent={mockExam.passPercent}
         isMockExam
+        certCards={cards}
+        progress={resultsProgress ?? progress}
+        certCode={certCode}
         onBack={onBack}
         onRetry={startExam}
       />

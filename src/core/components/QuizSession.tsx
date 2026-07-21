@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Card, CertProgress, QuizResult } from '../types'
+import { cardsInScope, countRatings, formatRatingBreakdown } from '../lib/progress-stats'
 import {
   buildQuizDeck,
   buildQuizResult,
@@ -18,7 +19,7 @@ interface QuizSessionProps {
   domains: DomainInfo[]
   domain: string | 'all'
   progress: CertProgress
-  onProgressChange: (p: CertProgress) => void
+  onProgressChange: (p: CertProgress | ((prev: CertProgress) => CertProgress)) => void
   onBack: () => void
   questionCount?: number
   weakOnly?: boolean
@@ -72,11 +73,22 @@ export function QuizSession({
   }
 
   useEffect(() => {
+    if (allCards.length === 0) return
     initQuiz()
-  }, [allCards, domain, weakOnly, questionCount])
+    // Re-build deck when filters or deck size change — not on every `allCards` reference change
+  }, [domain, weakOnly, questionCount, allCards.length])
+
+  useEffect(() => {
+    progressRef.current = progress
+  }, [progress])
 
   const card = deck[index]
   const isMulti = card ? card.correctAnswers.length > 1 : false
+  const scopeCounts = countRatings(cardsInScope(allCards, domain), progress)
+  const weakCounts = countRatings(
+    filterCards(allCards, domain, true, progress.cards),
+    progress,
+  )
 
   function recordAnswer(chosen: number[]) {
     if (!card) return
@@ -87,9 +99,7 @@ export function QuizSession({
     setAnswers(next)
 
     const correct = isAnswerCorrect(card, chosen)
-    onProgressChange(
-      recordQuizAnswer(progressRef.current, card.id, correct),
-    )
+    onProgressChange((prev) => recordQuizAnswer(prev, card.id, correct))
     setShowResult(true)
   }
 
@@ -115,8 +125,10 @@ export function QuizSession({
     recordAnswer(chosen)
   }
 
-  function advanceQuestion() {
-    if (!card || !showResult) return
+  const advanceQuestion = useCallback(() => {
+    if (!showResult) return
+    const current = deck[index]
+    if (!current) return
 
     if (index < deck.length - 1) {
       setIndex((i) => i + 1)
@@ -128,7 +140,17 @@ export function QuizSession({
     const quizResult = buildQuizResult(deck, answersRef.current, domains)
     setResult(quizResult)
     setFinished(true)
-  }
+  }, [deck, domains, index, showResult])
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key !== 'Enter' || !showResult || finished) return
+      e.preventDefault()
+      advanceQuestion()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [advanceQuestion, showResult, finished])
 
   if (finished && result) {
     return (
@@ -162,7 +184,12 @@ export function QuizSession({
         </button>
         <div>
           <h1>Quiz Mode</h1>
-          <span className="header-sub">{answers.size} answered</span>
+          <span className="header-sub">
+            {weakOnly
+              ? `Weak cards · ${weakCounts.unknown} not reviewed · ${weakCounts.learning} learning`
+              : formatRatingBreakdown(scopeCounts)}
+          </span>
+          <span className="header-sub rating-breakdown">{answers.size} answered</span>
         </div>
         <span className="quiz-progress">
           {index + 1} / {deck.length}
@@ -180,9 +207,14 @@ export function QuizSession({
 
       <div className="study-controls">
         {showResult ? (
-          <button className="btn-primary" onClick={advanceQuestion}>
-            {index < deck.length - 1 ? 'Next Question →' : 'View Results'}
-          </button>
+          <>
+            <button type="button" className="btn-primary" onClick={advanceQuestion}>
+              {index < deck.length - 1 ? 'Next Question →' : 'View Results'}
+            </button>
+            <p className="hint-text keyboard-hint">
+              <kbd>Enter</kbd> to continue
+            </p>
+          </>
         ) : isMulti ? (
           <button
             className="btn-primary"

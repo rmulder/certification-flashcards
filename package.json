@@ -10,6 +10,7 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "npm-check-updates": "^22.2.9",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
@@ -24,6 +25,9 @@
   },
   "allowScripts": {
     "esbuild@0.25.12": true,
-    "fsevents@2.3.3": true
+    "fsevents@2.3.3": true,
+    "sharp@0.34.5": true,
+    "workerd@1.20260708.1": true,
+    "esbuild@0.28.1": true
   }
 }

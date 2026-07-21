@@ -109,6 +109,10 @@ export function shuffleCardOptions(card: Card, sessionSeed: number): Card {
     .map((old) => inverse.get(old))
     .filter((v): v is number => typeof v === 'number')
 
+  if (correctAnswers.length !== card.correctAnswers.length) {
+    return card
+  }
+
   return { ...card, options, correctAnswers }
 }
 

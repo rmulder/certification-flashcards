@@ -1,5 +1,7 @@
-import type { Card, DomainInfo, QuizResult } from '../types'
+import type { Card, CertProgress, DomainInfo, QuizResult } from '../types'
+import { countRatings } from '../lib/progress-stats'
 import { formatAnswer } from '../lib/quiz'
+import { RatingCountStats } from './RatingCountStats'
 
 interface ResultsProps {
   result: QuizResult
@@ -7,6 +9,10 @@ interface ResultsProps {
   domains: DomainInfo[]
   passPercent: number
   isMockExam?: boolean
+  /** Full deck for this certification (for readiness counts after mock exam). */
+  certCards?: Card[]
+  progress?: CertProgress
+  certCode?: string
   onBack: () => void
   onRetry?: () => void
 }
@@ -17,6 +23,9 @@ export function Results({
   domains,
   passPercent,
   isMockExam,
+  certCards,
+  progress,
+  certCode,
   onBack,
   onRetry,
 }: ResultsProps) {
@@ -25,6 +34,8 @@ export function Results({
 
   const cardMap = new Map(cards.map((c) => [c.id, c]))
   const wrongAnswers = result.answers.filter((a) => !a.correct)
+  const ratingCounts =
+    isMockExam && certCards && progress ? countRatings(certCards, progress) : null
 
   return (
     <div>
@@ -60,6 +71,31 @@ export function Results({
           </p>
         )}
       </div>
+
+      {ratingCounts && (
+        <>
+          <h2 className="section-title">
+            Certification progress{certCode ? ` (${certCode})` : ''}
+          </h2>
+          <div className="stats-grid">
+            <RatingCountStats counts={ratingCounts} showTotal />
+          </div>
+          <p className="readiness-summary" role="status">
+            {ratingCounts.toReview === 0 ? (
+              <>
+                All {certCode ? `${certCode} ` : ''}cards are <strong>Known</strong>. Focus on mock
+                scores and timed practice for exam day.
+              </>
+            ) : (
+              <>
+                <strong>{ratingCounts.toReview}</strong> of {ratingCounts.total} cards still to
+                master ({ratingCounts.unknown} not reviewed, {ratingCounts.learning} learning).
+                Use <strong>Quiz weak cards only</strong> and domain study to close the gap.
+              </>
+            )}
+          </p>
+        </>
+      )}
 
       <h2 className="section-title">Performance by Domain</h2>
       <div className="domain-results">

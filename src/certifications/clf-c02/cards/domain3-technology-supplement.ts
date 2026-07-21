@@ -308,4 +308,484 @@ export const technologySupplementCards: Card[] = [
     explanation:
       'Amplify provides libraries, CLI, and hosting for building and deploying web and mobile apps integrated with AWS backends.',
   },
+  {
+    id: 'tech-089',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['s3', 'storage', 'logs', 'sample-exam'],
+    question:
+      'A company wants to query their server logs for insights on their customers\' experiences. Which AWS service will store this data MOST cost-effectively?',
+    options: [
+      'Amazon Aurora',
+      'Amazon Elastic File System (Amazon EFS)',
+      'Amazon Elastic Block Store (Amazon EBS)',
+      'Amazon S3',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Amazon S3 provides scalable, durable, cost-effective object storage for server logs and similar data, with storage classes tuned for access patterns and price. Aurora, EFS, and EBS fit databases or block/file workloads—not bulk log archives at lowest cost.',
+  },
+  {
+    id: 'tech-090',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['vpc', 'flow-logs', 'networking', 'sample-exam'],
+    question:
+      'Which AWS service or feature captures information about inbound and outbound network traffic from an Amazon EC2 instance?',
+    options: [
+      'VPC Reachability Analyzer',
+      'Amazon Athena',
+      'VPC Flow Logs',
+      'AWS X-Ray',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'VPC Flow Logs capture IP traffic to and from network interfaces in a VPC, including EC2 instances—useful when traffic fails to reach an instance or is rejected by a security group. VPC Reachability Analyzer tests connectivity paths; Amazon Athena queries data in S3 with SQL; AWS X-Ray traces and debugs distributed applications.',
+  },
+  {
+    id: 'tech-091',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['vpc', 'peering', 'transit-gateway', 'sample-exam'],
+    question:
+      'Which AWS services or features allow users to create a network connection between two VPCs? (Select TWO.)',
+    options: [
+      'VPC endpoints',
+      'Amazon Route 53',
+      'VPC peering',
+      'AWS Direct Connect',
+      'AWS Transit Gateway',
+    ],
+    correctAnswers: [2, 4],
+    explanation:
+      'VPC peering connects two VPCs with private routing, and AWS Transit Gateway can connect multiple VPCs through a central hub. VPC endpoints access AWS services privately; Route 53 is DNS; Direct Connect links on-premises networks to AWS.',
+  },
+  {
+    id: 'tech-092',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['cloudwatch', 'ec2', 'monitoring', 'sample-exam'],
+    question:
+      'A cloud engineer wants to know the percentage of allocated compute units that are in use for a specific Amazon EC2 instance. Which AWS service can provide this information?',
+    options: ['AWS CloudTrail', 'AWS Config', 'Amazon CloudWatch', 'AWS Artifact'],
+    correctAnswers: [2],
+    explanation:
+      'Amazon CloudWatch provides EC2 utilization metrics, including CPU and allocated compute usage, so teams can monitor performance and right-size instances. CloudTrail logs API activity; Config tracks resource configuration; Artifact hosts compliance reports.',
+  },
+  {
+    id: 'tech-093',
+    domain: 'cloud-technology',
+    task: '3.8',
+    tags: ['personalize', 'ml', 'recommendations', 'sample-exam'],
+    question:
+      'A company needs a managed machine learning (ML) service that can recommend products based on a customer\'s previous behaviors. Which AWS service meets this requirement?',
+    options: [
+      'Amazon Personalize',
+      'Amazon SageMaker',
+      'Amazon Pinpoint',
+      'Amazon Comprehend',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Personalize is a fully managed recommendation service that processes your data, selects algorithms, and trains models for personalized product or content suggestions. SageMaker is a broader ML platform; Pinpoint is customer engagement; Comprehend analyzes text.',
+  },
+  {
+    id: 'tech-094',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['elastic-beanstalk', 'deploy', 'sample-exam'],
+    question:
+      'A developer wants to quickly deploy an application on AWS without manually creating the necessary resources. Which AWS service will meet these requirements?',
+    options: [
+      'Amazon EC2',
+      'AWS Elastic Beanstalk',
+      'AWS CodeBuild',
+      'Amazon Personalize',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Elastic Beanstalk provisions and manages EC2, load balancers, security groups, databases, scaling, health monitoring, and updates while you deploy application code—you can still access underlying resources when needed. EC2 requires manual setup; CodeBuild compiles code; Personalize provides ML recommendations.',
+  },
+  {
+    id: 'tech-095',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['ec2', 'availability-zone', 'reliability', 'sample-exam'],
+    question:
+      'A company wants to design a reliable web application hosted on Amazon EC2. Which approach will achieve this goal?',
+    options: [
+      'Launch large EC2 instances in the same Availability Zone.',
+      'Spread EC2 instances across more than one security group.',
+      'Spread EC2 instances across more than one Availability Zone.',
+      'Use an Amazon Machine Image (AMI) from the AWS Marketplace.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Deploying across multiple Availability Zones improves fault tolerance when an AZ has an outage. Larger instances in one AZ, extra security groups, or a Marketplace AMI alone do not provide multi-AZ resilience.',
+  },
+  {
+    id: 'tech-096',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['outposts', 'hybrid', 'migration', 'sample-exam'],
+    question:
+      'A manufacturing company has a mission-critical application that runs in a remote location with a slow internet connection. The company wants to migrate the workload to AWS. The application is latency-sensitive and prone to connectivity disruptions. Which AWS service or feature should the company use to meet these requirements?',
+    options: [
+      'Availability Zones',
+      'AWS Local Zones',
+      'AWS Wavelength',
+      'AWS Outposts',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'AWS Outposts delivers AWS-managed compute and storage racks on premises, so latency-sensitive workloads run locally while integrating with the cloud when connectivity allows. Local Zones and Wavelength extend Regions for edge/low-latency use cases but still depend on reliable links to AWS; AZs are within a Region, not at a remote plant.',
+  },
+  {
+    id: 'tech-097',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['dynamodb', 'database', 'sample-exam'],
+    question:
+      'Which AWS service is a key-value database that delivers single-digit millisecond latency at any scale?',
+    options: [
+      'Amazon DynamoDB',
+      'Amazon Aurora',
+      'Amazon DocumentDB (with MongoDB compatibility)',
+      'Amazon Neptune',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DynamoDB is a fully managed, serverless NoSQL database with key-value and document models and consistent single-digit millisecond performance at scale. Aurora is relational (MySQL/PostgreSQL compatible); DocumentDB is MongoDB-compatible documents; Neptune is a graph database.',
+  },
+  {
+    id: 'tech-098',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['efs', 'fsx', 'storage', 'sample-exam'],
+    question:
+      'Amazon Elastic File System (Amazon EFS) and Amazon FSx offer which type of storage?',
+    options: ['File storage', 'Object storage', 'Block storage', 'Instance storage'],
+    correctAnswers: [0],
+    explanation:
+      'EFS and FSx provide shared file storage accessed over the network (NFS/SMB and specialized file systems). S3 is object storage; EBS is block storage; instance store is ephemeral disk on EC2 hosts.',
+  },
+  {
+    id: 'tech-099',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['outposts', 'hybrid', 'latency', 'sample-exam'],
+    question:
+      'To deploy monitoring applications closest to factory machines with the least latency, which AWS solution should be used?',
+    options: ['AWS Outposts', 'Amazon EC2', 'AWS App Runner', 'AWS Batch'],
+    correctAnswers: [0],
+    explanation:
+      'AWS Outposts runs AWS infrastructure on premises at facilities such as factories, minimizing latency to local equipment. Standard EC2 in a Region is farther away; App Runner hosts web apps in AWS Regions; Batch runs batch jobs in the cloud.',
+  },
+  {
+    id: 'tech-100',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['auto-scaling', 'ec2', 'sample-exam'],
+    question:
+      'A company deploys its application on Amazon EC2 instances. The application occasionally experiences sudden increases in demand. The company wants to ensure that its application can respond to changes in demand with the least possible cost. Which AWS service or tool will meet these requirements?',
+    options: [
+      'AWS Auto Scaling',
+      'AWS Compute Optimizer',
+      'AWS Cost Explorer',
+      'AWS Well-Architected Framework',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS Auto Scaling adds or removes EC2 capacity based on demand so you pay for what you need during spikes without over-provisioning idle instances. Compute Optimizer recommends sizes after analyzing usage; Cost Explorer reports spend; the Well-Architected Framework provides design guidance, not automatic scaling.',
+  },
+  {
+    id: 'tech-101',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['dynamodb', 'database', 'sample-exam'],
+    question:
+      'A company is building an application that will receive millions of database queries per second. Which AWS service will meet this need?',
+    options: [
+      'Amazon DynamoDB',
+      'AWS Cloud9',
+      'Amazon ElastiCache for Memcached',
+      'Amazon Neptune',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DynamoDB is a fully managed NoSQL database built for high throughput at scale with consistent low latency. Cloud9 is a cloud IDE; ElastiCache is an in-memory cache layer, not the primary database for this scenario; Neptune is a graph database.',
+  },
+  {
+    id: 'tech-102',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['athena', 's3', 'analytics', 'sample-exam'],
+    question:
+      'A company has 5 TB of data stored in Amazon S3. The company plans to occasionally run queries on the data for analysis. Which AWS service should the company use to run these queries in the MOST cost-effective way?',
+    options: [
+      'Amazon Redshift',
+      'Amazon Athena',
+      'Amazon Kinesis',
+      'Amazon RDS',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Athena is serverless SQL on S3—you pay per query based on data scanned, with no servers to provision, which suits occasional ad hoc analysis on large datasets such as 5 TB. Redshift is a warehouse for sustained analytics; Kinesis streams data; RDS is a relational database service.',
+  },
+  {
+    id: 'tech-103',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['appstream', 'streaming', 'sample-exam'],
+    question:
+      'A company has an application with robust hardware requirements. The application must be accessed by students who are using lightweight, low-cost laptops. Which AWS service should the company use so students can use the application without relying on local hardware?',
+    options: [
+      'Amazon AppStream 2.0',
+      'AWS AppSync',
+      'Amazon WorkLink',
+      'AWS Elastic Beanstalk',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon AppStream 2.0 streams desktop applications from AWS to browsers on client devices, so heavy workloads run in the cloud while students use inexpensive laptops. AppSync is a GraphQL API service; WorkLink provides secure mobile access to internal websites; Beanstalk deploys web apps but does not stream desktops to thin clients.',
+  },
+  {
+    id: 'tech-104',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['ec2', 'dedicated-hosts', 'byol', 'sample-exam'],
+    question:
+      'When a user wants to use their own per-socket, per-core, or per-VM software licenses for a Microsoft Windows Server running on AWS, which Amazon EC2 instance type is required?',
+    options: [
+      'Spot Instances',
+      'Dedicated Instances',
+      'Dedicated Hosts',
+      'Reserved Instances',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Dedicated Hosts are physical servers allocated to a single customer, supporting license models tied to sockets, cores, or VMs for BYOL scenarios such as Windows Server. Dedicated Instances are single-tenant but not full hosts; Spot and Reserved Instances are pricing models, not BYOL host placement.',
+  },
+  {
+    id: 'tech-105',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['eventbridge', 'serverless', 'sample-exam'],
+    question:
+      'A company is building a serverless architecture that connects application data from multiple data sources. The company needs a solution that does not require additional code. Which AWS service meets these requirements?',
+    options: [
+      'AWS Lambda',
+      'Amazon Simple Queue Service (Amazon SQS)',
+      'Amazon CloudWatch',
+      'Amazon EventBridge',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Amazon EventBridge is a serverless event bus that routes events from AWS services, SaaS partners, and custom applications using rules—often with little or no custom integration code. Lambda runs code; SQS queues messages; CloudWatch monitors metrics and logs.',
+  },
+  {
+    id: 'tech-106',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['ami', 'ec2', 'sample-exam'],
+    question:
+      'Which AWS feature or resource is a deployable Amazon EC2 instance template that is pre-packaged with software and security requirements?',
+    options: [
+      'Amazon Elastic Block Store (Amazon EBS) volume',
+      'AWS CloudFormation template',
+      'Amazon Elastic Block Store (Amazon EBS) snapshot',
+      'Amazon Machine Image (AMI)',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'An AMI is a template for launching EC2 instances, including an root volume snapshot, launch permissions, and block device mapping—you can launch many instances from one AMI or build custom AMIs. EBS volumes and snapshots store data; CloudFormation templates describe infrastructure as code, not a single instance image.',
+  },
+  {
+    id: 'tech-107',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['eventbridge', 'lambda', 'schedule', 'sample-exam'],
+    question:
+      'A company\'s application stores data in an Amazon S3 bucket. The company has an AWS Lambda function that processes data in the S3 bucket. The company needs to invoke the function once per day at a specific time. Which AWS service should the company use to schedule the invocation?',
+    options: [
+      'AWS Managed Services (AMS)',
+      'AWS CodeStar',
+      'Amazon EventBridge',
+      'AWS Step Functions',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Amazon EventBridge supports scheduled rules (cron/rate expressions) to invoke Lambda and other targets at fixed times, such as once daily. AMS provides ongoing operations management; CodeStar coordinates development projects; Step Functions orchestrates multi-step workflows rather than simple schedules.',
+  },
+  {
+    id: 'tech-108',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['cloud9', 'ide', 'sample-exam'],
+    question:
+      'A company needs to migrate all its development teams to a cloud-based integrated development environment (IDE). Which AWS service should the company use?',
+    options: [
+      'AWS CodeBuild',
+      'AWS Cloud9',
+      'AWS OpsWorks',
+      'AWS Cloud Development Kit (AWS CDK)',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'AWS Cloud9 is a browser-based IDE for writing, running, and debugging code with a built-in terminal for AWS resources. CodeBuild compiles and tests code in CI pipelines; OpsWorks manages stacks with Chef/Puppet; CDK defines infrastructure as code in programming languages.',
+  },
+  {
+    id: 'tech-109',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['vpc', 'subnet', 'networking', 'sample-exam'],
+    question:
+      'A company has set up a VPC in its AWS account and created a subnet in the VPC. The company wants to make the subnet public. Which AWS resources should the company use to meet this requirement? (Select TWO.)',
+    options: [
+      'Amazon VPC internet gateway',
+      'Amazon VPC NAT gateway',
+      'Amazon VPC route tables',
+      'Amazon VPC network ACLs',
+      'Amazon EC2 security groups',
+    ],
+    correctAnswers: [0, 2],
+    explanation:
+      'A public subnet needs an internet gateway attached to the VPC and a route table with a default route (0.0.0.0/0) to that IGW for the subnet. NAT gateways enable outbound internet from private subnets; NACLs and security groups filter traffic but do not make a subnet public by themselves.',
+  },
+  {
+    id: 'tech-110',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['athena', 's3', 'csv', 'sample-exam'],
+    question:
+      'A company has been storing monthly reports in an Amazon S3 bucket. The company exports the report data to comma-separated value (.csv) files. A developer wants to write a simple query that can read all those files and generate a summary report. Which AWS service should the developer use?',
+    options: [
+      'Amazon S3 Select',
+      'Amazon Athena',
+      'Amazon Redshift',
+      'Amazon EC2',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon Athena runs standard SQL directly against CSV and other formats in S3 without managing servers—you pay per query scanned. S3 Select retrieves subsets of a single object; Redshift is a data warehouse cluster; EC2 would require you to build and operate your own query stack.',
+  },
+  {
+    id: 'tech-111',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['elasticache', 'database', 'sample-exam'],
+    question: 'Which AWS database service provides in-memory data store?',
+    options: [
+      'Amazon DynamoDB',
+      'Amazon ElastiCache',
+      'Amazon RDS',
+      'Amazon Timestream',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon ElastiCache offers managed in-memory caching with Redis or Memcached engines. DynamoDB is durable NoSQL storage; RDS is relational disk-backed databases; Timestream is a time-series database for metrics and events.',
+  },
+  {
+    id: 'tech-112',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['directory-service', 'active-directory', 'sample-exam'],
+    question:
+      'A retail company is building a new mobile application. The company is evaluating whether to build the application in an on-premises data center or in the AWS Cloud. Which AWS service should the company consider?',
+    options: [
+      'Amazon FSx for Windows File Server',
+      'Amazon WorkSpaces virtual Windows desktop',
+      'AWS Directory Service for Microsoft Active Directory',
+      'Amazon RDS for Microsoft SQL Server',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'AWS Directory Service for Microsoft Active Directory (AWS Managed Microsoft AD) runs managed Active Directory in AWS for integrating users, groups, and authentication with cloud workloads. FSx provides file shares; WorkSpaces is virtual desktops; RDS SQL Server is a database engine, not directory services.',
+  },
+  {
+    id: 'tech-113',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['ec2', 'hpc', 'availability-zone', 'sample-exam'],
+    question:
+      'A company wants to migrate its high-performance computing (HPC) application to Amazon EC2 instances. The application has multiple components and must have fault tolerance and automatic failover capabilities. Which AWS infrastructure solution will meet these requirements with the LEAST latency between components?',
+    options: [
+      'Multiple AWS Regions',
+      'Multiple edge locations',
+      'Multiple Availability Zones',
+      'Regional edge caches',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Deploying across multiple Availability Zones in the same Region provides low-latency connectivity between components while supporting failover if an AZ fails. Multiple Regions add distance and latency; edge locations and regional edge caches serve content delivery, not tightly coupled HPC clusters.',
+  },
+  {
+    id: 'tech-114',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['codecommit', 'codedeploy', 'cicd', 'sample-exam'],
+    question:
+      'A company needs a repository that stores source code. The company needs a way to update running software when the code changes. Which combination of AWS services meets these requirements? (Select TWO.)',
+    options: [
+      'AWS CodeCommit',
+      'AWS CodeDeploy',
+      'Amazon DynamoDB',
+      'Amazon S3',
+      'Amazon Elastic Container Service (Amazon ECS)',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'CodeCommit hosts private Git repositories for source control; CodeDeploy automates deployments to EC2, on-premises servers, Lambda, and ECS. DynamoDB and S3 are data stores; ECS runs containers but does not replace a Git repo or deployment automation by itself.',
+  },
+  {
+    id: 'tech-115',
+    domain: 'cloud-technology',
+    task: '3.8',
+    tags: ['textract', 'ml', 'documents', 'sample-exam'],
+    question:
+      'A company has an Amazon S3 bucket containing images of scanned financial invoices. The company is building an AI-based application on AWS to identify and read the total balance values on the invoices. Which AWS service will meet these requirements?',
+    options: [
+      'Amazon Forecast',
+      'Amazon Textract',
+      'Amazon Rekognition',
+      'Amazon Lex',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon Textract extracts printed text, forms, and tables from scanned documents such as invoices. Forecast predicts time-series metrics; Rekognition analyzes images and video; Lex builds conversational chatbots.',
+  },
+  {
+    id: 'tech-116',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['neptune', 'graph', 'database', 'sample-exam'],
+    question:
+      'A company is building a mobile application to provide purchase recommendations to its customers. The company wants to use a graph database as part of the purchase recommendation engine. Which AWS database service should the company choose?',
+    options: [
+      'Amazon DynamoDB',
+      'Amazon Aurora',
+      'Amazon Neptune',
+      'Amazon DocumentDB (with MongoDB compatibility)',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Amazon Neptune is a fully managed graph database for highly connected data such as recommendations, fraud detection, and knowledge graphs. DynamoDB is key-value/document; Aurora is relational; DocumentDB is MongoDB-compatible documents.',
+  },
+  {
+    id: 'tech-117',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['s3', 'encryption', 'sample-exam'],
+    question:
+      'Which AWS service or feature allows users to encrypt data at rest in Amazon S3?',
+    options: [
+      'IAM policies',
+      'Server-side encryption',
+      'Amazon GuardDuty',
+      'Client-side encryption',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon S3 server-side encryption (SSE-S3, SSE-KMS, or SSE-C) encrypts objects at rest in S3; S3 decrypts on download. IAM policies control access; GuardDuty detects threats; client-side encryption happens before upload, but this exam item names SSE as the S3 encryption option.',
+  },
 ]
