@@ -341,4 +341,16 @@ export const billingSupplementCards: Card[] = [
     explanation:
       'Per this exam item, AWS Health API access is included with Business Support for programmatic Personal Health Dashboard data. Concierge and TAM are Enterprise-focused; DRT access is tied to AWS Shield Advanced, not standard Business Support alone.',
   },
+  {
+    id: 'bill-056',
+    domain: 'billing-pricing',
+    task: '4.3',
+    tags: ['support', 'enterprise', 'iem', 'sample-exam'],
+    question:
+      'Which is the minimum AWS Support plan that includes Infrastructure Event Management without additional costs?',
+    options: ['Business', 'Developer', 'Basic', 'Enterprise'],
+    correctAnswers: [3],
+    explanation:
+      'Infrastructure Event Management (IEM) at no extra charge is included with Enterprise Support, helping with architectural guidance during planned events such as launches and traffic spikes. Business can purchase IEM for an additional fee per event; Developer and Basic do not include IEM.',
+  },
 ]

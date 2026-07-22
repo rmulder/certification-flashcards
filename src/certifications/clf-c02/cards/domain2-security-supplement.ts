@@ -573,4 +573,22 @@ export const securitySupplementCards: Card[] = [
     explanation:
       'IAM roles grant temporary permissions users assume when they change function, without attaching new policies to each user individually. Groups help but still require moving users between groups; instance profiles attach roles to EC2; per-user policies create high overhead when teams change often.',
   },
+  {
+    id: 'sc-080',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['kms', 'cloudhsm', 'encryption', 'sample-exam'],
+    question:
+      'Which AWS services provide a way to generate encryption keys that can be used to encrypt data? (Select TWO)',
+    options: [
+      'Amazon Macie',
+      'AWS Certificate Manager',
+      'AWS Key Management Service (AWS KMS)',
+      'AWS Secrets Manager',
+      'AWS CloudHSM',
+    ],
+    correctAnswers: [2, 4],
+    explanation:
+      'AWS KMS creates and manages encryption keys in AWS-managed software HSMs; AWS CloudHSM provides dedicated hardware security modules with more control over key generation. Macie classifies sensitive S3 data; ACM issues TLS certificates for data in transit; Secrets Manager stores secrets (using encryption) rather than serving as your general key-generation service for arbitrary data.',
+  },
 ]

@@ -788,4 +788,262 @@ export const technologySupplementCards: Card[] = [
     explanation:
       'Amazon S3 server-side encryption (SSE-S3, SSE-KMS, or SSE-C) encrypts objects at rest in S3; S3 decrypts on download. IAM policies control access; GuardDuty detects threats; client-side encryption happens before upload, but this exam item names SSE as the S3 encryption option.',
   },
+  {
+    id: 'tech-118',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ecr', 'containers', 'lifecycle', 'sample-exam'],
+    question:
+      'A team stores many container image versions in Amazon ECR and wants to automatically expire old, unused images to reduce storage costs. Which ECR feature should they use?',
+    options: [
+      'Image lifecycle policies',
+      'Pull-through cache rules',
+      'Cross-Region replication',
+      'Enhanced networking for ECS',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon ECR lifecycle policies define rules to expire or archive images based on age or count, cleaning up unused images and optimizing storage cost.',
+  },
+  {
+    id: 'tech-119',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ecr', 'containers', 'scanning', 'security', 'sample-exam'],
+    question:
+      'Before deploying container images to production, a company wants to detect operating system and package vulnerabilities in images stored in Amazon ECR. Which capability addresses this?',
+    options: [
+      'Amazon ECR image scanning',
+      'Amazon GuardDuty',
+      'AWS Shield Standard',
+      'VPC Flow Logs',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ECR supports basic and enhanced scanning to identify software vulnerabilities in container images, helping teams fix issues before deployment and support security and compliance goals.',
+  },
+  {
+    id: 'tech-120',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ecr', 'containers', 'replication', 'sample-exam'],
+    question:
+      'A company needs the same container images available in multiple AWS Regions and accounts for disaster recovery and low-latency deployments. Which Amazon ECR feature supports this?',
+    options: [
+      'Cross-Region and cross-account replication',
+      'Pull-through cache rules only',
+      'S3 Cross-Region Replication for EBS snapshots',
+      'AWS Global Accelerator for ECR API calls only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ECR replication configuration copies images across Regions or AWS accounts so workloads can deploy closer to users, improve recovery options, and support multi-Region strategies.',
+  },
+  {
+    id: 'tech-121',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ecr', 'containers', 'pull-through-cache', 'sample-exam'],
+    question:
+      'Developers frequently pull container images from a public upstream registry. The company wants those images cached in its private Amazon ECR registry for faster, consistent access. Which feature should they configure?',
+    options: [
+      'Amazon ECR pull-through cache rules',
+      'Amazon ECR lifecycle policies',
+      'AWS Storage Gateway tape gateway',
+      'Amazon CloudFront origin access control',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Pull-through cache rules let ECR retrieve and cache images from an upstream registry into your private registry, reducing repeated pulls from external sources and speeding local access.',
+  },
+  {
+    id: 'tech-122',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ecr', 'containers', 'encryption', 'sample-exam'],
+    question:
+      'Which Amazon ECR capability helps ensure container images are stored securely with encryption at rest?',
+    options: [
+      'Built-in encryption for images in repositories',
+      'Automatic public read access for all repositories',
+      'Replacement of IAM with root-user-only access',
+      'Disabling TLS for faster Docker pulls',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon ECR encrypts images at rest by default (AES-256) and supports customer-managed KMS keys for repositories, protecting stored container images.',
+  },
+  {
+    id: 'tech-123',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ecr', 'containers', 'iam', 'sample-exam'],
+    question:
+      'A security team needs to restrict which IAM principals can push or pull images in specific Amazon ECR repositories. Which ECR capability supports this?',
+    options: [
+      'Fine-grained access control with IAM and repository policies',
+      'Amazon S3 bucket policies only',
+      'Security groups attached to container images',
+      'Network ACLs on the Docker daemon',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ECR integrates with IAM and supports repository policies so you grant least-privilege push, pull, and admin actions to authorized users and roles only.',
+  },
+  {
+    id: 'tech-124',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ecr', 'containers', 'docker', 'sample-exam'],
+    question:
+      'Developers want to push and pull container images to Amazon ECR using their existing toolchain without a custom portal. Which options can they use? (Select TWO)',
+    options: [
+      'Docker CLI',
+      'AWS CLI',
+      'Amazon Route 53 resolver',
+      'AWS Snowball Edge only',
+      'Amazon Connect contact flows',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'ECR is compatible with standard Docker workflows and AWS APIs—you authenticate with `aws ecr get-login` or similar, then push and pull with the Docker CLI, AWS CLI, or SDKs in CI/CD pipelines.',
+  },
+  {
+    id: 'tech-125',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ecr', 'containers', 'registry', 'sample-exam'],
+    question:
+      'Which AWS service is a fully managed private registry used to store and deploy container images for Amazon ECS and Amazon EKS workloads?',
+    options: [
+      'Amazon Elastic Container Registry (Amazon ECR)',
+      'AWS Fargate',
+      'Amazon Elastic File System (Amazon EFS)',
+      'AWS Elastic Beanstalk',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon ECR hosts private (and public) container images and integrates with ECS, EKS, and Lambda, helping teams streamline secure container deployments in the cloud.',
+  },
+  {
+    id: 'tech-140',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['cloudfront', 'cdn', 'sample-exam'],
+    question:
+      'A company is planning to host an educational website on AWS. Their video courses will be streamed all around the world. Which AWS service will help achieve high transfer speeds?',
+    options: [
+      'Amazon SNS',
+      'Amazon CloudFront',
+      'Amazon Kinesis Video Streams',
+      'AWS CloudFormation',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon CloudFront is a CDN that caches video content at edge locations around the world, delivering from the nearest location for high transfer speeds globally. Amazon SNS is pub/sub messaging, not video delivery. Kinesis Video Streams ingests live video for analysis and storage, not CDN distribution of on-demand courses. AWS CloudFormation provisions infrastructure with templates and does not accelerate content delivery.',
+  },
+  {
+    id: 'tech-141',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['edge-locations', 'cloudfront', 'shield', 'sample-exam'],
+    question: 'Which services use AWS edge locations? (Select TWO)',
+    options: [
+      'Amazon EC2',
+      'AWS Shield',
+      'Amazon RDS',
+      'Amazon CloudFront',
+      'Amazon ElastiCache',
+    ],
+    correctAnswers: [1, 3],
+    explanation:
+      'Amazon CloudFront caches and delivers content from edge locations (points of presence) near users. AWS Shield mitigates DDoS at the edge before traffic hits origin resources. Amazon EC2 runs in Regional Availability Zones, not edge POPs. Amazon RDS is a regional managed database. Amazon ElastiCache caches in Regions to reduce database load—it is not a global edge service.',
+  },
+  {
+    id: 'tech-142',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['vpn', 'site-to-site', 'networking', 'sample-exam'],
+    question:
+      'Which components are required to build a successful site-to-site VPN connection on AWS? (Select TWO)',
+    options: [
+      'Internet gateway',
+      'Virtual private gateway',
+      'Transit gateway',
+      'Customer gateway',
+      'NAT gateway',
+    ],
+    correctAnswers: [1, 3],
+    explanation:
+      'Site-to-Site VPN needs a customer gateway (your on-premises VPN device) and a virtual private gateway attached to the VPC on the AWS side—the two tunnel endpoints. An internet gateway provides general public internet access to a VPC; a NAT gateway enables outbound internet from private subnets; a transit gateway can hub multiple networks but is not required for a basic site-to-site VPN.',
+  },
+  {
+    id: 'tech-144',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['ec2', 'ebs', 'instance-store', 'sample-exam'],
+    question:
+      'A company is considering using AWS for a self-hosted database that requires a nightly shutdown for maintenance and cost-saving purposes. Which service should the company use?',
+    options: [
+      'Amazon Elastic Compute Cloud (Amazon EC2) with Amazon EC2 instance store',
+      'Amazon EC2 with Amazon Elastic Block Store (Amazon EBS)',
+      'Amazon Redshift',
+      'Amazon DynamoDB',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Self-hosted database on EC2 that you stop nightly needs persistent storage: EBS volumes retain data while the instance is stopped. Instance store data is lost when the instance stops. Redshift and DynamoDB are fully managed, continuously operated services—not a stop/start EC2 database pattern.',
+  },
+  {
+    id: 'tech-145',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['cli', 'sdk', 'access', 'sample-exam'],
+    question:
+      'Which of the following are valid ways for a customer to interact with AWS services? (Select TWO)',
+    options: [
+      'Command line interface',
+      'Software-as-a-service',
+      'Software Development Kits',
+      'Hybrid',
+      'On-premises',
+    ],
+    correctAnswers: [0, 2],
+    explanation:
+      'Customers interact with AWS through the AWS CLI (terminal commands) and SDKs (programmatic access from application code), along with the console and APIs. SaaS is a software delivery model, not an AWS interaction channel. Hybrid and on-premises describe deployment architectures, not how you call AWS services.',
+  },
+  {
+    id: 'tech-146',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ecr', 'containers', 'registry', 'sample-exam'],
+    question:
+      'Which AWS service eliminates the need for organizations to operate their own container repositories, offering high availability, scalability, and security for containerized applications?',
+    options: [
+      'Amazon Elastic Container Registry (Amazon ECR)',
+      'Amazon Elastic Kubernetes Service (Amazon EKS)',
+      'Amazon Elastic Container Service (Amazon ECS)',
+      'Amazon Elastic Compute Cloud (Amazon EC2)',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon ECR is a fully managed container image registry—you store and pull images without running your own repository infrastructure. EKS and ECS orchestrate and run containers; EC2 provides virtual servers. Images for ECS/EKS are typically stored in ECR.',
+  },
+  {
+    id: 'tech-147',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['eks', 'containers', 'orchestration', 'sample-exam'],
+    question:
+      'Which fully managed container orchestration service simplifies the deployment, scaling, and operation of clusters on AWS?',
+    options: [
+      'Amazon Elastic Container Service (Amazon ECS)',
+      'Amazon Elastic Container Registry (Amazon ECR)',
+      'Amazon Elastic Kubernetes Service (Amazon EKS)',
+      'Amazon Relational Database Service (Amazon RDS)',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Amazon EKS is a fully managed Kubernetes service that runs and scales container clusters without you managing the control plane. ECR stores container images; ECS is AWS-native orchestration (also managed—some exams emphasize EKS when the question mentions “clusters” in a Kubernetes sense); RDS is a relational database service.',
+  },
 ]

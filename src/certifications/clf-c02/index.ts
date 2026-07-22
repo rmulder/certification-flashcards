@@ -5,6 +5,7 @@ import { securityCards } from './cards/domain2-security'
 import { securitySupplementCards } from './cards/domain2-security-supplement'
 import { technologyCards } from './cards/domain3-technology'
 import { technologySupplementCards } from './cards/domain3-technology-supplement'
+import { computeSupplementCards } from './cards/domain3-compute-supplement'
 import { billingCards } from './cards/domain4-billing'
 import { billingSupplementCards } from './cards/domain4-billing-supplement'
 
@@ -15,6 +16,7 @@ const cards = [
   ...securitySupplementCards,
   ...technologyCards,
   ...technologySupplementCards,
+  ...computeSupplementCards,
   ...billingCards,
   ...billingSupplementCards,
 ]

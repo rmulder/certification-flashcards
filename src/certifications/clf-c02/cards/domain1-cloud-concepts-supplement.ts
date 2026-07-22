@@ -408,4 +408,120 @@ export const cloudConceptsSupplementCards: Card[] = [
     explanation:
       'The Cost Optimization pillar emphasizes delivering business value from cloud spend, including ROI of migration, rightsizing, and eliminating waste. Sustainability covers environmental impact; Operational Excellence covers operations; Reliability covers availability and recovery.',
   },
+  {
+    id: 'cc-066',
+    domain: 'cloud-concepts',
+    task: '1.4',
+    tags: ['economics', 'capex', 'sample-exam'],
+    question:
+      'Which describes the significant upfront costs of purchasing hardware, networking equipment, and software licenses that require periodic upgrades to maintain performance and security?',
+    options: ['Compliance', 'Recovery', 'Staffing', 'CapEx'],
+    correctAnswers: [3],
+    explanation:
+      'CapEx (capital expenditure) is money spent upfront on physical assets such as servers, networking gear, and licensed software, plus ongoing refresh cycles. AWS Cloud shifts much of this to OpEx (pay-as-you-go). Compliance, recovery, and staffing are cost categories or activities, not the definition of upfront capital spending.',
+  },
+  {
+    id: 'cc-067',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['caf', 'governance', 'sample-exam'],
+    question:
+      'What CAF perspective establishes security, compliance, and risk management controls for a smooth cloud transition?',
+    options: ['Governance', 'Operations', 'Business', 'People'],
+    correctAnswers: [0],
+    explanation:
+      'The Governance perspective in AWS CAF focuses on policies, compliance, risk management, and security controls that guide cloud adoption. Operations covers day-to-day running of workloads; Business aligns strategy and outcomes; People covers skills and organizational change.',
+  },
+  {
+    id: 'cc-068',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['migration', 'professional-services', 'sample-exam'],
+    question:
+      'To facilitate cloud migration, which global team of experts helps customers achieve their desired business outcomes when using the AWS Cloud?',
+    options: [
+      'AWS Well-Architected',
+      'AWS Professional Services',
+      'AWS Migration Acceleration Program',
+      'AWS Training and Certification',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'AWS Professional Services (ProServe) is AWS’s global consulting team that helps plan and execute migrations and cloud transformations to reach business goals. Well-Architected is a framework and review process; MAP provides funding and methodology for migrations; Training and Certification builds skills through courses and exams.',
+  },
+  {
+    id: 'cc-069',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['migration', '6rs', 'relocate', 'sample-exam'],
+    question:
+      'Which migration strategy involves moving workloads to AWS without making significant modifications, typically at the hypervisor level?',
+    options: ['Retire', 'Relocate', 'Retain', 'Refactor'],
+    correctAnswers: [1],
+    explanation:
+      'Relocate moves infrastructure to AWS with minimal change, often by shifting VMware workloads to VMware Cloud on AWS at the hypervisor layer. Rehost lifts apps to EC2; Refactor re-architects for cloud; Retire decommissions; Retain keeps workloads on-premises.',
+  },
+  {
+    id: 'cc-070',
+    domain: 'cloud-concepts',
+    task: '1.4',
+    tags: ['managed-services', 'rds', 'elasticache', 'sample-exam'],
+    question:
+      'What is the benefit of using AWS managed services, such as Amazon ElastiCache and Amazon Relational Database Service (Amazon RDS)?',
+    options: [
+      'They have better performance than customer-managed services',
+      'They do not require the customer to optimize instance type or size selections',
+      'They simplify patching and updating underlying OSs',
+      'They require the customer to monitor and replace failing instances',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Managed services such as RDS and ElastiCache handle patching and updates to underlying operating systems and engines, reducing maintenance work. AWS also handles much failure detection and recovery—you still choose appropriate instance types and sizes for your workload. Performance depends on configuration and workload, not managed vs. self-managed alone.',
+  },
+  {
+    id: 'cc-071',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'performance-efficiency', 'sample-exam'],
+    question:
+      'Which pillar of the AWS Well-Architected Framework focuses on selecting the right resource types and sizes based on workload requirements?',
+    options: [
+      'Cost Optimization',
+      'Reliability',
+      'Performance Efficiency',
+      'Sustainability',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Performance Efficiency emphasizes using compute, storage, and database resources efficiently—including right-sizing and adapting as demand changes. Reliability targets correct function and recovery from failure; Cost Optimization reduces waste and cost; Sustainability minimizes environmental impact of workloads.',
+  },
+  {
+    id: 'cc-072',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['caf', 'transformation-domains', 'sample-exam'],
+    question:
+      'Which transformation domains are defined by the AWS Cloud Adoption Framework (AWS CAF)? (Select TWO)',
+    options: ['Process', 'Product', 'Security', 'Infrastructure', 'Compliance'],
+    correctAnswers: [0, 1],
+    explanation:
+      'AWS CAF defines four transformation domains: Technology, Process, Organization, and Product. Process covers digitizing and optimizing operations; Product covers reimagining the business model with cloud capabilities. Security is a CAF perspective, not a transformation domain; Infrastructure sits under Technology/Platform; Compliance is addressed through Governance.',
+  },
+  {
+    id: 'cc-073',
+    domain: 'cloud-concepts',
+    task: '1.4',
+    tags: ['automation', 'well-architected', 'sample-exam'],
+    question:
+      'Which benefit of AWS automation accelerates infrastructure deployment and updates, allowing businesses to swiftly adapt to changing demands without manual intervention?',
+    options: [
+      'Rapid changes',
+      'Repeatable configurations',
+      'Automated testing',
+      'Improved productivity',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Automation (for example with CloudFormation or CI/CD) enables rapid, repeatable infrastructure changes so teams can deploy and update environments quickly without manual steps. Repeatable configurations and improved productivity are related benefits; automated testing validates changes—the exam item identifies rapid changes as the benefit tied to swift adaptation.',
+  },
 ]
