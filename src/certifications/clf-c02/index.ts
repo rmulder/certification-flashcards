@@ -3,6 +3,10 @@ import { cloudConceptsCards } from './cards/domain1-cloud-concepts'
 import { cloudConceptsSupplementCards } from './cards/domain1-cloud-concepts-supplement'
 import { securityCards } from './cards/domain2-security'
 import { securitySupplementCards } from './cards/domain2-security-supplement'
+import { sharedResponsibilitySupplementCards } from './cards/domain2-shared-responsibility-supplement'
+import { governanceSupplementCards } from './cards/domain2-governance-supplement'
+import { complianceConceptsSupplementCards } from './cards/domain2-compliance-concepts-supplement'
+import { complianceServicesSupplementCards } from './cards/domain2-compliance-services-supplement'
 import { technologyCards } from './cards/domain3-technology'
 import { technologySupplementCards } from './cards/domain3-technology-supplement'
 import { computeSupplementCards } from './cards/domain3-compute-supplement'
@@ -14,6 +18,10 @@ const cards = [
   ...cloudConceptsSupplementCards,
   ...securityCards,
   ...securitySupplementCards,
+  ...sharedResponsibilitySupplementCards,
+  ...governanceSupplementCards,
+  ...complianceConceptsSupplementCards,
+  ...complianceServicesSupplementCards,
   ...technologyCards,
   ...technologySupplementCards,
   ...computeSupplementCards,
