@@ -709,4 +709,89 @@ export const securitySupplementCards: Card[] = [
     explanation:
       'Managed RDS handles infrastructure tasks like engine patching, automated backups, and Multi-AZ failover options. On EC2, customers manage the guest OS, database installation, patching, and backup strategy. Both models still require customers to secure data and access.',
   },
+  {
+    id: 'sc-088',
+    domain: 'security-compliance',
+    task: '2.3',
+    tags: ['iam', 'federation', 'saml', 'oidc', 'crucial-exams'],
+    question:
+      'Which protocols does AWS identity federation commonly use to integrate external identity providers with IAM?',
+    options: [
+      'SAML 2.0 and OpenID Connect (OIDC)',
+      'SMTP and FTP',
+      'SNMP and ICMP',
+      'HTTP only without any identity standard',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Federated access lets users sign in with corporate or social credentials from an external IdP. AWS supports SAML 2.0 and OIDC so users authenticate externally and receive temporary AWS credentials through IAM roles.',
+  },
+  {
+    id: 'sc-089',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['kms', 'encryption', 'cmk', 'crucial-exams'],
+    question:
+      'What is a key difference between a customer-managed CMK and an AWS-managed CMK in AWS KMS?',
+    options: [
+      'Customer-managed CMKs give you more control, including key policy and rotation settings',
+      'AWS-managed CMKs cannot encrypt any AWS service data',
+      'Customer-managed CMKs are always free with no API charges',
+      'Only AWS-managed CMKs support envelope encryption',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Both key types can encrypt data, but customer-managed CMKs let you define key policies, enable automatic rotation, and schedule deletion. AWS-managed CMKs are created and rotated automatically by AWS for integrated services with less customer control.',
+  },
+  {
+    id: 'sc-090',
+    domain: 'security-compliance',
+    task: '2.3',
+    tags: ['iam', 'access-keys', 'examtopics'],
+    question:
+      'Which action helps improve security for IAM users who authenticate with access keys?',
+    options: [
+      'Rotate access keys on a recurring basis',
+      'Embed access keys in application source code',
+      'Share one access key across all developers',
+      'Disable MFA for API-only users',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Regularly rotating access keys limits exposure if a key is compromised. Never embed keys in code or share them broadly; MFA adds protection for console and programmatic access where supported.',
+  },
+  {
+    id: 'sc-091',
+    domain: 'security-compliance',
+    task: '2.3',
+    tags: ['iam', 'ec2', 's3', 'examtopics'],
+    question:
+      'According to security best practices, how should an Amazon EC2 instance obtain permission to upload objects to an Amazon S3 bucket?',
+    options: [
+      'Have the EC2 instance assume an IAM role that grants the required S3 permissions',
+      'Hard-code an IAM user access key and secret key in the application',
+      'Store IAM user keys in a text file on the instance disk',
+      'Set the S3 bucket ACL to public read/write for all users',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'IAM roles deliver temporary credentials through an instance profile, avoiding long-lived access keys on disk or in code. Hard-coded or file-stored keys increase leak risk; public bucket ACLs expose data broadly.',
+  },
+  {
+    id: 'sc-092',
+    domain: 'security-compliance',
+    task: '2.1',
+    tags: ['shared-responsibility', 'dynamodb', 'examtopics'],
+    question:
+      'Which option is a customer responsibility when using Amazon DynamoDB under the AWS Shared Responsibility Model?',
+    options: [
+      'Controlling access to DynamoDB tables',
+      'Physical security of DynamoDB data centers',
+      'Patching the DynamoDB service software',
+      'Operating the DynamoDB hypervisor layer',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Customers secure data in the cloud: who can access tables and items through IAM and application logic. AWS manages the managed service infrastructure, including physical security, patching, and the underlying platform.',
+  },
 ]

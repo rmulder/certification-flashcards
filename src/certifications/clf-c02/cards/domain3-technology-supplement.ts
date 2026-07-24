@@ -1428,4 +1428,479 @@ export const technologySupplementCards: Card[] = [
     explanation:
       'Tiered S3 lifecycle rules match cost to access patterns: Standard for hot streaming, Standard-IA for occasional retrieval, then Glacier Deep Archive for long-term compliance at the lowest rate. One Zone-IA sacrifices performance and multi-AZ durability; EFS costs more than S3 for object archives; Intelligent-Tiering adds monitoring fees that may exceed planned transitions.',
   },
+  {
+    id: 'tech-172',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['detective', 'security', 'crucial-exams'],
+    question:
+      'Which AWS service helps analyze and visualize security data to investigate the root cause of potential security issues?',
+    options: [
+      'Amazon Detective',
+      'Amazon Inspector',
+      'AWS Shield',
+      'Amazon Macie',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Detective collects log data from CloudTrail, VPC Flow Logs, and GuardDuty findings into a graph model for security investigations. Inspector scans for vulnerabilities; Shield mitigates DDoS; Macie finds sensitive data in S3.',
+  },
+  {
+    id: 'tech-173',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['msk', 'streaming', 'crucial-exams'],
+    question:
+      'Which AWS service is a fully managed Apache Kafka platform for building and running real-time streaming applications?',
+    options: [
+      'Amazon MSK',
+      'Amazon Kinesis Data Streams',
+      'Amazon SQS',
+      'Amazon EventBridge',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Managed Streaming for Apache Kafka (Amazon MSK) runs open-source Kafka clusters with AWS managing brokers, patching, and scaling. Kinesis is AWS-native streaming; SQS is message queuing; EventBridge is an event bus.',
+  },
+  {
+    id: 'tech-174',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['opensearch', 'analytics', 'crucial-exams'],
+    question:
+      'Which AWS service helps you deploy, operate, and scale OpenSearch clusters for search and log analytics?',
+    options: [
+      'Amazon OpenSearch Service',
+      'Amazon Athena',
+      'Amazon Redshift',
+      'Amazon Kendra',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon OpenSearch Service (successor to Amazon Elasticsearch Service) powers full-text search, log analytics, and observability dashboards. Athena queries S3 with SQL; Redshift is a data warehouse; Kendra is ML enterprise search.',
+  },
+  {
+    id: 'tech-175',
+    domain: 'cloud-technology',
+    task: '3.7',
+    tags: ['translate', 'ai', 'crucial-exams'],
+    question:
+      'Which AWS service provides neural machine translation between languages?',
+    options: [
+      'Amazon Translate',
+      'Amazon Comprehend',
+      'Amazon Polly',
+      'Amazon Textract',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Translate converts text between languages in real time. Comprehend extracts meaning and sentiment from text; Polly converts text to speech; Textract extracts text from documents.',
+  },
+  {
+    id: 'tech-176',
+    domain: 'cloud-technology',
+    task: '3.8',
+    tags: ['connect', 'contact-center', 'crucial-exams'],
+    question:
+      'Which AWS service provides a cloud-based contact center for voice, chat, and customer service workflows?',
+    options: [
+      'Amazon Connect',
+      'Amazon Lex',
+      'Amazon SNS',
+      'AWS Support',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Connect is a scalable contact center in the cloud with IVR, routing, and integration with Lex for conversational AI. Lex builds chatbots; SNS sends notifications; AWS Support is a technical support plan.',
+  },
+  {
+    id: 'tech-177',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['appconfig', 'deployment', 'crucial-exams'],
+    question:
+      'Which AWS service lets you quickly and safely deploy application configuration changes across environments?',
+    options: [
+      'AWS AppConfig',
+      'AWS Systems Manager Parameter Store only',
+      'AWS CloudFormation',
+      'Amazon CloudWatch',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS AppConfig validates and deploys configuration to applications with deployment strategies and automatic rollback. Parameter Store holds parameters; CloudFormation provisions infrastructure; CloudWatch monitors metrics.',
+  },
+  {
+    id: 'tech-178',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['codeartifact', 'devops', 'crucial-exams'],
+    question:
+      'Which AWS service is a managed artifact repository for storing software packages used in development pipelines?',
+    options: [
+      'AWS CodeArtifact',
+      'Amazon ECR',
+      'Amazon S3',
+      'AWS CodeCommit',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'CodeArtifact stores npm, Maven, PyPI, and NuGet packages for CI/CD workflows. ECR stores container images; S3 is general object storage; CodeCommit hosts Git source code.',
+  },
+  {
+    id: 'tech-179',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['data-exchange', 'marketplace', 'crucial-exams'],
+    question:
+      'Which AWS service lets you find, subscribe to, and use third-party datasets in the cloud?',
+    options: [
+      'AWS Data Exchange',
+      'AWS Glue',
+      'Amazon Athena',
+      'AWS Marketplace',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS Data Exchange is a catalog of third-party data products you can subscribe to and load into analytics workflows. Glue prepares data; Athena queries S3; Marketplace sells software products.',
+  },
+  {
+    id: 'tech-180',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['disaster-recovery', 'migration', 'crucial-exams'],
+    question:
+      'Which AWS service provides disaster recovery for on-premises and cloud-based applications with minimal downtime and data loss?',
+    options: [
+      'AWS Elastic Disaster Recovery',
+      'AWS Backup only',
+      'Amazon S3 versioning',
+      'AWS Snowball Edge',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS Elastic Disaster Recovery (Elastic DR) continuously replicates servers to AWS for fast failover during outages. AWS Backup snapshots point-in-time data; S3 versioning protects objects; Snowball Edge moves bulk data offline.',
+  },
+  {
+    id: 'tech-181',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['firewall-manager', 'security', 'crucial-exams'],
+    question:
+      'Which AWS service centrally configures and manages AWS WAF rules and VPC firewall policies across accounts and Regions?',
+    options: [
+      'AWS Firewall Manager',
+      'Amazon GuardDuty',
+      'AWS Network Firewall only without WAF',
+      'AWS Shield Advanced console only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Firewall Manager applies WAF, Shield Advanced, Network Firewall, and security group policies consistently across your organization. GuardDuty detects threats; Network Firewall protects VPC traffic; Shield mitigates DDoS.',
+  },
+  {
+    id: 'tech-182',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['iq', 'support', 'crucial-exams'],
+    question:
+      'Which AWS offering connects customers with AWS Certified experts for paid project assistance?',
+    options: [
+      'AWS IQ',
+      'AWS Professional Services only',
+      'AWS re:Post',
+      'AWS Marketplace',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS IQ is a marketplace to post project requests and hire vetted AWS experts for short-term technical work. Professional Services is AWS-led consulting; re:Post is community Q&A; Marketplace sells software.',
+  },
+  {
+    id: 'tech-183',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['launch-wizard', 'compute', 'crucial-exams'],
+    question:
+      'Which AWS service helps you quickly deploy Microsoft SQL Server, Active Directory, and other Microsoft workloads on AWS?',
+    options: [
+      'AWS Launch Wizard',
+      'AWS CloudFormation only',
+      'Amazon Lightsail only',
+      'AWS Migration Hub',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS Launch Wizard guides sizing, licensing, and deployment of common Microsoft application stacks on EC2. CloudFormation is general IaC; Lightsail is simplified VPS hosting; Migration Hub tracks migration progress.',
+  },
+  {
+    id: 'tech-184',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['ram', 'sharing', 'crucial-exams'],
+    question:
+      'Which AWS service lets you share AWS resources such as subnets and Transit Gateways with other AWS accounts?',
+    options: [
+      'AWS Resource Access Manager (AWS RAM)',
+      'AWS Organizations SCPs only',
+      'Amazon Route 53',
+      'AWS IAM roles only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS RAM enables resource sharing across accounts in your organization or with external accounts without duplicating infrastructure. Organizations SCPs limit permissions; Route 53 is DNS; IAM roles delegate access but do not share VPC subnets.',
+  },
+  {
+    id: 'tech-185',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['service-catalog', 'governance', 'crucial-exams'],
+    question:
+      'Which AWS service lets administrators create and manage catalogs of approved IT services that users can deploy from a self-service portal?',
+    options: [
+      'AWS Service Catalog',
+      'AWS Control Tower',
+      'AWS Artifact',
+      'AWS Trusted Advisor',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Service Catalog lets teams launch pre-approved CloudFormation templates (products) with guardrails. Control Tower sets up multi-account landing zones; Artifact hosts compliance reports; Trusted Advisor recommends optimizations.',
+  },
+  {
+    id: 'tech-186',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['transfer-family', 'migration', 'crucial-exams'],
+    question:
+      'Which AWS service enables secure file transfers into and out of Amazon S3 using SFTP, FTPS, and FTP protocols?',
+    options: [
+      'AWS Transfer Family',
+      'AWS Storage Gateway file gateway only',
+      'Amazon EFS',
+      'AWS Direct Connect',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS Transfer Family provides managed SFTP/FTPS/FTP endpoints backed by S3 or EFS for B2B file exchange. Storage Gateway integrates on-premises apps; EFS is a Linux file system; Direct Connect is a dedicated network link.',
+  },
+  {
+    id: 'tech-187',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['wavelength', 'edge', 'crucial-exams'],
+    question:
+      'Which AWS infrastructure embeds compute and storage at telecommunications providers\' 5G networks for ultra-low-latency mobile applications?',
+    options: [
+      'AWS Wavelength',
+      'AWS Local Zones',
+      'AWS Outposts',
+      'Amazon CloudFront',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS Wavelength zones run at the edge of 5G networks so mobile apps process data near users with single-digit millisecond latency. Local Zones extend Regions to metro areas; Outposts is on-premises AWS racks; CloudFront caches HTTP content.',
+  },
+  {
+    id: 'tech-188',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['workspaces', 'end-user', 'crucial-exams'],
+    question:
+      'Which Amazon service provides secure browser-based access to internal websites and SaaS applications without a full virtual desktop?',
+    options: [
+      'Amazon WorkSpaces Web',
+      'Amazon AppStream 2.0',
+      'Amazon WorkLink only',
+      'AWS Client VPN',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'WorkSpaces Web delivers managed browser isolation for internal web apps and SaaS from any device. AppStream 2.0 streams full desktop applications; WorkLink was retired; Client VPN connects networks, not browser sessions to web apps.',
+  },
+  {
+    id: 'tech-189',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['activate', 'startups', 'crucial-exams'],
+    question:
+      'Which AWS program provides credits, training, and support resources for early-stage startups building on AWS?',
+    options: [
+      'AWS Activate for Startups',
+      'AWS IQ',
+      'AWS Marketplace',
+      'AWS Professional Services',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS Activate offers startup credits, technical support, and training through accelerators and venture partners. IQ connects to freelance experts; Marketplace sells software; Professional Services is AWS consulting engagements.',
+  },
+  {
+    id: 'tech-190',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['cloudwatch', 'monitoring', 'crucial-exams'],
+    question:
+      'Which AWS service provides monitoring and observability with metrics and dashboards for AWS resources and applications?',
+    options: [
+      'Amazon CloudWatch',
+      'AWS CloudTrail',
+      'AWS Config',
+      'AWS Trusted Advisor',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon CloudWatch collects metrics, logs, and alarms for operational visibility. CloudTrail records API activity; Config tracks resource configuration; Trusted Advisor recommends best-practice improvements.',
+  },
+  {
+    id: 'tech-191',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['cloudwatch', 'alarms', 'crucial-exams'],
+    question: 'What do Amazon CloudWatch alarms do?',
+    options: [
+      'Monitor metrics against thresholds and trigger actions such as notifications or Auto Scaling',
+      'Store encrypted passwords for EC2 instances',
+      'Replace AWS CloudTrail for API auditing',
+      'Automatically patch operating systems on all instances',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'CloudWatch alarms watch a metric over time and act when it crosses a threshold—for example sending an SNS alert or scaling an Auto Scaling group. Parameter Store holds secrets; CloudTrail audits APIs; patching is Systems Manager Patch Manager.',
+  },
+  {
+    id: 'tech-192',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['cloudwatch', 'logs', 'crucial-exams'],
+    question:
+      'Which AWS feature centralizes log data from applications, AWS services, and on-premises servers for monitoring and analysis?',
+    options: [
+      'Amazon CloudWatch Logs',
+      'Amazon S3 Glacier',
+      'AWS Artifact',
+      'AWS Budgets',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'CloudWatch Logs ingests and stores log streams you can search, metric-filter, and retain. Glacier is archival object storage; Artifact hosts compliance documents; Budgets tracks spend alerts.',
+  },
+  {
+    id: 'tech-193',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['x-ray', 'observability', 'crucial-exams'],
+    question:
+      'Which AWS service helps developers analyze and debug distributed applications and microservices by tracing requests?',
+    options: [
+      'AWS X-Ray',
+      'Amazon CloudWatch metrics only',
+      'AWS CloudFormation',
+      'Amazon Inspector',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS X-Ray traces requests across services, showing latency bottlenecks and errors in a service map. CloudWatch metrics and logs monitor resources but do not automatically map end-to-end request paths like X-Ray.',
+  },
+  {
+    id: 'tech-194',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['systems-manager', 'maintenance', 'crucial-exams'],
+    question:
+      'In AWS Systems Manager, what is a maintenance window used for?',
+    options: [
+      'Scheduling patches, updates, and other maintenance tasks during a defined time period',
+      'Setting AWS Budgets alerts for monthly spend',
+      'Defining Reserved Instance purchase terms',
+      'Creating CloudFormation stack update policies only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Maintenance windows in Systems Manager control when Run Command or Automation tasks—such as OS patching—run to limit impact on production. Budgets monitor costs; RIs are billing commitments; CloudFormation manages infrastructure templates.',
+  },
+  {
+    id: 'tech-195',
+    domain: 'cloud-technology',
+    task: '3.5',
+    tags: ['privatelink', 'networking', 'examtopics'],
+    question:
+      'A company wants private connectivity from its VPC to supported AWS services without traversing the public internet. Which AWS networking feature meets this requirement?',
+    options: [
+      'AWS PrivateLink',
+      'Internet gateway only',
+      'AWS Snowball Edge',
+      'Amazon CloudFront',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS PrivateLink provides private connectivity between VPCs and AWS services (or other VPC endpoints) over the AWS network, keeping traffic off the public internet. Internet gateways enable public access; Snowball Edge is offline transfer; CloudFront is a CDN.',
+  },
+  {
+    id: 'tech-196',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['storage-gateway', 'file-gateway', 'hybrid', 'examtopics'],
+    question:
+      'A team needs to extend on-premises file storage to the AWS Cloud while keeping frequently accessed files cached locally for low-latency SMB/NFS access. Which solution is MOST appropriate?',
+    options: [
+      'Deploy an AWS Storage Gateway file gateway',
+      'Mount a separate Amazon S3 bucket per user with a custom file system utility',
+      'Store all files on a shared Amazon EBS volume attached to one EC2 instance',
+      'Use Amazon WorkDocs as the primary NAS replacement for every workstation',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'A Storage Gateway file gateway presents a local file share backed by Amazon S3 with local caching for performance. Per-user S3 mounts are operationally heavy; a single shared EBS volume does not scale like a managed hybrid file gateway; WorkDocs is collaboration software, not a general NAS extension.',
+  },
+  {
+    id: 'tech-197',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['codeguru', 'developer-tools', 'examtopics'],
+    question:
+      'Which AWS service uses machine learning to review code and recommend improvements for code quality and application performance?',
+    options: [
+      'Amazon CodeGuru',
+      'AWS CodeDeploy',
+      'Amazon Inspector',
+      'AWS Trusted Advisor',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon CodeGuru Reviewer and Profiler analyze source code and runtime behavior to surface defects and performance bottlenecks. CodeDeploy automates deployments; Inspector scans for vulnerabilities; Trusted Advisor gives account-level best-practice checks.',
+  },
+  {
+    id: 'tech-198',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['elastic-transcoder', 'media', 'examtopics'],
+    question:
+      'Which AWS service converts video and audio files into formats suitable for playback on smartphones and other devices?',
+    options: [
+      'Amazon Elastic Transcoder',
+      'Amazon Kinesis Video Streams',
+      'AWS Elemental MediaLive only',
+      'Amazon Polly',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Elastic Transcoder is a managed media transcoding service that converts source media into output formats and bitrates for different devices. Kinesis Video Streams ingests streaming video; MediaLive produces live streams; Polly converts text to speech.',
+  },
+  {
+    id: 'tech-199',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['s3', 'inventory', 'examtopics'],
+    question:
+      'A company needs scheduled reports listing Amazon S3 objects, including metadata such as tags, across buckets and prefixes. Which S3 feature meets this requirement?',
+    options: [
+      'S3 Inventory',
+      'S3 Object Lock only',
+      'S3 Transfer Acceleration',
+      'S3 Select',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'S3 Inventory generates CSV, ORC, or Parquet reports of objects and metadata (size, storage class, tags, etc.) on a schedule. Object Lock enforces retention; Transfer Acceleration speeds uploads; S3 Select retrieves subsets of object data with SQL-like queries.',
+  },
 ]

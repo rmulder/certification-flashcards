@@ -642,4 +642,242 @@ export const cloudConceptsSupplementCards: Card[] = [
     explanation:
       'Variable (consumption-based) costs rise and fall with usage—such as EC2 hours, S3 storage GB-months, or Lambda invocations. Upfront hardware, fixed licenses, and flat facility rent are fixed costs typical of on-premises models.',
   },
+  {
+    id: 'cc-081',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['disaster-recovery', 'rpo', 'crucial-exams'],
+    question: 'What does Recovery Point Objective (RPO) measure in disaster recovery planning?',
+    options: [
+      'The maximum acceptable amount of data loss measured in time',
+      'The maximum acceptable downtime before service is restored',
+      'The number of Availability Zones required for compliance',
+      'The monthly cost of backup storage in Amazon S3',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'RPO defines how much data you can afford to lose—for example, 15 minutes of transactions— and drives backup and replication frequency. Recovery Time Objective (RTO) measures how long restoration can take, not data loss.',
+  },
+  {
+    id: 'cc-082',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['disaster-recovery', 'rto', 'crucial-exams'],
+    question: 'What does Recovery Time Objective (RTO) measure in disaster recovery planning?',
+    options: [
+      'The maximum acceptable time to restore a system after a disruption',
+      'The maximum acceptable data loss measured in time',
+      'The percentage uptime guaranteed by every AWS service SLA',
+      'The time required to provision a new AWS account',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'RTO is how quickly workloads must be back online after an outage—for example, four hours. Recovery Point Objective (RPO) limits acceptable data loss, not restoration duration.',
+  },
+  {
+    id: 'cc-083',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['deployment', 'blue-green', 'crucial-exams'],
+    question: 'What is a blue-green deployment strategy?',
+    options: [
+      'Running two identical environments and switching traffic from the old (blue) to the new (green) with minimal downtime',
+      'Deploying only to AWS Regions named with color codes',
+      'Using Spot Instances for production and On-Demand for development',
+      'Storing blue and green S3 buckets in different Regions for compliance',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Blue-green deployment keeps a current production environment (blue) and a parallel new version (green). After validation, traffic shifts to green for near-zero-downtime releases. Route 53, load balancers, or Auto Scaling can orchestrate the cutover.',
+  },
+  {
+    id: 'cc-084',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['scalability', 'horizontal', 'crucial-exams'],
+    question: 'What is horizontal scaling in the AWS Cloud?',
+    options: [
+      'Adding more instances or resources to handle increased load',
+      'Upgrading a single server to a larger instance type only',
+      'Moving all workloads to a single Availability Zone',
+      'Replacing on-premises hardware with tape backups',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Horizontal scaling (scale out/in) adds or removes instances—for example more EC2 instances behind a load balancer. Vertical scaling increases capacity of one resource, such as a larger instance type.',
+  },
+  {
+    id: 'cc-085',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['scalability', 'vertical', 'crucial-exams'],
+    question: 'What is vertical scaling in the AWS Cloud?',
+    options: [
+      'Increasing the capacity of an existing resource, such as moving to a larger EC2 instance type',
+      'Deploying identical copies of an application across multiple Regions only',
+      'Deleting unused S3 buckets to save cost',
+      'Using CloudFront edge locations for caching',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Vertical scaling (scale up/down) changes the size or power of a single resource—for example resizing an RDS instance class. Horizontal scaling adds more instances rather than making one instance bigger.',
+  },
+  {
+    id: 'cc-086',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['fault-tolerance', 'reliability', 'crucial-exams'],
+    question: 'What does fault tolerance mean in cloud architecture?',
+    options: [
+      'The ability of a system to continue operating when components fail, often through redundancy',
+      'The guarantee that no AWS service will ever experience downtime',
+      'Eliminating the need for backups and monitoring',
+      'Running all workloads on a single large server to simplify management',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Fault tolerance designs assume components can fail and use redundancy—such as Multi-AZ deployments or load-balanced instances—so the overall system keeps working. High availability and fault tolerance overlap; neither eliminates the need for monitoring or DR planning.',
+  },
+  {
+    id: 'cc-087',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['cloud-models', 'paas', 'crucial-exams'],
+    question:
+      'Which cloud service model provides a managed platform for deploying applications without managing underlying servers, storage, and networking?',
+    options: [
+      'Platform as a Service (PaaS)',
+      'Infrastructure as a Service (IaaS)',
+      'Software as a Service (SaaS)',
+      'Hardware as a Service (HaaS)',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'PaaS (for example AWS Elastic Beanstalk) handles runtime, middleware, and infrastructure so developers focus on code. IaaS gives raw virtual infrastructure; SaaS delivers finished applications to end users.',
+  },
+  {
+    id: 'cc-088',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['cloud-models', 'saas', 'crucial-exams'],
+    question:
+      'Which cloud service model delivers ready-to-use applications to end users over the internet, typically with a subscription?',
+    options: [
+      'Software as a Service (SaaS)',
+      'Infrastructure as a Service (IaaS)',
+      'Platform as a Service (PaaS)',
+      'Database as a Service only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'SaaS provides complete applications—such as email or CRM—managed by the provider. Customers use the software without managing servers or platforms. IaaS and PaaS target builders and operators, not only end-user app consumption.',
+  },
+  {
+    id: 'cc-089',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['deployment-models', 'crucial-exams'],
+    question:
+      'A company keeps sensitive data on-premises but uses AWS for development and test environments connected over VPN. Which deployment model is this?',
+    options: [
+      'Hybrid cloud',
+      'Public cloud only',
+      'Private cloud only',
+      'Multi-cloud only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Hybrid cloud combines on-premises (or private) infrastructure with public cloud resources. Public cloud is AWS-only workloads; private cloud is dedicated cloud-like infrastructure on-premises; multi-cloud uses multiple public cloud providers.',
+  },
+  {
+    id: 'cc-090',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['shared-responsibility', 'crucial-exams'],
+    question: 'What does the AWS Shared Responsibility Model define?',
+    options: [
+      'Which security and operational tasks AWS manages versus which tasks the customer manages',
+      'Which AWS Support plan every account must purchase',
+      'How Reserved Instance discounts are shared in Organizations',
+      'Which Regions are free for all customers',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS is responsible for security of the cloud (physical infrastructure, hypervisor, managed services operations). Customers are responsible for security in the cloud (data, IAM, OS patching on EC2, network configuration). Responsibilities vary slightly by service type.',
+  },
+  {
+    id: 'cc-091',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['benefits', 'agility', 'examtopics'],
+    question:
+      'A company needs to provision additional servers quickly for a new line of business. Which advantage of cloud computing helps meet this need?',
+    options: [
+      'Benefit from massive economies of scale only',
+      'Increase speed and agility',
+      'Trade fixed expense for variable expense',
+      'Go global in minutes',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Speed and agility means you can provision and deprovision infrastructure in minutes instead of waiting for physical hardware. Economies of scale and pay-as-you-go pricing are separate cloud benefits; global reach addresses worldwide deployment, not rapid local provisioning.',
+  },
+  {
+    id: 'cc-092',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['benefits', 'elasticity', 'examtopics'],
+    question:
+      'Which advantage of cloud computing allows users to scale resources up and down based on application load instead of forecasting peak capacity upfront?',
+    options: [
+      'Stop guessing capacity',
+      'Shared responsibility',
+      'High availability only',
+      'Dedicated tenancy',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Stop guessing capacity is a core cloud benefit: you add or remove resources on demand rather than over-provisioning for peak load. Shared responsibility defines security duties; high availability and dedicated tenancy address architecture choices, not elastic capacity planning.',
+  },
+  {
+    id: 'cc-093',
+    domain: 'cloud-concepts',
+    task: '1.4',
+    tags: ['well-architected', 'design-principles', 'examtopics'],
+    question:
+      'Which AWS design principle emphasizes reducing interdependencies between application components so one failure does not cascade?',
+    options: [
+      'Loose coupling',
+      'Tight coupling',
+      'Vertical scaling only',
+      'Single-AZ deployment',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Loose coupling limits how tightly components depend on one another, improving resilience and independent scaling. Tight coupling increases blast radius; vertical scaling and single-AZ designs do not address component interdependency.',
+  },
+  {
+    id: 'cc-094',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['migration', '6rs', 'replatform', 'examtopics'],
+    question:
+      'A company migrates a MySQL database from self-managed on-premises servers to Amazon RDS with minimal application changes but a different database platform. Which migration strategy is this?',
+    options: ['Rehost', 'Replatform', 'Retire', 'Retain'],
+    correctAnswers: [1],
+    explanation:
+      'Replatform moves a workload to the cloud with modest optimizations—such as shifting a self-managed database to a managed service like RDS—without fully re-architecting the application. Rehost lifts with minimal change; Refactor (not listed) re-architects; Retire decommissions; Retain stays on-premises.',
+  },
+  {
+    id: 'cc-095',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['caf', 'envision', 'examtopics'],
+    question:
+      'Which phase of the AWS Cloud Adoption Framework (AWS CAF) cloud transformation journey focuses on defining measurable business outcomes and demonstrating how the cloud accelerates strategy?',
+    options: ['Envision', 'Align', 'Launch', 'Scale'],
+    correctAnswers: [0],
+    explanation:
+      'The Envision phase establishes the business case and desired outcomes for cloud adoption. Align maps organizational capabilities to the plan; Launch and Scale execute and expand workloads. CAF also uses perspectives (Governance, People, etc.) alongside these journey phases.',
+  },
 ]

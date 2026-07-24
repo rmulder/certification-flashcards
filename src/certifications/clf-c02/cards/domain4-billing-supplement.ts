@@ -557,4 +557,72 @@ export const billingSupplementCards: Card[] = [
     explanation:
       'With Organizations consolidated billing, Reserved Instance benefits can apply to matching instance usage across linked accounts in the organization—not only in the account that purchased them. Instance type, Region, platform, and tenancy must match the reservation.',
   },
+  {
+    id: 'bill-069',
+    domain: 'billing-pricing',
+    task: '4.2',
+    tags: ['billing-conductor', 'crucial-exams'],
+    question:
+      'Which AWS service helps ISVs and resellers customize AWS billing, pricing, and cost reporting for their end customers?',
+    options: [
+      'AWS Billing Conductor',
+      'Cost allocation tags alone',
+      'AWS Budgets',
+      'AWS Cost Explorer only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Billing Conductor lets partners create custom billing groups, pricing rules, and pro forma invoices for downstream customers. Cost allocation tags break down spend within your own organization; Budgets set alerts; Cost Explorer visualizes usage.',
+  },
+  {
+    id: 'bill-070',
+    domain: 'billing-pricing',
+    task: '4.3',
+    tags: ['sla', 'availability', 'crucial-exams'],
+    question: 'What is an AWS Service Level Agreement (SLA)?',
+    options: [
+      'A formal commitment from AWS about expected service availability for eligible services',
+      'A mandatory contract every customer must sign before creating an account',
+      'A tool that automatically right-sizes EC2 instances',
+      'The same thing as the AWS Shared Responsibility Model',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS SLAs define availability targets for many services (for example Amazon EC2 and Amazon S3) and may provide service credits if commitments are not met. The Shared Responsibility Model defines security duties; SLAs address service uptime commitments.',
+  },
+  {
+    id: 'bill-071',
+    domain: 'billing-pricing',
+    task: '4.2',
+    tags: ['cost-explorer', 'compute-optimizer', 'rightsizing', 'examtopics'],
+    question:
+      'Which AWS services or tools can identify rightsizing opportunities for Amazon EC2 instances? (Select TWO.)',
+    options: [
+      'AWS Cost Explorer',
+      'AWS Billing Conductor',
+      'Amazon CodeGuru',
+      'Amazon SageMaker',
+      'AWS Compute Optimizer',
+    ],
+    correctAnswers: [0, 4],
+    explanation:
+      'Cost Explorer includes rightsizing recommendations based on usage and cost data. Compute Optimizer analyzes CloudWatch metrics to recommend optimal instance types and sizes. Billing Conductor customizes partner billing; CodeGuru reviews code; SageMaker builds ML models.',
+  },
+  {
+    id: 'bill-072',
+    domain: 'billing-pricing',
+    task: '4.1',
+    tags: ['free-tier', 'pricing', 'examtopics'],
+    question:
+      'What happens when an AWS Free Tier offer expires or an application exceeds Free Tier usage limits?',
+    options: [
+      'Standard pay-as-you-go rates apply to usage beyond Free Tier limits',
+      'All AWS services in the account are suspended immediately',
+      'The account is closed automatically after 24 hours',
+      'Free Tier benefits continue forever at no charge regardless of usage',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Free Tier provides limited usage at no charge for eligible services and periods. After limits expire or are exceeded, normal on-demand pricing applies—you are billed for additional usage. Accounts are not auto-closed; always monitor usage in the Billing console.',
+  },
 ]
