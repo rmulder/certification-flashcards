@@ -1046,4 +1046,303 @@ export const technologySupplementCards: Card[] = [
     explanation:
       'Amazon EKS is a fully managed Kubernetes service that runs and scales container clusters without you managing the control plane. ECR stores container images; ECS is AWS-native orchestration (also managed—some exams emphasize EKS when the question mentions “clusters” in a Kubernetes sense); RDS is a relational database service.',
   },
+  {
+    id: 'tech-148',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['s3', 'naming', 'study-guide'],
+    question: 'Which statement about Amazon S3 bucket names is correct?',
+    options: [
+      'Bucket names must be globally unique across all of AWS',
+      'Bucket names must be unique only within your AWS account',
+      'Bucket names must match your AWS account ID',
+      'Bucket names are assigned automatically and cannot be chosen',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'S3 bucket names are globally unique DNS-compatible names across all AWS accounts and Regions. Two customers cannot use the same bucket name. Names are 3–63 characters; storage class is per object and does not affect naming.',
+  },
+  {
+    id: 'tech-149',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['lambda', 'limits', 'study-guide'],
+    question: 'What is the maximum execution time for a single AWS Lambda function invocation?',
+    options: ['15 minutes', '5 minutes', '1 hour', '24 hours'],
+    correctAnswers: [0],
+    explanation:
+      'Lambda functions can run up to 15 minutes per invocation (900 seconds). Longer or continuously running workloads typically use EC2, ECS, or other services. Timeout is configurable up to that maximum.',
+  },
+  {
+    id: 'tech-150',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['dynamodb', 'query', 'study-guide'],
+    question:
+      'Which Amazon DynamoDB operation reads every partition in a table and is the most expensive read pattern for large tables?',
+    options: ['Scan', 'Query on the primary key', 'GetItem', 'BatchWriteItem'],
+    correctAnswers: [0],
+    explanation:
+      'A Scan examines every item (and partition) in a table or index. A Query targets the primary key (or index key) and reads only relevant partitions. GetItem retrieves one item by key; BatchWriteItem writes data.',
+  },
+  {
+    id: 'tech-151',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['route53', 'routing', 'study-guide'],
+    question:
+      'Which Amazon Route 53 routing policy sends traffic to a primary resource and fails over to a secondary resource only when the primary is unhealthy?',
+    options: [
+      'Failover routing',
+      'Simple routing',
+      'Weighted routing',
+      'Geolocation routing only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Failover routing uses health checks to route to a primary endpoint while healthy, then to a secondary when the primary fails. Simple returns one record; Weighted splits traffic by weight; Geolocation routes by user location.',
+  },
+  {
+    id: 'tech-152',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['route53', 'dns', 'study-guide'],
+    question:
+      'Which Route 53 resource lets Amazon EC2 instances in a VPC resolve private domain names not reachable from the public Internet?',
+    options: [
+      'Private hosted zone',
+      'Public hosted zone',
+      'Internet gateway',
+      'NAT gateway',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'A private hosted zone is associated with one or more VPCs and provides DNS for internal names (for example app.internal). Public hosted zones serve public DNS; internet and NAT gateways handle network routing, not DNS records.',
+  },
+  {
+    id: 'tech-153',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['ec2', 'auto-scaling', 'study-guide'],
+    question:
+      'Which EC2 resource can launch instances both manually and through an Auto Scaling group, unlike a launch configuration?',
+    options: [
+      'Launch template',
+      'Amazon Machine Image (AMI) only',
+      'Elastic IP address',
+      'Placement group',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Launch templates define instance configuration for manual launches and Auto Scaling; they supersede launch configurations. An AMI is the OS/application image; Elastic IPs are static public addresses; placement groups influence physical placement.',
+  },
+  {
+    id: 'tech-154',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['elb', 'high-availability', 'study-guide'],
+    question:
+      'How does an Application Load Balancer improve availability when an EC2 instance fails a health check?',
+    options: [
+      'It stops sending traffic to the unhealthy instance',
+      'It automatically patches the operating system on the instance',
+      'It replaces the instance without Auto Scaling',
+      'It caches all dynamic content at edge locations',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ALB health checks detect failed instances and remove them from rotation so users are not routed to them. Replacing instances is Auto Scaling\'s job; ALB does not patch OSes or cache content like CloudFront.',
+  },
+  {
+    id: 'tech-155',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['s3', 'access', 'study-guide'],
+    question: 'What is the default access setting for new objects uploaded to Amazon S3?',
+    options: [
+      'Private—not public by default',
+      'Public read for all AWS accounts',
+      'Public read for anyone on the Internet',
+      'Encrypted and deleted after 24 hours',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'S3 objects are private by default. You must explicitly grant public access through bucket policies, ACLs, or Block Public Access settings if public delivery is intended. Block Public Access can prevent accidental public exposure.',
+  },
+  {
+    id: 'tech-156',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['cloudformation', 'iac', 'study-guide'],
+    question: 'In which formats can AWS CloudFormation templates be written?',
+    options: ['YAML or JSON', 'Python or Java only', 'SQL or CSV', 'HTML or XML only'],
+    correctAnswers: [0],
+    explanation:
+      'CloudFormation templates use JSON or YAML to describe stacks of AWS resources. CDK generates CloudFormation from programming languages, but the deployed template format is JSON or YAML—not Python source alone.',
+  },
+  {
+    id: 'tech-157',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['codepipeline', 'cicd', 'study-guide'],
+    question:
+      'What is the minimum number of stages required in an AWS CodePipeline pipeline?',
+    options: [
+      'A source stage and a deploy stage',
+      'Three build stages only',
+      'A single manual approval stage',
+      'Five stages including test, scan, and audit',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'At minimum, CodePipeline needs a source stage (for example CodeCommit or S3) and a deploy stage (for example CodeDeploy or CloudFormation). Additional build, test, and approval stages are optional but common.',
+  },
+  {
+    id: 'tech-158',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['systems-manager', 'automation', 'study-guide'],
+    question:
+      'Which AWS Systems Manager document type runs commands on an EC2 instance, as opposed to performing AWS API tasks like starting an instance?',
+    options: [
+      'Command document',
+      'Automation document',
+      'CloudFormation template',
+      'Service Quotas request',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Command documents (Run Command) execute shell commands or scripts on managed EC2 instances. Automation documents orchestrate AWS API actions such as starting or stopping resources. CloudFormation provisions stacks; Service Quotas manages limits.',
+  },
+  {
+    id: 'tech-159',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['glacier', 'storage', 'study-guide'],
+    question:
+      'How do you upload or download archives in Amazon S3 Glacier (Glacier storage class)?',
+    options: [
+      'Using the AWS CLI, SDK, or API—not the S3 console for archive operations',
+      'Only through the S3 console drag-and-drop interface',
+      'By attaching Glacier volumes to EC2 instances',
+      'Using NFS mounts from on-premises servers only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glacier archives are managed programmatically via CLI, SDK, or S3 API. You can create vaults in the console, but archive upload, download, and delete require programmatic access. Glacier does not use EC2-attached block volumes or NFS.',
+  },
+  {
+    id: 'tech-160',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['databases', 'comparison', 'study-guide'],
+    question:
+      'Which comparison between relational and nonrelational databases is accurate?',
+    options: [
+      'Relational databases use structured rows and columns; nonrelational databases can store flexible or unstructured items',
+      'Relational databases are always schemaless; nonrelational databases require fixed schemas',
+      'Nonrelational databases cannot use primary keys',
+      'Relational databases are ideal only for key-value access with no queries',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Relational databases (RDS) store data in tables with defined schemas, rows, and columns—suited to complex queries and reporting. Nonrelational stores (DynamoDB, DocumentDB) use flexible items and are often optimized for specific access patterns at scale.',
+  },
+  {
+    id: 'tech-161',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['vpc', 'cidr', 'study-guide'],
+    question:
+      'Which CIDR block size is valid for an Amazon VPC or subnet?',
+    options: ['10.0.0.0/28', '10.0.0.0/8', '10.0.0.0/32 only for VPC', '192.168.1.0/15'],
+    correctAnswers: [0],
+    explanation:
+      'VPC and subnet CIDR blocks must be between /16 and /28 inclusive. /28 (16 addresses) is valid; /8 is too large for a single VPC; /32 is too small; /15 is outside the allowed range.',
+  },
+  {
+    id: 'tech-162',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['device-farm', 'mobile', 'study-guide'],
+    question:
+      'Which AWS service lets developers test mobile and web applications on many virtual device types without owning physical hardware?',
+    options: [
+      'AWS Device Farm',
+      'Amazon WorkDocs',
+      'AWS Snowball Edge',
+      'Amazon Connect',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Device Farm provides remote access to virtual phones, tablets, and browsers for automated and interactive testing with logs and video. WorkDocs is file collaboration; Snowball Edge is offline transfer; Connect is a cloud contact center.',
+  },
+  {
+    id: 'tech-163',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['iot', 'greengrass', 'study-guide'],
+    question:
+      'Which AWS service extends cloud capabilities to edge devices so they can process data locally even when offline?',
+    options: [
+      'AWS IoT Greengrass',
+      'Amazon Kinesis Data Streams',
+      'AWS CloudShell',
+      'Amazon Athena',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'IoT Greengrass runs AWS Lambda, messaging, and ML inference on edge hardware (gateways, routers) with sync to AWS IoT Core when connected. Kinesis ingests streaming data in the cloud; CloudShell is a browser shell; Athena queries S3 with SQL.',
+  },
+  {
+    id: 'tech-164',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['workdocs', 'collaboration', 'study-guide'],
+    question:
+      'Which Amazon service provides secure file storage, sharing, and document collaboration for teams?',
+    options: [
+      'Amazon WorkDocs',
+      'Amazon S3 Glacier',
+      'AWS Secrets Manager',
+      'Amazon Inspector',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'WorkDocs is a managed enterprise file sharing service with previews and comments on documents. Glacier is archival storage; Secrets Manager stores secrets; Inspector scans for vulnerabilities.',
+  },
+  {
+    id: 'tech-165',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['auto-scaling', 'predictive', 'study-guide'],
+    question:
+      'Which Amazon EC2 Auto Scaling feature creates scheduled scaling actions based on past usage patterns?',
+    options: [
+      'Predictive scaling',
+      'Spot Fleet only',
+      'Dedicated Hosts',
+      'Placement groups',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Predictive scaling uses machine learning on historical metrics to schedule capacity ahead of expected demand. Spot Fleet requests Spot capacity; Dedicated Hosts are physical servers; placement groups influence EC2 physical layout.',
+  },
+  {
+    id: 'tech-166',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['route53', 'routing', 'study-guide'],
+    question:
+      'Which Amazon Route 53 routing policy directs users to the AWS Region that provides the lowest latency?',
+    options: [
+      'Latency routing',
+      'Failover routing',
+      'Simple routing',
+      'Multivalue answer routing with random sort only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Latency routing uses health checks and latency measurements to route each user to the lowest-latency healthy endpoint among Regions. Failover switches primary/secondary; Simple returns one record; Multivalue returns multiple healthy records.',
+  },
 ]

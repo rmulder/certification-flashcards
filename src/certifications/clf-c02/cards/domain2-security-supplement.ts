@@ -591,4 +591,88 @@ export const securitySupplementCards: Card[] = [
     explanation:
       'AWS KMS creates and manages encryption keys in AWS-managed software HSMs; AWS CloudHSM provides dedicated hardware security modules with more control over key generation. Macie classifies sensitive S3 data; ACM issues TLS certificates for data in transit; Secrets Manager stores secrets (using encryption) rather than serving as your general key-generation service for arbitrary data.',
   },
+  {
+    id: 'sc-081',
+    domain: 'security-compliance',
+    task: '2.3',
+    tags: ['encryption', 'client-side', 'study-guide'],
+    question:
+      'Which encryption approach protects data at every step of its lifecycle by encrypting on the client before upload?',
+    options: [
+      'Client-side encryption',
+      'Server-side encryption with Amazon S3-managed keys (SSE-S3)',
+      'AWS Shield Standard',
+      'Amazon GuardDuty',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Client-side encryption means data is encrypted before it leaves the customer environment and remains encrypted in transit and at rest until the customer decrypts it. SSE-S3 encrypts after upload inside S3; Shield and GuardDuty address DDoS and threat detection, not end-to-end data encryption.',
+  },
+  {
+    id: 'sc-082',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['cli', 'access-keys', 'study-guide'],
+    question: 'How are requests to the AWS Command Line Interface (AWS CLI) authenticated?',
+    options: [
+      'Access key ID and secret access key',
+      'IAM user console password only',
+      'AWS account root email address',
+      'Amazon Cognito user pool token only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The AWS CLI uses programmatic credentials—an access key ID paired with a secret access key—configured through aws configure or environment variables. Console passwords are for web sign-in; Cognito serves application end users, not CLI administration by default.',
+  },
+  {
+    id: 'sc-083',
+    domain: 'security-compliance',
+    task: '2.2',
+    tags: ['iam', 'programmatic-access', 'study-guide'],
+    question:
+      'An IAM user is created with programmatic access only for API and CLI use. Which credential is NOT required?',
+    options: [
+      'Console password',
+      'Access key ID',
+      'Secret access key',
+      'IAM permissions via policies',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Programmatic-only IAM users authenticate with access keys for APIs and the CLI—they do not sign in to the AWS Management Console and therefore do not need a console password or MFA for console login. They still need policies granting permitted actions.',
+  },
+  {
+    id: 'sc-084',
+    domain: 'security-compliance',
+    task: '2.3',
+    tags: ['ebs', 'encryption', 'study-guide'],
+    question:
+      'When can you enable encryption on an existing Amazon EBS volume that was created unencrypted?',
+    options: [
+      'You cannot—EBS volumes must be encrypted at creation time',
+      'Any time using the EC2 console Encrypt button',
+      'Automatically on the next reboot',
+      'Only during a snapshot restore to a new volume',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Per AWS design, EBS encryption is selected when the volume is created. To encrypt existing data, create an encrypted snapshot or copy to a new encrypted volume— you cannot toggle encryption on an in-place unencrypted volume.',
+  },
+  {
+    id: 'sc-085',
+    domain: 'security-compliance',
+    task: '2.4',
+    tags: ['security-groups', 'vpc', 'study-guide'],
+    question:
+      'What are the default rules when you create a new Amazon EC2 security group?',
+    options: [
+      'No inbound rules; outbound traffic to all destinations is allowed',
+      'Inbound HTTP and HTTPS from anywhere; no outbound rules',
+      'Deny all inbound and outbound traffic until you add allow rules',
+      'Allow all inbound and outbound traffic until you add deny rules',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Security groups are stateful and allow-only: a new group has no inbound rules (implicit deny inbound) and a default outbound rule allowing all traffic. You add inbound allow rules as needed; security groups cannot contain explicit deny rules.',
+  },
 ]

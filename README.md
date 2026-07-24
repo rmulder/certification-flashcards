@@ -6,7 +6,7 @@ A local study app for IT certification exams. Runs entirely in your browser with
 
 | Code | Exam | Status |
 |------|------|--------|
-| CLF-C02 | AWS Certified Cloud Practitioner | **Available** (416 cards) — *start here* |
+| CLF-C02 | AWS Certified Cloud Practitioner | **Available** (451 cards) — *start here* |
 | AIF-C01 | AWS Certified AI Practitioner | **Available** (190 cards) — *start here* |
 | DVA-C02 | AWS Certified Developer - Associate | **Available** (190 cards) |
 | SAA-C03 | AWS Certified Solutions Architect - Associate | **Available** (190 cards) |

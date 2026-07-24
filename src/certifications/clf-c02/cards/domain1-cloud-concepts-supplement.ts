@@ -524,4 +524,72 @@ export const cloudConceptsSupplementCards: Card[] = [
     explanation:
       'Automation (for example with CloudFormation or CI/CD) enables rapid, repeatable infrastructure changes so teams can deploy and update environments quickly without manual steps. Repeatable configurations and improved productivity are related benefits; automated testing validates changes—the exam item identifies rapid changes as the benefit tied to swift adaptation.',
   },
+  {
+    id: 'cc-074',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['cloud-models', 'iaas', 'study-guide'],
+    question:
+      'Which cloud service model gives customers access to virtualized units of a provider\'s physical resources and lets them manage infrastructure much like local physical servers?',
+    options: [
+      'Infrastructure as a Service (IaaS)',
+      'Platform as a Service (PaaS)',
+      'Software as a Service (SaaS)',
+      'Function as a Service (FaaS) only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'IaaS (for example Amazon EC2) provides virtual compute, storage, and networking that customers configure and operate. PaaS masks infrastructure complexity for application deployment; SaaS delivers ready-to-use applications; FaaS is event-driven compute, not full infrastructure control.',
+  },
+  {
+    id: 'cc-075',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['virtualization', 'study-guide'],
+    question: 'What is a hypervisor in cloud computing?',
+    options: [
+      'Software that administers virtualized operations on physical hardware',
+      'Dedicated hardware that replaces all physical servers',
+      'A network firewall inside every VPC',
+      'An AWS billing report for EC2 usage',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'A hypervisor is software that creates and runs virtual machines on physical hosts, enabling cloud providers to partition hardware among many customers. AWS operates the hypervisor layer as part of security OF the cloud; customers do not manage hypervisors on EC2.',
+  },
+  {
+    id: 'cc-076',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['governance', 'acceptable-use', 'study-guide'],
+    question:
+      'Which AWS document defines permitted and prohibited uses of AWS services and should be reviewed for acceptable workload behavior?',
+    options: [
+      'AWS Acceptable Use Policy',
+      'AWS Pricing Calculator user guide',
+      'Amazon EC2 instance type catalog',
+      'AWS CloudFormation template reference',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The AWS Acceptable Use Policy describes allowed and forbidden activities on AWS (for example spam, malware, and illegal content). Violations may be reported to the AWS Abuse Team. Pricing and technical references do not define acceptable use rules.',
+  },
+  {
+    id: 'cc-077',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['global-services', 'regions', 'study-guide'],
+    question:
+      'Which AWS services are considered global and are not restricted to a single AWS Region? (Select TWO.)',
+    options: [
+      'Amazon Route 53',
+      'Amazon EC2',
+      'Amazon CloudFront',
+      'Amazon RDS',
+      'Amazon EBS',
+    ],
+    correctAnswers: [0, 2],
+    explanation:
+      'Route 53 (DNS) and CloudFront (CDN) operate globally across edge locations and DNS endpoints. EC2, RDS, and EBS are Regional services—you launch or create them in a specific Region and Availability Zone.',
+  },
 ]

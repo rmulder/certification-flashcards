@@ -353,4 +353,157 @@ export const billingSupplementCards: Card[] = [
     explanation:
       'Infrastructure Event Management (IEM) at no extra charge is included with Enterprise Support, helping with architectural guidance during planned events such as launches and traffic spikes. Business can purchase IEM for an additional fee per event; Developer and Basic do not include IEM.',
   },
+  {
+    id: 'bill-057',
+    domain: 'billing-pricing',
+    task: '4.3',
+    tags: ['support', 'sla', 'study-guide'],
+    question:
+      'Which AWS Support plans include help for a production system down event within one hour?',
+    options: [
+      'Business and Enterprise Support',
+      'Basic Support only',
+      'Developer Support only',
+      'No paid support plan offers one-hour production response',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Business and Enterprise Support include 24/7 access and response-time targets for production system down cases (within one hour for Business, faster tiers for Enterprise business-critical cases). Basic and Developer lack production down SLAs at that level.',
+  },
+  {
+    id: 'bill-058',
+    domain: 'billing-pricing',
+    task: '4.3',
+    tags: ['support', 'documentation', 'study-guide'],
+    question:
+      'Which AWS resource is a FAQ-style collection of answers to common technical problems?',
+    options: [
+      'AWS Knowledge Center',
+      'AWS Cost and Usage Report',
+      'Amazon EC2 launch template library',
+      'AWS Artifact compliance agreements only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The Knowledge Center provides FAQ articles for frequent technical issues and solutions. Official documentation at docs.aws.amazon.com covers comprehensive guides. CUR is billing data; launch templates configure EC2; Artifact hosts compliance documents.',
+  },
+  {
+    id: 'bill-059',
+    domain: 'billing-pricing',
+    task: '4.2',
+    tags: ['cloudtrail', 'logging', 'study-guide'],
+    question:
+      'How long does AWS CloudTrail Event history retain management events at no additional charge?',
+    options: [
+      '90 days',
+      '7 days',
+      '1 year',
+      'Indefinitely in every Region',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'CloudTrail Event history in the console stores the last 90 days of management events per Region at no charge. Longer retention, data events, and multi-Region trails require creating a trail that delivers logs to S3 (and optionally CloudWatch Logs).',
+  },
+  {
+    id: 'bill-060',
+    domain: 'billing-pricing',
+    task: '4.2',
+    tags: ['cloudtrail', 'integrity', 'study-guide'],
+    question:
+      'Which CloudTrail feature uses cryptographic hashing to help verify that log files have not been modified after delivery to Amazon S3?',
+    options: [
+      'Log file integrity validation',
+      'AWS Config rules',
+      'Amazon GuardDuty findings',
+      'VPC Flow Logs',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Log file integrity validation creates SHA-256 hashes and signed digest files so you can detect tampering with CloudTrail logs in S3. It does not prevent deletion or show how files were altered. Config, GuardDuty, and Flow Logs serve other purposes.',
+  },
+  {
+    id: 'bill-061',
+    domain: 'billing-pricing',
+    task: '4.2',
+    tags: ['reserved-instances', 'reporting', 'study-guide'],
+    question:
+      'Which report shows how much you saved by using Reserved Instances compared with On-Demand pricing?',
+    options: [
+      'Reserved Instances Utilization report',
+      'Reserved Instances Coverage report',
+      'AWS Trusted Advisor Performance checks',
+      'Amazon Inspector assessment report',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The RI Utilization report shows savings from reservations you purchased. The Coverage report shows how much usage could have been covered by RIs (potential savings). Trusted Advisor and Inspector do not report RI savings.',
+  },
+  {
+    id: 'bill-062',
+    domain: 'billing-pricing',
+    task: '4.2',
+    tags: ['tags', 'administration', 'study-guide'],
+    question:
+      'When creating an AWS resource tag, which components are required?',
+    options: [
+      'A tag key; the tag value is optional',
+      'Both key and value are always required',
+      'Only a value; AWS assigns the key',
+      'Tags require approval from AWS Support before use',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Every tag must have a key; the value can be empty or omitted. Tags are case-sensitive, need not be unique account-wide, and help organize resources for administration and (when activated) cost allocation.',
+  },
+  {
+    id: 'bill-063',
+    domain: 'billing-pricing',
+    task: '4.1',
+    tags: ['cost-optimization', 'study-guide'],
+    question:
+      'Which AWS resources typically incur NO charges when they exist but contain no running workloads or objects?',
+    options: [
+      'An empty Amazon VPC and an empty Amazon S3 bucket',
+      'A stopped Amazon EC2 instance with attached EBS volumes',
+      'An Application Load Balancer with no targets',
+      'An Amazon RDS DB instance in available state',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Empty VPCs and empty S3 buckets alone do not generate usage charges—you pay for resources inside them (NAT gateways, EC2, stored objects, etc.). Stopped EC2 still bills attached EBS; ALB and RDS bill while provisioned.',
+  },
+  {
+    id: 'bill-064',
+    domain: 'billing-pricing',
+    task: '4.2',
+    tags: ['trusted-advisor', 'performance', 'study-guide'],
+    question:
+      'Which AWS Trusted Advisor category identifies configuration settings that might block performance improvements?',
+    options: [
+      'Performance',
+      'Cost Optimization',
+      'Service Limits',
+      'Fault Tolerance',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Trusted Advisor Performance checks flag issues such as under-provisioned EBS throughput or suboptimal instance choices. Cost Optimization finds unused spend; Service Limits warns on quotas; Fault Tolerance highlights backup and redundancy gaps.',
+  },
+  {
+    id: 'bill-065',
+    domain: 'billing-pricing',
+    task: '4.3',
+    tags: ['regions', 'govcloud', 'study-guide'],
+    question:
+      'Which AWS Region is designed for sensitive workloads and is available only to authorized U.S. customers meeting specific compliance requirements?',
+    options: [
+      'AWS GovCloud (US)',
+      'Asia Pacific (Tokyo)',
+      'Europe (London)',
+      'US East (N. Virginia)',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS GovCloud (US) Regions isolate workloads for federal, state, and local government and regulated industry customers with stricter access requirements. Standard commercial Regions such as us-east-1, eu-west-2, and ap-northeast-1 are open to general AWS accounts.',
+  },
 ]
