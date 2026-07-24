@@ -675,4 +675,38 @@ export const securitySupplementCards: Card[] = [
     explanation:
       'Security groups are stateful and allow-only: a new group has no inbound rules (implicit deny inbound) and a default outbound rule allowing all traffic. You add inbound allow rules as needed; security groups cannot contain explicit deny rules.',
   },
+  {
+    id: 'sc-086',
+    domain: 'security-compliance',
+    task: '2.1',
+    tags: ['shared-responsibility', 'rds', 'sample-exam'],
+    question:
+      'Under the AWS Shared Responsibility Model, who is responsible for securing the database schema and data in Amazon RDS?',
+    options: [
+      'The customer',
+      'AWS',
+      'Neither—the service is fully managed with no customer security tasks',
+      'A third-party auditor assigned by AWS',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS secures the cloud infrastructure running RDS (host OS patching, physical security). Customers secure data in the cloud: database schema design, user permissions, encryption choices, network access (security groups), and application-level controls.',
+  },
+  {
+    id: 'sc-087',
+    domain: 'security-compliance',
+    task: '2.1',
+    tags: ['shared-responsibility', 'rds', 'ec2', 'sample-exam'],
+    question:
+      'When comparing Amazon RDS to running a database on self-managed Amazon EC2 instances, which statement is correct?',
+    options: [
+      'RDS offloads more database management tasks (such as patching and backups) to AWS than self-managed databases on EC2',
+      'Customers patch the database engine on RDS just as they would on EC2',
+      'AWS has no responsibility for RDS infrastructure security',
+      'EC2 always requires less customer operational responsibility than RDS',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Managed RDS handles infrastructure tasks like engine patching, automated backups, and Multi-AZ failover options. On EC2, customers manage the guest OS, database installation, patching, and backup strategy. Both models still require customers to secure data and access.',
+  },
 ]

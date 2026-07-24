@@ -592,4 +592,54 @@ export const cloudConceptsSupplementCards: Card[] = [
     explanation:
       'Route 53 (DNS) and CloudFront (CDN) operate globally across edge locations and DNS endpoints. EC2, RDS, and EBS are Regional services—you launch or create them in a specific Region and Availability Zone.',
   },
+  {
+    id: 'cc-078',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'operational-excellence', 'sample-exam'],
+    question:
+      'Which AWS Well-Architected Framework pillar focuses on running and monitoring systems to deliver business value and continually improving processes and procedures?',
+    options: [
+      'Operational Excellence',
+      'Performance Efficiency',
+      'Reliability',
+      'Security',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Operational Excellence covers how you run workloads, observe them, and improve operations over time. Performance Efficiency focuses on efficient resource use; Reliability on recovery and availability; Security on protecting data and systems.',
+  },
+  {
+    id: 'cc-079',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['caf', 'migration', 'sample-exam'],
+    question:
+      'What is a key advantage of following a structured framework such as the AWS Cloud Adoption Framework (AWS CAF) during cloud transition?',
+    options: [
+      'Increased operational efficiency through guided best practices and streamlined decision-making',
+      'Unlimited free data storage for all workloads',
+      'Zero need for IT staff after migration',
+      'Automatic elimination of all compliance requirements',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS CAF organizes guidance across perspectives (business, people, governance, platform, security, operations) to help teams adopt cloud consistently, reducing rework and improving operational efficiency. It does not remove staffing, compliance, or storage costs.',
+  },
+  {
+    id: 'cc-080',
+    domain: 'cloud-concepts',
+    task: '1.4',
+    tags: ['economics', 'variable-cost', 'sample-exam'],
+    question: 'Which example best describes a variable cost in cloud computing?',
+    options: [
+      'Paying per hour for an Amazon EC2 instance based on how long it runs',
+      'A one-time purchase of on-premises server hardware',
+      'A fixed annual software license regardless of user count',
+      'Monthly rent for a data center facility that does not change with usage',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Variable (consumption-based) costs rise and fall with usage—such as EC2 hours, S3 storage GB-months, or Lambda invocations. Upfront hardware, fixed licenses, and flat facility rent are fixed costs typical of on-premises models.',
+  },
 ]

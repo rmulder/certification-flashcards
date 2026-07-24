@@ -506,4 +506,55 @@ export const billingSupplementCards: Card[] = [
     explanation:
       'AWS GovCloud (US) Regions isolate workloads for federal, state, and local government and regulated industry customers with stricter access requirements. Standard commercial Regions such as us-east-1, eu-west-2, and ap-northeast-1 are open to general AWS accounts.',
   },
+  {
+    id: 'bill-066',
+    domain: 'billing-pricing',
+    task: '4.3',
+    tags: ['prescriptive-guidance', 'documentation', 'sample-exam'],
+    question:
+      'You need step-by-step instructions and architectural best practices for implementing a cloud solution. Which AWS technical resource should you use?',
+    options: [
+      'AWS Prescriptive Guidance',
+      'AWS re:Post only',
+      'AWS Marketplace',
+      'AWS Cost Explorer',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS Prescriptive Guidance provides proven patterns, step-by-step implementation guides, and architectural best practices for building on AWS. re:Post is a community Q&A forum; Marketplace sells third-party products; Cost Explorer analyzes spend.',
+  },
+  {
+    id: 'bill-067',
+    domain: 'billing-pricing',
+    task: '4.1',
+    tags: ['spot', 'pricing-models', 'sample-exam'],
+    question:
+      'A non-production workload runs only during office hours and can tolerate interruptions. Which EC2 pricing model BEST optimizes cost?',
+    options: [
+      'Spot Instances',
+      'On-Demand Instances',
+      'Reserved Instances (All Upfront)',
+      'Compute Savings Plans with a three-year commitment',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Spot Instances offer the deepest discounts for interruptible, flexible workloads that do not need to run continuously. On-Demand suits unpredictable but non-interruptible use; Reserved Instances and Savings Plans require commitment and fit steady 24/7 usage better.',
+  },
+  {
+    id: 'bill-068',
+    domain: 'billing-pricing',
+    task: '4.2',
+    tags: ['organizations', 'reserved-instances', 'sample-exam'],
+    question:
+      'A company uses AWS Organizations and purchases Reserved Instances in the management account. How do other member accounts benefit?',
+    options: [
+      'Matching instances in member accounts automatically receive the RI pricing discount when shared billing is enabled',
+      'Member accounts must purchase their own identical RIs to get any discount',
+      'RI discounts apply only to the management account and never to member accounts',
+      'Member accounts must submit a support ticket to join the RI pool each month',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'With Organizations consolidated billing, Reserved Instance benefits can apply to matching instance usage across linked accounts in the organization—not only in the account that purchased them. Instance type, Region, platform, and tenancy must match the reservation.',
+  },
 ]

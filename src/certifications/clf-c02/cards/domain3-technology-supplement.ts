@@ -1345,4 +1345,87 @@ export const technologySupplementCards: Card[] = [
     explanation:
       'Latency routing uses health checks and latency measurements to route each user to the lowest-latency healthy endpoint among Regions. Failover switches primary/secondary; Simple returns one record; Multivalue returns multiple healthy records.',
   },
+  {
+    id: 'tech-167',
+    domain: 'cloud-technology',
+    task: '3.7',
+    tags: ['polly', 'ai', 'sample-exam'],
+    question: 'Which AWS service converts text into lifelike spoken audio?',
+    options: [
+      'Amazon Polly',
+      'Amazon Transcribe',
+      'Amazon Lex',
+      'Amazon Comprehend',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Polly is a text-to-speech (TTS) service. Transcribe converts speech to text; Lex builds conversational bots with NLU; Comprehend extracts insights from text but does not synthesize speech.',
+  },
+  {
+    id: 'tech-168',
+    domain: 'cloud-technology',
+    task: '3.7',
+    tags: ['transcribe', 'ai', 'sample-exam'],
+    question: 'Which AWS service converts speech audio into text?',
+    options: [
+      'Amazon Transcribe',
+      'Amazon Polly',
+      'Amazon Lex',
+      'Amazon SageMaker',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Transcribe provides automatic speech recognition (ASR) to turn audio into text—for example call recordings or media captions. Polly does the reverse (text to speech). Lex combines ASR and NLU for chatbots; SageMaker builds custom ML models.',
+  },
+  {
+    id: 'tech-169',
+    domain: 'cloud-technology',
+    task: '3.5',
+    tags: ['aurora', 'databases', 'sample-exam'],
+    question:
+      'Which AWS service is a fully managed relational database that automatically scales storage and compute, with MySQL and PostgreSQL compatibility?',
+    options: [
+      'Amazon Aurora',
+      'Amazon RDS for Oracle only',
+      'Amazon DynamoDB',
+      'Amazon Redshift',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Aurora is AWS\'s cloud-native relational engine with auto-scaling storage, fast failover, and MySQL/PostgreSQL compatibility. Standard RDS engines scale with more manual sizing; DynamoDB is NoSQL; Redshift is a data warehouse.',
+  },
+  {
+    id: 'tech-170',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['s3', 'glacier', 'archive', 'sample-exam'],
+    question:
+      'A company must preserve marketing images and videos indefinitely with rare access and the lowest storage cost. Which option is MOST appropriate?',
+    options: [
+      'Amazon S3 Glacier',
+      'Amazon EBS volumes',
+      'Amazon EFS Standard',
+      'Amazon RDS with BLOB storage',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'S3 Glacier storage classes are designed for archival data accessed infrequently, with high durability at low cost per GB. EBS and EFS are block/file storage for active workloads; RDS BLOBs are costly and not suited to large static media archives.',
+  },
+  {
+    id: 'tech-171',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['s3', 'lifecycle', 'cost', 'sample-exam'],
+    question:
+      'Videos are streamed heavily for 30 days, accessed occasionally for 5 months, then kept for compliance with almost no access. Which lifecycle strategy offers the LOWEST total cost?',
+    options: [
+      'S3 Standard for 30 days, transition to S3 Standard-IA, then to S3 Glacier Deep Archive after 6 months',
+      'Keep all objects in S3 One Zone-IA for the entire lifecycle',
+      'Store everything in Amazon EFS Infrequent Access',
+      'Use S3 Intelligent-Tiering with archive tiers enabled from day one for all objects',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Tiered S3 lifecycle rules match cost to access patterns: Standard for hot streaming, Standard-IA for occasional retrieval, then Glacier Deep Archive for long-term compliance at the lowest rate. One Zone-IA sacrifices performance and multi-AZ durability; EFS costs more than S3 for object archives; Intelligent-Tiering adds monitoring fees that may exceed planned transitions.',
+  },
 ]
