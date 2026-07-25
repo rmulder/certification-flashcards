@@ -1,7 +1,6 @@
 import type { Card } from '../types'
 import { isAnswerCorrect } from '../lib/quiz'
-
-const LETTERS = ['A', 'B', 'C', 'D', 'E']
+import { formatOptionLabel } from '../lib/option-label'
 
 interface McqQuestionProps {
   card: Card
@@ -58,7 +57,7 @@ export function McqQuestion({
             onClick={() => onSelect(index)}
             disabled={disabled || showResult}
           >
-            <span className="option-letter">{LETTERS[index]}.</span>
+            <span className="option-letter">{formatOptionLabel(index)}</span>
             <span>{option}</span>
           </button>
         ))}

@@ -212,4 +212,21 @@ export const sharedResponsibilitySupplementCards: Card[] = [
     explanation:
       'IaaS on AWS (for example Amazon EC2) leaves the customer responsible for security in the cloud: network access controls (security groups), guest OS updates, IAM, and application patching. AWS maintains physical security of data centers and provides encryption services (KMS and others); customers choose to implement encryption but AWS supplies the tools.',
   },
+  {
+    id: 'sc-139',
+    domain: 'security-compliance',
+    task: '2.1',
+    tags: ['shared-responsibility', 'ec2', 'iaas', 'examtopics', 'sample-exam'],
+    question:
+      'A company wants to run a NoSQL database on Amazon EC2 instances. Which task is the responsibility of AWS in this scenario?',
+    options: [
+      'Update the guest operating system of the EC2 instances.',
+      'Maintain high availability at the database layer.',
+      'Patch the physical infrastructure that hosts the EC2 instances.',
+      'Configure the security group firewall.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'On EC2 (IaaS), AWS secures the cloud: physical data centers, hardware, networking, and the hypervisor. Customers manage security in the cloud: guest OS patching, database software, high availability design, and security groups.',
+  },
 ]

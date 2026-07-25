@@ -1,4 +1,4 @@
-import type { Card, DomainInfo, MockExamSettings, QuizResult } from '../types'
+import type { Card, CardRating, DomainInfo, MockExamSettings, QuizResult } from '../types'
 
 function hashStringToUint32(input: string): number {
   let hash = 2166136261
@@ -68,6 +68,45 @@ export function dedupeCards(cards: Card[]): Card[] {
     result.push(card)
   }
   return result
+}
+
+function getCardRating(
+  progress: Record<string, { rating: string }> | undefined,
+  cardId: string,
+): CardRating {
+  const rating = progress?.[cardId]?.rating
+  if (rating === 'known' || rating === 'learning' || rating === 'unknown') return rating
+  return 'unknown'
+}
+
+/** Study deck: skip Known cards; order Not reviewed first, then Learning (shuffled within each tier). */
+export function buildStudyDeck(
+  cards: Card[],
+  domain: string | 'all' | undefined,
+  progress: Record<string, { rating: string }> | undefined,
+  sessionSeed: number,
+): Card[] {
+  let filtered = dedupeCards(cards)
+  if (domain && domain !== 'all') {
+    filtered = filtered.filter((c) => c.domain === domain)
+  }
+
+  const unknown: Card[] = []
+  const learning: Card[] = []
+
+  for (const card of filtered) {
+    const rating = getCardRating(progress, card.id)
+    if (rating === 'known') continue
+    if (rating === 'learning') learning.push(card)
+    else unknown.push(card)
+  }
+
+  const ordered = [
+    ...shuffleWithRng(unknown, mulberry32(sessionSeed)),
+    ...shuffleWithRng(learning, mulberry32(sessionSeed + 1)),
+  ]
+
+  return ordered.map((c) => shuffleCardOptions(c, sessionSeed))
 }
 
 export function filterCards(

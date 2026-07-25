@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Card, CardRating, CertProgress, DomainInfo } from '../types'
 import { cardsInScope, countRatings, formatRatingBreakdown } from '../lib/progress-stats'
-import { filterCards, shuffle, shuffleCardOptions, dedupeCards } from '../lib/quiz'
+import { buildStudyDeck } from '../lib/quiz'
 import { updateCardRating } from '../lib/storage'
 import { CardFlip } from './CardFlip'
 
@@ -12,7 +12,6 @@ interface StudySessionProps {
   progress: CertProgress
   onProgressChange: (p: CertProgress | ((prev: CertProgress) => CertProgress)) => void
   onBack: () => void
-  weakOnly?: boolean
 }
 
 export function StudySession({
@@ -22,7 +21,6 @@ export function StudySession({
   progress,
   onProgressChange,
   onBack,
-  weakOnly = false,
 }: StudySessionProps) {
   const [deck, setDeck] = useState<Card[]>([])
   const [index, setIndex] = useState(0)
@@ -32,17 +30,10 @@ export function StudySession({
 
   useEffect(() => {
     const seed = Date.now()
-    const filtered = filterCards(
-      allCards,
-      domain,
-      weakOnly,
-      progressRef.current.cards,
-    )
-    const pool = dedupeCards(filtered.length ? filtered : allCards)
-    setDeck(shuffle(pool).map((c) => shuffleCardOptions(c, seed)))
+    setDeck(buildStudyDeck(allCards, domain, progressRef.current.cards, seed))
     setIndex(0)
     setFlipped(false)
-  }, [allCards, domain, weakOnly])
+  }, [allCards, domain])
 
   const card = deck[index]
   const domainLabel =
@@ -56,9 +47,17 @@ export function StudySession({
       if (!card) return
       onProgressChange((prev) => updateCardRating(prev, card.id, rating))
       setFlipped(false)
-      if (index < deck.length - 1) setIndex((i) => i + 1)
+      if (rating === 'known') {
+        setDeck((d) => {
+          const next = d.filter((c) => c.id !== card.id)
+          setIndex((i) => Math.min(i, Math.max(0, next.length - 1)))
+          return next
+        })
+      } else if (index < deck.length - 1) {
+        setIndex((i) => i + 1)
+      }
     },
-    [card, progress, onProgressChange, index, deck.length],
+    [card, onProgressChange, index, deck.length],
   )
 
   useEffect(() => {
@@ -86,7 +85,7 @@ export function StudySession({
           ← Back
         </button>
         <p style={{ marginTop: '2rem', textAlign: 'center' }}>
-          No cards match your filters.
+          Nothing left to study in this scope — all cards are marked <strong>Known</strong>.
         </p>
       </div>
     )
@@ -101,7 +100,9 @@ export function StudySession({
         <div>
           <h1>Study Mode</h1>
           <span className="header-sub">{domainLabel}</span>
-          <span className="header-sub rating-breakdown">{formatRatingBreakdown(scopeCounts)}</span>
+          <span className="header-sub rating-breakdown">
+            {formatRatingBreakdown(scopeCounts)} · skipping known
+          </span>
         </div>
         <span className="counter">
           {index + 1} / {deck.length}

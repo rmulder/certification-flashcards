@@ -1,6 +1,5 @@
 import type { Card } from '../types'
-
-const LETTERS = ['A', 'B', 'C', 'D', 'E']
+import { formatOptionLabel } from '../lib/option-label'
 
 interface CardFlipProps {
   card: Card
@@ -38,7 +37,7 @@ export function CardFlip({ card, flipped, onFlip, domainName }: CardFlipProps) {
           <div className="study-options">
             {card.options.map((option, i) => (
               <div key={i} className="study-option">
-                <span className="option-letter">{LETTERS[i]}.</span>
+                <span className="option-letter">{formatOptionLabel(i)}</span>
                 <span>{option}</span>
               </div>
             ))}
@@ -54,7 +53,7 @@ export function CardFlip({ card, flipped, onFlip, domainName }: CardFlipProps) {
                   key={i}
                   className={`study-option ${isCorrect ? 'study-option-correct' : ''}`}
                 >
-                  <span className="option-letter">{LETTERS[i]}.</span>
+                  <span className="option-letter">{formatOptionLabel(i)}</span>
                   <span>{option}</span>
                 </div>
               )

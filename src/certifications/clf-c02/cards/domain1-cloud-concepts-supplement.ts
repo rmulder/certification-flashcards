@@ -880,4 +880,1078 @@ export const cloudConceptsSupplementCards: Card[] = [
     explanation:
       'The Envision phase establishes the business case and desired outcomes for cloud adoption. Align maps organizational capabilities to the plan; Launch and Scale execute and expand workloads. CAF also uses perspectives (Governance, People, etc.) alongside these journey phases.',
   },
+  {
+    id: 'cc-096',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['caf', 'governance', 'examtopics', 'sample-exam'],
+    question:
+      'Which option is a perspective that includes foundational capabilities of the AWS Cloud Adoption Framework (AWS CAF)?',
+    options: [
+      'Sustainability',
+      'Performance efficiency',
+      'Governance',
+      'Reliability',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'AWS CAF organizes guidance into six perspectives: Business, People, Governance, Platform, Security, and Operations—each with foundational capabilities. Sustainability, Performance efficiency, and Reliability are AWS Well-Architected Framework pillar names, not CAF perspective names.',
+  },
+  {
+    id: 'cc-097',
+    domain: 'cloud-concepts',
+    task: '1.4',
+    tags: ['elasticity', 'well-architected', 'examtopics', 'sample-exam'],
+    question:
+      'One of the most important AWS best-practices to follow is the cloud architecture principle of elasticity. How does this principle improve your architecture’s design?',
+    options: [
+      'By automatically scaling your on-premises resources based on changes in demand.',
+      'By automatically scaling your AWS resources using an Elastic Load Balancer.',
+      'By reducing interdependencies between application components wherever possible.',
+      'By automatically provisioning the required AWS resources based on changes in demand.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Elasticity means AWS resources expand or contract to match demand—often with Auto Scaling and related services—so capacity follows workload changes. On-premises auto-scaling is not an AWS cloud principle; ELB distributes traffic but does not define elasticity by itself; reducing interdependencies describes loose coupling.',
+  },
+  {
+    id: 'cc-098',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['iaas', 'paas', 'saas', 'cloud-models', 'examtopics', 'sample-exam'],
+    question:
+      'Which of the following does NOT belong to the AWS Cloud Computing models?',
+    options: [
+      'Platform as a Service (PaaS)',
+      'Infrastructure as a Service (IaaS)',
+      'Software as a Service (SaaS)',
+      'Networking as a Service (NaaS)',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'The three common cloud service models on AWS are IaaS (for example EC2), PaaS (for example Elastic Beanstalk), and SaaS (for example WorkMail). Networking as a Service (NaaS) is not one of these standard cloud computing model categories in AWS exam terminology.',
+  },
+  {
+    id: 'cc-099',
+    domain: 'cloud-concepts',
+    task: '1.4',
+    tags: ['managed-services', 'dynamodb', 'emr', 'examtopics', 'sample-exam'],
+    question:
+      'Which of the following are examples of AWS-Managed Services, where AWS is responsible for the operational and maintenance burdens of running the service? (Choose TWO.)',
+    options: [
+      'Amazon VPC',
+      'Amazon DynamoDB',
+      'Amazon Elastic MapReduce',
+      'AWS IAM',
+      'Amazon Elastic Compute Cloud',
+    ],
+    correctAnswers: [1, 2],
+    explanation:
+      'Amazon DynamoDB and Amazon EMR (Elastic MapReduce) are managed services where AWS handles much of the underlying infrastructure operations and maintenance. Amazon VPC and EC2 are IaaS building blocks you configure and operate; IAM is an identity service you configure with policies and users—not a compute/data platform with AWS-run infrastructure patching like DynamoDB or EMR clusters.',
+  },
+  {
+    id: 'cc-100',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['benefits', 'cloud-vs-on-premises', 'examtopics', 'sample-exam'],
+    question:
+      'What are two advantages of using Cloud Computing over using traditional data centers? (Choose TWO.)',
+    options: [
+      'Reserved Compute capacity',
+      'Eliminating Single Points of Failure (SPOFs)',
+      'Distributed infrastructure',
+      'Virtualized compute resources',
+      'Dedicated hosting',
+    ],
+    correctAnswers: [1, 2],
+    explanation:
+      'Cloud providers operate distributed infrastructure across Availability Zones and Regions, which helps you design for resilience and reduce reliance on a single facility or component. Reserved capacity is a pricing option, not a fundamental cloud-versus-datacenter advantage; virtualization and dedicated hosting are also common in traditional data centers.',
+  },
+  {
+    id: 'cc-101',
+    domain: 'cloud-concepts',
+    task: '1.4',
+    tags: ['disaster-recovery', 'multi-region', 'high-availability', 'examtopics', 'sample-exam'],
+    question:
+      'A company has business critical workloads hosted on AWS and they are unwilling to accept any downtime. Which of the following is a recommended best practice to protect their workloads in the event of an unexpected natural disaster?',
+    options: [
+      'Replicate data across multiple Edge Locations worldwide and use Amazon CloudFront to perform automatic failover in the event of an outage.',
+      'Deploy AWS resources across multiple Availability Zones within the same AWS Region.',
+      'Create point-in-time backups in another subnet and recover this data when a disaster occurs.',
+      'Deploy AWS resources to another AWS Region and implement an Active-Active disaster recovery strategy.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Natural disasters can affect an entire AWS Region. For near-zero downtime, run Active-Active (or hot standby) workloads in a second Region with traffic routed to healthy endpoints. Multi-AZ protects against AZ failure within a Region; CloudFront edge caches content but is not a full application DR strategy; subnet backups alone imply recovery delay (RTO), not continuous availability.',
+  },
+  {
+    id: 'cc-102',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'operational-excellence', 'cloudformation', 'examtopics', 'sample-exam'],
+    question:
+      'Which of the following activities supports the Operational Excellence pillar of the AWS Well-Architected Framework?',
+    options: [
+      'Using AWS Trusted Advisor to find underutilized resources.',
+      'Using AWS CloudTrail to record user activities.',
+      'Using AWS CloudFormation to manage infrastructure as code.',
+      'Deploying an application in multiple Availability Zones.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Operational Excellence emphasizes running and improving systems through automation, IaC, and repeatable operations—CloudFormation codifies infrastructure for consistent deploys and changes. Trusted Advisor unused resources aligns with Cost Optimization; CloudTrail audit logs support Security and governance; Multi-AZ deployments primarily support Reliability.',
+  },
+  {
+    id: 'cc-103',
+    domain: 'cloud-concepts',
+    task: '1.3',
+    tags: ['map', 'migration', 'professional-services', 'partners', 'examtopics', 'sample-exam'],
+    question:
+      'As part of the AWS Migration Acceleration Program (MAP), what does AWS provide to accelerate Enterprise adoption of AWS? (Choose TWO.)',
+    options: [
+      'AWS Partners',
+      'AWS Artifact',
+      'AWS Professional Services',
+      'Amazon Athena',
+      'Amazon PinPoint',
+    ],
+    correctAnswers: [0, 2],
+    explanation:
+      'MAP combines AWS funding, tools, and methodology with AWS Professional Services and the AWS Partner Network to help enterprises migrate at scale. Artifact hosts compliance reports; Athena queries S3 data; Pinpoint is a customer engagement messaging service—not core MAP delivery mechanisms.',
+  },
+  {
+    id: 'cc-104',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['regions', 'global-infrastructure', 'examtopics', 'sample-exam'],
+    question:
+      'Which of the following factors should be considered when determining the region in which AWS Resources will be deployed? (Choose TWO)',
+    options: [
+      "The AWS Region's security level.",
+      'Data sovereignty.',
+      'Cost.',
+      'The planned number of VPCs.',
+      "Geographic proximity to the company's location.",
+    ],
+    correctAnswers: [1, 2],
+    explanation:
+      'Region choice should reflect where data may legally reside (data sovereignty and compliance) and how pricing varies by Region. AWS applies a consistent shared responsibility security model across Regions—there is no tiered "security level" per Region. VPC count is a design detail inside a Region, not a primary Region-selection driver; latency to users matters more than proximity to the company headquarters alone.',
+  },
+  {
+    id: 'cc-105',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['availability-zones', 'global-infrastructure', 'examtopics', 'sample-exam'],
+    question:
+      'Availability Zones within a Region are connected over low-latency links. Which of the following is a benefit of these links?',
+    options: [
+      'Create private connection to your data center.',
+      'Achieve global high availability.',
+      'Automate the process of provisioning new compute resources.',
+      'Make synchronous replication of your data possible.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Low-latency networking between Availability Zones in the same Region supports synchronous replication for highly available architectures—for example Multi-AZ databases that keep a standby copy current with minimal delay. Private connections to a data center use Direct Connect or VPN; global availability spans Regions; automated provisioning uses services such as Auto Scaling or CloudFormation.',
+  },
+  {
+    id: 'cc-106',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['availability-zones', 'edge-locations', 'global-infrastructure', 'examtopics', 'sample-exam'],
+    question:
+      'Which of the following is true regarding the AWS availability zones and edge locations?',
+    options: [
+      'Edge locations are located in separate Availability Zones worldwide to serve global customers.',
+      'An availability zone exists within an edge location to distribute content globally with low latency.',
+      'An Availability Zone is a geographic location where AWS provides multiple, physically separated and isolated edge locations.',
+      'An AWS Availability Zone is an isolated location within an AWS Region, however edge locations are located in multiple cities worldwide.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Availability Zones are isolated data centers within an AWS Region for resilient, low-latency workloads. Edge locations (CloudFront points of presence) are separate global sites in many cities used to cache and deliver content closer to users—they are not AZs inside Regions, and AZs are not collections of edge locations.',
+  },
+  {
+    id: 'cc-107',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['benefits', 'economies-of-scale', 'examtopics', 'sample-exam'],
+    question: 'What does the term “Economies of scale” mean?',
+    options: [
+      'It means that you save more when you consume more.',
+      'It means as more time passes using AWS, you pay more for its services.',
+      'It means that AWS will continuously lower costs as it grows.',
+      'It means that you have the ability to pay as you go.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Economies of scale means that as AWS grows and aggregates demand, it can operate more efficiently and pass savings to customers through lower prices over time. Saving more as you personally consume more describes volume/tiered pricing for an individual account; pay-as-you-go is a separate cloud pricing model; usage time alone does not inherently increase what you pay.',
+  },
+  {
+    id: 'cc-108',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['serverless', 'cost', 'benefits', 'examtopics', 'sample-exam'],
+    question:
+      'Why are Serverless Architectures more economical than Server-based Architectures?',
+    options: [
+      'Serverless Architectures use new powerful computing devices.',
+      'With the Server-based Architectures, compute resources continue to run all the time but with serverless architecture, compute resources are only used when code is being executed.',
+      'When you reserve serverless capacity, you will get large discounts compared to server reservation.',
+      'With Serverless Architectures you have the ability to scale automatically up or down as demand changes.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Server-based models such as always-on EC2 instances incur charges while servers run, even at idle. Serverless services such as AWS Lambda bill primarily for actual execution time and requests, so you avoid paying for unused capacity. Auto scaling is a benefit but not the core cost comparison in this answer; serverless does not rely on special hardware or traditional capacity reservations for its economics.',
+  },
+  {
+    id: 'cc-109',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['resource-groups', 'operations', 'practice-exam-7', 'sample-exam'],
+    question:
+      'You manage a blog on AWS that has different environments: development, testing, and production. What can you use to create a custom console for each environment to view and manage your resources easily?',
+    options: [
+      'AWS Resource Groups.',
+      'AWS Placement Groups.',
+      'AWS Management Console.',
+      'AWS Tag Editor.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS Resource Groups let you create custom console views of resources that share tags or other criteria—useful for separating dev, test, and production environments. Placement Groups influence EC2 placement for performance; the Management Console is the overall UI; Tag Editor bulk-edits tags but does not provide saved environment dashboards.',
+  },
+  {
+    id: 'cc-110',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['ec2', 'elasticity', 'cost', 'practice-exam-7', 'sample-exam'],
+    question:
+      'The owner of an E-Commerce application notices that the compute capacity requirements vary heavily from time to time. What makes AWS more economical than traditional data centers for this type of application?',
+    options: [
+      'AWS allows customers to launch powerful EC2 instances to handle spikes in load.',
+      'AWS allows customers to pay upfront to get bigger discounts.',
+      'AWS allows customers to launch and terminate EC2 instances based on demand.',
+      'AWS allows customers to choose cheaper types of EC2 instances that best fit their needs.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Elasticity—launching and terminating (or scaling) capacity with demand—avoids paying for idle servers during low-traffic periods, a key cloud economic benefit. Larger instance types, upfront payments, and instance type selection help cost optimization but do not capture the core pay-for-what-you-use elasticity advantage.',
+  },
+  {
+    id: 'cc-111',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'design-principles', 'practice-exam-7', 'sample-exam'],
+    question:
+      'What are some key design principles for designing public cloud systems? (Choose TWO)',
+    options: [
+      'Reserved capacity instead of on demand.',
+      'Loose coupling over tight coupling.',
+      'Servers instead of managed services.',
+      'Disposable resources instead of fixed servers.',
+      'Multi-AZ deployments instead of multi-region deployments.',
+    ],
+    correctAnswers: [1, 3],
+    explanation:
+      'Cloud-native design favors loosely coupled components and disposable (ephemeral) resources that can be replaced rather than pet servers you maintain indefinitely. On-demand capacity, managed services, and multi-Region designs are often preferred over the opposite choices in this question.',
+  },
+  {
+    id: 'cc-112',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['high-availability', 'regions', 'practice-exam-7', 'sample-exam'],
+    question:
+      'You have developed a web application targeting a global audience. Which of the following will help you achieve the highest redundancy and fault tolerance from an infrastructure perspective?',
+    options: [
+      'There is no need to architect for these capabilities in AWS, as AWS is redundant by default.',
+      'Deploy the application in a single Availability Zone.',
+      'Deploy the application in multiple Availability Zones in a single AWS region.',
+      'Deploy the application in multiple Availability Zones in multiple AWS regions.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Maximum fault tolerance spans multiple AZs and multiple Regions so a Regional or AZ outage does not take the application offline globally. AWS provides building blocks for redundancy, but you must architect for it; a single AZ offers the least resilience.',
+  },
+  {
+    id: 'cc-113',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['health-dashboard', 'practice-exam-7', 'sample-exam'],
+    question: 'What can you access by visiting the URL: http://status.aws.amazon.com?',
+    options: [
+      'AWS Billing Dashboard.',
+      'AWS Cost Dashboard.',
+      'AWS Service Health Dashboard.',
+      'AWS Security Dashboard.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'status.aws.amazon.com is the public AWS Service Health Dashboard showing current and historical AWS service availability events. Billing and cost dashboards require signing in to the AWS Management Console; there is no public “security dashboard” at that URL.',
+  },
+  {
+    id: 'cc-114',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['ec2', 'benefits', 'practice-exam-8', 'sample-exam'],
+    question:
+      'Amazon EC2 instances are conceptually very similar to traditional servers. However, using Amazon EC2 server instances in the same manner as traditional hardware server instances is only a starting point. What are the main benefits of using the AWS EC2 instances instead of traditional servers? (Choose TWO)',
+    options: [
+      'Improves Fault-Tolerance.',
+      'Provides your business with a seamless remote accessibility.',
+      'Prevents unauthorized users from getting into your network.',
+      'Provides automatic data backups.',
+      'Can be scaled manually in a shorter period of time.',
+    ],
+    correctAnswers: [0, 4],
+    explanation:
+      'EC2 supports resilient architectures (multiple instances/AZs) and lets you add or remove capacity in minutes compared with procuring physical hardware. Remote access is also possible with traditional servers; network protection requires your security design; automatic backups require services such as EBS snapshots or AWS Backup.',
+  },
+  {
+    id: 'cc-115',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['control-tower', 'governance', 'practice-exam-8', 'sample-exam'],
+    question:
+      'Which AWS service provides the EASIEST way to set up and manage a secure, well-architected, multi-account AWS environment?',
+    options: [
+      'AWS Control Tower.',
+      'Amazon Macie.',
+      'AWS Systems Manager Patch Manager.',
+      'AWS Security Hub.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS Control Tower automates a multi-account landing zone with guardrails, account vending, and governance best practices. Macie finds sensitive S3 data; Patch Manager patches instances; Security Hub aggregates security findings—they do not set up multi-account environments end-to-end.',
+  },
+  {
+    id: 'cc-116',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['tagging', 'operations', 'practice-exam-8', 'sample-exam'],
+    question:
+      'Which of the following makes it easier for you to categorize, manage and filter your resources?',
+    options: [
+      'Amazon CloudWatch.',
+      'AWS Service Catalog.',
+      'AWS Directory Service.',
+      'AWS Tagging.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'AWS resource tags are key-value metadata used to organize, filter, and allocate costs across resources in the console and APIs. CloudWatch monitors metrics; Service Catalog distributes approved products; Directory Service hosts Active Directory.',
+  },
+  {
+    id: 'cc-117',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['high-availability', 'availability-zones', 'practice-exam-8', 'sample-exam'],
+    question:
+      'How can you increase your application’s fault-tolerance while it is being hosted in AWS?',
+    options: [
+      'Deploy your application across multiple EC2 instances.',
+      'Deploy your application across multiple Availability Zones.',
+      'Host your application on one powerful EC2 instance type instead of multiple smaller instances.',
+      'Deploy the underlying application resources across multiple subnets.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Spreading workloads across multiple Availability Zones protects against failure of a single data center within a Region. Multiple instances in one AZ still share AZ failure risk; one large instance is a single point of failure; subnets alone do not span isolated AZ infrastructure.',
+  },
+  {
+    id: 'cc-118',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'design-principles', 'practice-exam-8', 'sample-exam'],
+    question: 'Which of the following is a benefit of the “Loose Coupling” architecture principle?',
+    options: [
+      'It eliminates the need for change management.',
+      'It allows for Cross-Region Replication.',
+      'It helps AWS customers reduce Privileged Access to AWS resources.',
+      'It allows individual application components or services to be modified without affecting other components.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Loosely coupled systems interact through well-defined interfaces so you can change, deploy, or fail over one component independently. Change management remains important; cross-Region replication is a data resilience technique; privileged access reduction relates to IAM practices.',
+  },
+  {
+    id: 'cc-119',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['deployment-models', 'practice-exam-8', 'sample-exam'],
+    question:
+      'Which of the following Cloud Computing deployment models eliminates the need to run and maintain physical data centers?',
+    options: ['On-premises.', 'IaaS.', 'PaaS.', 'Cloud.'],
+    correctAnswers: [3],
+    explanation:
+      'Public cloud deployment (answer “Cloud”) moves infrastructure to a cloud provider so you do not operate your own physical data centers. On-premises keeps facilities in-house; IaaS and PaaS are service models that can run in public or private cloud contexts.',
+  },
+  {
+    id: 'cc-120',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['elasticity', 'cost', 'practice-exam-8', 'sample-exam'],
+    question:
+      'The elasticity of the AWS Cloud enables customers to save costs when compared to traditional hosting providers. What can AWS customers do to benefit from the elasticity of the AWS Cloud? (Choose TWO)',
+    options: [
+      'Deploy your resources across multiple Availability Zones.',
+      'Use Amazon EC2 Auto Scaling.',
+      'Deploy your resources in another region.',
+      'Use Elastic Load Balancing.',
+      'Use Serverless Computing whenever possible.',
+    ],
+    correctAnswers: [1, 4],
+    explanation:
+      'Auto Scaling adjusts capacity to demand; serverless services scale automatically with usage—both align capacity to actual load and reduce idle spend. Multi-AZ and multi-Region improve availability; ELB distributes traffic but does not by itself scale compute capacity.',
+  },
+  {
+    id: 'cc-121',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['availability-zones', 'global-infrastructure', 'practice-exam-8', 'sample-exam'],
+    question:
+      'Each AWS Region is composed of multiple Availability Zones. Which of the following best describes what an Availability Zone is?',
+    options: [
+      'It is a data center designed to be completely isolated from other data centers in the same region.',
+      'It is a collection of data centers distributed in multiple countries.',
+      'It is a logically isolated network of the AWS Cloud.',
+      'It is a distinct location within a region that is insulated from « failures in other Availability Zones.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'An Availability Zone is one or more discrete data centers in a Region, engineered to be isolated from failures in other AZs while connected through low-latency links. AZs are within one Region, not multiple countries; a VPC is a logical network, not an AZ definition.',
+  },
+  {
+    id: 'cc-122',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['disaster-recovery', 'regions', 'practice-exam-8', 'sample-exam'],
+    question:
+      'AWS provides disaster recovery capability by allowing customers to deploy infrastructure into multiple […].',
+    options: ['Regions.', 'Transportation devices.', 'Support plans.', 'Edge locations.'],
+    correctAnswers: [0],
+    explanation:
+      'Multi-Region architectures support disaster recovery and business continuity when a Regional outage occurs. Snowball and edge locations serve migration and content delivery—not primary DR Region strategy; support plans do not deploy infrastructure.',
+  },
+  {
+    id: 'cc-123',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'performance-efficiency', 'practice-exam-8', 'sample-exam'],
+    question:
+      'Which pillar of the AWS Well-Architected Framework provides recommendations to help customers select the right compute resources based on workload requirements?',
+    options: [
+      'Operational Excellence.',
+      'Security.',
+      'Performance Efficiency.',
+      'Reliability.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'The Performance Efficiency pillar focuses on using the right resource types and sizes (compute, storage, database) for your workload and adapting as needs evolve. Operational Excellence covers operations; Security protects systems; Reliability targets availability and recovery.',
+  },
+  {
+    id: 'cc-124',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['availability-zones', 'global-infrastructure', 'practice-exam-8', 'sample-exam'],
+    question:
+      'Which element of the AWS global infrastructure consists of one or more discrete data centers each with redundant power networking and connectivity which are housed in separate facilities?',
+    options: [
+      'AWS Regions.',
+      'Availability Zones.',
+      'Edge locations.',
+      'Amazon CloudFront.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Availability Zones are built from one or more discrete data centers with independent power, networking, and connectivity in separate facilities within a Region. Regions are geographic areas containing multiple AZs; edge locations cache content; CloudFront is the CDN service using edge locations.',
+  },
+  {
+    id: 'cc-125',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['high-availability', 'availability-zones', 'practice-exam-8', 'sample-exam'],
+    question:
+      'How many Availability Zones should compute resources be provisioned across to achieve high availability?',
+    options: [
+      'A minimum of one.',
+      'A minimum of two.',
+      'A minimum of three.',
+      'A minimum of four or more.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'High availability within a Region typically requires at least two AZs so workloads survive the loss of one AZ. A single AZ has no cross-AZ failover; three or more AZs can add resilience but two is the minimum HA pattern emphasized on the exam.',
+  },
+  {
+    id: 'cc-126',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['global-infrastructure', 'regions', 'practice-exam-8', 'sample-exam'],
+    question: 'The AWS Cloud’s multiple Regions are an example of:',
+    options: ['Agility.', 'Global infrastructure.', 'Elasticity.', 'Pay-as-you-go pricing.'],
+    correctAnswers: [1],
+    explanation:
+      'AWS Regions worldwide are part of AWS global infrastructure—geographically distributed locations where you deploy resources. Agility is rapid provisioning; elasticity is scaling with demand; pay-as-you-go is a pricing model.',
+  },
+  {
+    id: 'cc-127',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['high-availability', 'well-architected', 'practice-exam-8', 'sample-exam'],
+    question:
+      'Which is a recommended pattern for designing a highly available architecture on AWS?',
+    options: [
+      'Ensure that components have low-latency network connectivity.',
+      'Run enough Amazon EC2 instances to operate at peak load.',
+      'Ensure that the application is designed to accommodate failure of any single component.',
+      'Use a monolithic application that handles all operations.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Design for failure by assuming any single component can fail and building redundancy (multi-AZ, auto recovery, loose coupling). Low latency alone does not ensure HA; provisioning only for peak is costly and not inherently resilient; monoliths increase blast radius.',
+  },
+  {
+    id: 'cc-128',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['elasticity', 'pricing', 'practice-exam-8', 'sample-exam'],
+    question:
+      'Which AWS characteristics make AWS cost effective for a workload with dynamic user demand? (Select TWO)',
+    options: [
+      'High availability.',
+      'Shared security model.',
+      'Elasticity.',
+      'Pay-as-you-go pricing.',
+      'Reliability.',
+    ],
+    correctAnswers: [2, 3],
+    explanation:
+      'Elasticity matches capacity to variable demand while pay-as-you-go billing charges for actual usage—together they avoid over-provisioning fixed capacity. High availability and reliability improve uptime; the shared responsibility model addresses security division—not dynamic cost savings directly.',
+  },
+  {
+    id: 'cc-129',
+    domain: 'cloud-concepts',
+    task: '2.2',
+    tags: ['security-resources', 'free', 'practice-exam-9', 'sample-exam'],
+    question: 'Which of the following security-related actions are available at no cost?',
+    options: [
+      'Calling AWS Support.',
+      'Contacting AWS Professional Services to request a workshop.',
+      'Accessing forums, blogs, and whitepapers.',
+      'Attending AWS classes at a local university.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'AWS documentation, forums, blogs, and whitepapers are freely available online. AWS Support plans charge fees; Professional Services and training are paid engagements beyond free self-service content.',
+  },
+  {
+    id: 'cc-130',
+    domain: 'cloud-concepts',
+    task: '2.1',
+    tags: ['shared-responsibility', 'practice-exam-9', 'sample-exam'],
+    question:
+      'According to the AWS shared responsibility model what is the sole responsibility of AWS?',
+    options: [
+      'Application security.',
+      'Edge location management.',
+      'Patch management.',
+      'Client-side data.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'AWS solely manages global infrastructure including edge locations and Regions. Application security and client-side data are customer responsibilities; patch management is shared between AWS and customers depending on the service.',
+  },
+  {
+    id: 'cc-131',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'practice-exam-9', 'sample-exam'],
+    question:
+      'Which of the following are pillars of the AWS Well-Architected Framework? (Select TWO)',
+    options: [
+      'Multiple Availability Zones.',
+      'Performance efficiency.',
+      'Security.',
+      'Encryption usage.',
+      'High availability.',
+    ],
+    correctAnswers: [1, 2],
+    explanation:
+      'The six Well-Architected pillars are Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, and Sustainability. Multiple AZs and high availability are architecture patterns; encryption is a security practice within the Security pillar.',
+  },
+  {
+    id: 'cc-132',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'design-principles', 'practice-exam-9', 'sample-exam'],
+    question:
+      'Which design principles for cloud architecture are recommended when re-architecting a large monolithic application? (Select TWO)',
+    options: [
+      'Use manual monitoring.',
+      'Use fixed servers.',
+      'Implement loose coupling.',
+      'Rely on individual components.',
+      'Design for scalability.',
+    ],
+    correctAnswers: [2, 4],
+    explanation:
+      'Breaking monoliths into loosely coupled, independently scalable services supports cloud elasticity and resilience. Manual-only monitoring and fixed servers oppose cloud automation; “rely on individual components” without redundancy increases failure risk.',
+  },
+  {
+    id: 'cc-133',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['elasticity', 'design-principles', 'practice-exam-9', 'sample-exam'],
+    question:
+      'When architecting cloud applications, which of the following are a key design principle?',
+    options: [
+      'Use the largest instance possible.',
+      'Provision capacity for peak load.',
+      'Use the Scrum development process.',
+      'Implement elasticity.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Elasticity—scaling resources up and down with demand—is a core cloud design principle. Oversized instances and peak-only provisioning waste cost; Scrum is a development methodology, not an infrastructure design principle.',
+  },
+  {
+    id: 'cc-134',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['tco', 'elasticity', 'practice-exam-9', 'sample-exam'],
+    question: 'Which AWS feature will reduce the customer’s total cost of ownership (TCO)?',
+    options: [
+      'Shared responsibility security model.',
+      'Single tenancy.',
+      'Elastic computing.',
+      'Encryption.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Elastic computing lets you pay only for capacity you use and avoid over-provisioning idle hardware—a primary TCO benefit versus fixed on-premises capacity. Shared responsibility and encryption are operational/security models; single tenancy typically increases cost.',
+  },
+  {
+    id: 'cc-135',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['benefits', 'practice-exam-9', 'sample-exam'],
+    question: 'Which of the following is a benefit of using the AWS Cloud?',
+    options: [
+      'Permissive security removes the administrative burden.',
+      'Ability to focus on revenue-generating activities.',
+      'Control over cloud network hardware.',
+      'Choice of specific cloud hardware vendors.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'By offloading undifferentiated infrastructure work to AWS, teams focus on differentiating business features that drive revenue. Security remains a shared responsibility; customers do not choose AWS’s underlying hardware vendors or physical network gear.',
+  },
+  {
+    id: 'cc-136',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['economies-of-scale', 'pricing', 'practice-exam-9', 'sample-exam'],
+    question: 'How do customers benefit from Amazon’s massive economies of scale?',
+    options: [
+      'Periodic price reductions as the result of Amazon’s operational efficiencies.',
+      'New Amazon EC2 instance types providing the latest hardware.',
+      'The ability to scale up and down when needed.',
+      'Increased reliability in the underlying hardware of Amazon EC2 instances.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS passes efficiency savings to customers through ongoing price reductions and lower per-unit costs as AWS scales. New instance types, elasticity, and reliability are separate cloud benefits—not the direct definition of economies-of-scale price benefit on this item.',
+  },
+  {
+    id: 'cc-137',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['global-infrastructure', 'regions', 'availability-zones', 'practice-exam-9', 'sample-exam'],
+    question:
+      'Which of the following are main components of the AWS global infrastructure? (Select TWO)',
+    options: [
+      'Resource groups.',
+      'Availability Zones.',
+      'Security groups.',
+      'Regions.',
+      'Amazon Machine Images (AMIS).',
+    ],
+    correctAnswers: [1, 3],
+    explanation:
+      'AWS global infrastructure is built from Regions (geographic areas) and multiple isolated Availability Zones within each Region. Resource groups organize resources; security groups are VPC firewalls; AMIs are EC2 launch templates.',
+  },
+  {
+    id: 'cc-138',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['global-audience', 'latency', 'practice-exam-9', 'sample-exam'],
+    question:
+      'What are the benefits of using the AWS Cloud for companies with customers in many countries around the world (Select TWO)',
+    options: [
+      'Companies can deploy applications in multiple AWS Regions to reduce latency.',
+      'Amazon Translate automatically translates third-party website interfaces into multiple languages.',
+      'Amazon CloudFront has multiple edge locations around the world to reduce latency.',
+      'Amazon Comprehend allows users to build applications that can respond to user requests in many languages.',
+      'Elastic Load Balancing can distribute application web traffic to multiple AWS Regions around the world which reduces latency.',
+    ],
+    correctAnswers: [0, 2],
+    explanation:
+      'Multi-Region deployments and CloudFront edge caching place content and compute closer to global users, reducing latency. Translate and Comprehend are ML language services, not automatic global latency solutions; ELB distributes within a Region—it is not a cross-Region global traffic manager.',
+  },
+  {
+    id: 'cc-139',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'design-principles', 'practice-exam-9', 'sample-exam'],
+    question:
+      'Which of the following is an important architectural design principle when designing cloud applications?',
+    options: [
+      'Use multiple Availability Zones.',
+      'Use tightly coupled components.',
+      'Use open source software.',
+      'Provision extra capacity.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Designing across multiple AZs improves fault tolerance within a Region. Tight coupling and static extra capacity oppose cloud best practices; open source is a licensing choice, not a core AWS architectural principle.',
+  },
+  {
+    id: 'cc-140',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['serverless', 'benefits', 'practice-exam-10', 'sample-exam'],
+    question:
+      'A company wants to reduce the physical compute footprint that developers use to run code. Which service would meet that need by enabling serverless architectures?',
+    options: [
+      'Amazon Elastic Compute Cloud (Amazon EC2).',
+      'AWS Lambda.',
+      'Amazon DynamoDB.',
+      'AWS CodeCommit.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'AWS Lambda runs code without provisioning servers, eliminating physical or virtual machine management for developers. EC2 requires instances; DynamoDB is a database; CodeCommit is source control.',
+  },
+  {
+    id: 'cc-141',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['hybrid', 'architecture', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Web servers running on Amazon EC2 access a legacy application running in a corporate data center. What term would describe this model?',
+    options: [
+      'Cloud-native.',
+      'Partner network.',
+      'Hybrid architecture.',
+      'Infrastructure as a service.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Hybrid architecture combines cloud resources (EC2) with on-premises systems connected via VPN or Direct Connect. Cloud-native is built for cloud; partner network refers to APN; IaaS is a service model, not this topology name.',
+  },
+  {
+    id: 'cc-142',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['global-infrastructure', 'regions', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Which of the following is a correct relationship between regions, Availability Zones, and edge locations?',
+    options: [
+      'Data centers contain regions.',
+      'Regions contain Availability Zones.',
+      'Availability Zones contain edge locations.',
+      'Edge locations contain regions.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Each AWS Region contains multiple isolated Availability Zones. Edge locations are separate CloudFront POP sites globally—they are not nested inside AZs, and regions are not contained in a single data center.',
+  },
+  {
+    id: 'cc-143',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'decoupling', 'practice-exam-10', 'sample-exam'],
+    question:
+      'A company’s web application currently has light dependencies on underlying components so when one component fails the entire web application fails. Applying which AWS Cloud design principle will address the current design issue?',
+    options: [
+      'Implementing elasticity enabling the application to scale up or scale down as demand changes.',
+      'Enabling several EC2 instances to run in parallel to achieve better performance.',
+      'Focusing on decoupling components by isolating them and ensuring individual components can function when other components.',
+      'Doubling EC2 computing resources to increase system fault tolerance.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Loose coupling and isolation let components fail independently without cascading outages—core reliability design. Elasticity and more instances help scale and redundancy but do not fix tight coupling; doubling resources alone does not decouple architecture.',
+  },
+  {
+    id: 'cc-144',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['partners', 'professional-services', 'practice-exam-10', 'sample-exam'],
+    question:
+      'A customer would like to design and build a new workload on AWS Cloud but does not have the AWS-related software technical expertise in-house. Which of the following AWS programs can a customer take advantage of to achieve that outcome?',
+    options: [
+      'AWS Partner Network Technology Partners.',
+      'AWS Marketplace.',
+      'AWS Partner Network Consulting Partners.',
+      'AWS Service Catalog.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'AWS Partner Network (APN) Consulting Partners help customers design, build, and migrate workloads. Technology Partners sell software products; Marketplace lists third-party products; Service Catalog distributes approved internal templates.',
+  },
+  {
+    id: 'cc-145',
+    domain: 'cloud-concepts',
+    task: '1.1',
+    tags: ['agility', 'provisioning', 'practice-exam-10', 'sample-exam'],
+    question: 'How does AWS shorten the time to provision IT resources?',
+    options: [
+      'It supplies an online IT ticketing platform for resource requests.',
+      'It supports automatic code validation services.',
+      'It provides the ability to programmatically provision existing resources.',
+      'It automates the resource request process from a company’s IT vendor list.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'APIs, CLI, SDKs, and IaC tools let teams provision AWS resources in minutes programmatically instead of waiting for physical hardware. AWS does not replace internal ticketing or vendor procurement workflows directly.',
+  },
+  {
+    id: 'cc-146',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['trusted-advisor', 'cost-optimization', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Which of the following inspects AWS environments to find opportunities that can save money for users and also improve system performance?',
+    options: [
+      'AWS Cost Explorer.',
+      'AWS Trusted Advisor.',
+      'Consolidated billing.',
+      'Detailed billing.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'AWS Trusted Advisor analyzes your account against best practices in cost optimization, performance, security, fault tolerance, and service limits. Cost Explorer visualizes spend; consolidated billing merges invoices; detailed billing is raw usage data.',
+  },
+  {
+    id: 'cc-147',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['auto-scaling', 'elasticity', 'practice-exam-10', 'sample-exam'],
+    question: 'What technology enables compute capacity to adjust as loads change?',
+    options: [
+      'Load balancing.',
+      'Automatic failover.',
+      'Round robin.',
+      'Auto Scaling.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Amazon EC2 Auto Scaling automatically adds or removes instances based on demand metrics or schedules. Load balancing distributes traffic; failover recovers from failures; round robin is a scheduling algorithm used by load balancers.',
+  },
+  {
+    id: 'cc-148',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['high-availability', 'well-architected', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Distributing workloads across multiple Availability Zones supports which cloud architecture design principle?',
+    options: [
+      'Implement automation.',
+      'Design for agility.',
+      'Design for failure.',
+      'Implement elasticity.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Multi-AZ designs assume components can fail and build redundancy so the workload survives AZ outages—”design for failure.” Automation, agility, and elasticity are related pillars but multi-AZ specifically targets failure tolerance.',
+  },
+  {
+    id: 'cc-149',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['well-architected', 'design-principles', 'practice-exam-10', 'sample-exam'],
+    question:
+      'According to best practices, how should an application be designed to run in the AWS Cloud?',
+    options: [
+      'Use tightly coupled components.',
+      'Use loosely coupled components.',
+      'Use infrequently coupled components.',
+      'Use frequently coupled components.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Loosely coupled services communicate through well-defined interfaces (APIs, queues, events) so teams can deploy and fail independently—a foundational cloud architecture practice.',
+  },
+  {
+    id: 'cc-150',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['tco', 'cost-optimization', 'practice-exam-11', 'sample-exam'],
+    question: 'How can a company reduce its Total Cost of Ownership (TCO) using AWS?',
+    options: [
+      'By minimizing large capital expenditures.',
+      'By having no responsibility for third-party license costs.',
+      'By having no operational expenditures.',
+      'By having AWS manage applications.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Cloud shifts upfront data center CapEx (servers, facilities) to pay-as-you-go OpEx, reducing large capital outlays. Customers still pay for usage (OpEx), manage applications, and may still owe third-party license costs depending on the workload.',
+  },
+  {
+    id: 'cc-151',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['managed-services', 'rds', 'practice-exam-11', 'sample-exam'],
+    question:
+      'Which of the following common IT tasks can AWS cover to free up company IT resources? (Select TWO)',
+    options: [
+      'Patching databases software.',
+      'Testing application releases.',
+      'Backing up databases.',
+      'Creating database schema.',
+      'Running penetration tests.',
+    ],
+    correctAnswers: [0, 2],
+    explanation:
+      'Managed services such as Amazon RDS automate engine patching and offer backup/snapshot capabilities so teams spend less time on undifferentiated maintenance. Schema design, release testing, and security testing remain customer responsibilities.',
+  },
+  {
+    id: 'cc-152',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['regions', 'global-infrastructure', 'practice-exam-11', 'sample-exam'],
+    question:
+      'A company wants to expand from one AWS Region into a second AWS Region. What does the company need to do to start supporting the new Region?',
+    options: [
+      'Contact an AWS Account Manager to sign a new contract.',
+      'Move an Availability Zone to the new Region.',
+      'Begin deploying resources in the second Region.',
+      'Download the AWS Management Console for the new Region.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Regions are independent geographic areas—enable the Region in your account (if required) and deploy resources there. AZs cannot be moved between Regions; no separate console download or new contract is required to start using another Region.',
+  },
+  {
+    id: 'cc-153',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['professional-services', 'migration', 'practice-exam-11', 'sample-exam'],
+    question:
+      'What AWS team assists customers with accelerating cloud adoption through paid engagements in any of several specialty practice areas?',
+    options: [
+      'AWS Enterprise Support.',
+      'AWS Solutions Architects.',
+      'AWS Professional Services.',
+      'AWS Account Managers.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'AWS Professional Services delivers paid consulting engagements to accelerate migrations and cloud adoption. Solutions Architects provide best-practice guidance; Account Managers handle commercial relationships; Enterprise Support is a support plan tier.',
+  },
+  {
+    id: 'cc-154',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['high-availability', 'multi-az', 'practice-exam-11', 'sample-exam'],
+    question:
+      'What is an advantage of deploying an application across multiple Availability Zones?',
+    options: [
+      'There is a lower risk of service failure if a natural disaster causes a service disruption in a given AWS Region.',
+      'The application will have higher availability because it can withstand a service disruption in one Availability Zone.',
+      'There will be better coverage as Availability Zones are geographically distant and can serve a wider area.',
+      'There will be decreased application latency that will improve the user experience.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Multi-AZ architectures survive the loss of a single Availability Zone within a Region. Multi-AZ does not protect against an entire Region failure (use multi-Region for that); AZs in a Region are separate failure domains but not global edge points for latency.',
+  },
+  {
+    id: 'cc-155',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['cloudfront', 'edge-locations', 'practice-exam-11', 'sample-exam'],
+    question: 'What can AWS edge locations be used for? (Select TWO)',
+    options: [
+      'Hosting applications.',
+      'Delivering content closer to users.',
+      'Running NoSQL database caching services.',
+      'Reducing traffic on the server by caching responses.',
+      'Sending notification messages to end users.',
+    ],
+    correctAnswers: [1, 3],
+    explanation:
+      'CloudFront edge locations cache and deliver content near users to reduce latency and origin load. They are not general application hosting environments, managed NoSQL databases, or SNS notification endpoints.',
+  },
+  {
+    id: 'cc-157',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['cloud-adoption', 'business-value', 'practice-exam-11', 'sample-exam'],
+    question:
+      'One of the advantages to moving infrastructure from an on-premises data center to the AWS Cloud is:',
+    options: [
+      'It allows the business to eliminate IT bills.',
+      'It allows the business to put a server in each customer’s data center.',
+      'It allows the business to focus on business activities.',
+      'It allows the business to leave servers unpatched.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Moving to AWS lets organizations focus on differentiating work instead of undifferentiated data center heavy lifting. Cloud still incurs IT spend; patching remains a shared responsibility; AWS does not place servers in customer premises.',
+  },
+  {
+    id: 'cc-158',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['disaster-recovery', 'regions', 'practice-exam-11', 'sample-exam'],
+    question:
+      'How can a user protect against AWS service disruptions if a natural disaster affects an entire geographic area?',
+    options: [
+      'Deploy applications across multiple Availability Zones within an AWS Region.',
+      'Use a hybrid cloud computing deployment model within the geographic area.',
+      'Deploy applications across multiple AWS Regions.',
+      'Store application artifacts using AWS Artifact and replicate them across multiple AWS Regions.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Multi-Region architectures survive Region-wide disasters because each Region is a separate geographic area. Multi-AZ protects against AZ failure within one Region; Artifact stores compliance documents, not application failover.',
+  },
+  {
+    id: 'cc-159',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['disaster-recovery', 'high-availability', 'practice-exam-11', 'sample-exam'],
+    question: 'Which disaster recovery scenario offers the lowest probability of down time?',
+    options: [
+      'Backup and restore.',
+      'Pilot light.',
+      'Warm standby.',
+      'Multi-site active-active.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Multi-site active-active runs production workloads in multiple sites simultaneously with traffic distributed—lowest downtime (RTO/RPO near zero). Backup and restore, pilot light, and warm standby require more recovery time after a failure.',
+  },
+  {
+    id: 'cc-160',
+    domain: 'cloud-concepts',
+    task: '1.2',
+    tags: ['capex', 'opex', 'migration', 'practice-exam-11', 'sample-exam'],
+    question:
+      'A company will be moving from an on-premises data center to the AWS Cloud. What would be one financial difference after the move?',
+    options: [
+      'Moving from variable operational expense (opex) to upfront capital expense (capex).',
+      'Moving from upfront capital expense (capex) to variable capital expense (capex).',
+      'Moving from upfront capital expense (capex) to variable operational expense (opex).',
+      'Elimination of upfront capital expense (capex) and elimination of variable operational expense (opex).',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'On-premises infrastructure typically requires large upfront hardware CapEx; AWS converts that to variable OpEx billed for actual usage. Cloud does not eliminate all IT spending—you still pay ongoing operational costs for consumed services.',
+  },
 ]

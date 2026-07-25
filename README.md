@@ -6,7 +6,7 @@ A local study app for IT certification exams. Runs entirely in your browser with
 
 | Code | Exam | Status |
 |------|------|--------|
-| CLF-C02 | AWS Certified Cloud Practitioner | **Available** (516 cards) — *start here* |
+| CLF-C02 | AWS Certified Cloud Practitioner | **Available** (789 cards) — *start here* |
 | AIF-C01 | AWS Certified AI Practitioner | **Available** (190 cards) — *start here* |
 | DVA-C02 | AWS Certified Developer - Associate | **Available** (190 cards) |
 | SAA-C03 | AWS Certified Solutions Architect - Associate | **Available** (190 cards) |
@@ -72,7 +72,7 @@ A local study app for IT certification exams. Runs entirely in your browser with
 ## Features
 
 - **Catalog home** — pick a certification to study
-- **Study mode** — flip cards with keyboard shortcuts
+- **Study mode** — flip cards with keyboard shortcuts; prioritizes not-reviewed cards, then learning (skips known)
 - **Quiz mode** — multiple-choice practice with instant feedback
 - **Mock exam** — domain-weighted questions with pass threshold
 - **Progress tracking** — per-card ratings and domain breakdown
@@ -103,7 +103,7 @@ npm run preview
 
 | Mode | Description |
 |------|-------------|
-| **Study** | Flip through cards; rate as Don't know / Learning / Know it |
+| **Study** | Flip through cards to master; not-reviewed first, then learning (known cards skipped) |
 | **Quiz** | 20-question MCQ session with explanations |
 | **Mock Exam** | Full exam weighted by domain; pass threshold per cert |
 | **Progress** | Domain-level stats and last mock score |

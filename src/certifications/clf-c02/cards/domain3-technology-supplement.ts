@@ -1839,18 +1839,18 @@ export const technologySupplementCards: Card[] = [
     id: 'tech-196',
     domain: 'cloud-technology',
     task: '3.6',
-    tags: ['storage-gateway', 'file-gateway', 'hybrid', 'examtopics'],
+    tags: ['storage-gateway', 'file-gateway', 'hybrid', 'examtopics', 'sample-exam'],
     question:
-      'A team needs to extend on-premises file storage to the AWS Cloud while keeping frequently accessed files cached locally for low-latency SMB/NFS access. Which solution is MOST appropriate?',
+      'A company has a centralized group of users with large file storage requirements that have exceeded the space available on premises. The company wants to extend its file storage capabilities for this group while retaining the performance benefit of sharing content locally. What is the MOST operationally efficient AWS solution for this scenario?',
     options: [
-      'Deploy an AWS Storage Gateway file gateway',
-      'Mount a separate Amazon S3 bucket per user with a custom file system utility',
-      'Store all files on a shared Amazon EBS volume attached to one EC2 instance',
-      'Use Amazon WorkDocs as the primary NAS replacement for every workstation',
+      'Create an Amazon S3 bucket for each user. Mount each bucket by using an S3 file system mounting utility.',
+      'Configure and deploy an AWS Storage Gateway file gateway. Connect each user’s workstation to the file gateway.',
+      'Move each user’s working environment to Amazon WorkSpaces. Set up an Amazon WorkDocs account for each user.',
+      'Deploy an Amazon EC2 instance and attach an Amazon Elastic Block Store (Amazon EBS) Provisioned IOPS volume. Share the EBS volume directly with the users.',
     ],
-    correctAnswers: [0],
+    correctAnswers: [1],
     explanation:
-      'A Storage Gateway file gateway presents a local file share backed by Amazon S3 with local caching for performance. Per-user S3 mounts are operationally heavy; a single shared EBS volume does not scale like a managed hybrid file gateway; WorkDocs is collaboration software, not a general NAS extension.',
+      'A Storage Gateway file gateway provides a local SMB/NFS share backed by Amazon S3 with caching for low-latency access—extending capacity without replacing every desktop workflow. Per-user S3 mounts are hard to operate at scale; WorkSpaces plus WorkDocs is a full VDI/collaboration shift, not the most efficient file-extension path; sharing one EBS volume from EC2 is not a managed hybrid NAS pattern.',
   },
   {
     id: 'tech-197',
@@ -1902,5 +1902,1436 @@ export const technologySupplementCards: Card[] = [
     correctAnswers: [0],
     explanation:
       'S3 Inventory generates CSV, ORC, or Parquet reports of objects and metadata (size, storage class, tags, etc.) on a schedule. Object Lock enforces retention; Transfer Acceleration speeds uploads; S3 Select retrieves subsets of object data with SQL-like queries.',
+  },
+  {
+    id: 'tech-200',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['snowball', 'migration', 'examtopics', 'sample-exam'],
+    question: 'What does AWS Snowball provide? (Choose TWO.)',
+    options: [
+      'Built-in computing capabilities that allow customers to process data locally.',
+      'A catalog of third-party software solutions that customers need to build solutions and run their businesses.',
+      'A hybrid cloud storage between on-premises environments and the AWS Cloud.',
+      'An Exabyte-scale data transfer service that allows you to move extremely large amounts of data to AWS.',
+      'Secure transfer of large amounts of data into and out of the AWS.',
+    ],
+    correctAnswers: [0, 4],
+    explanation:
+      'Snowball devices securely transfer large datasets offline when network transfer is impractical; Snowball Edge adds local compute for edge processing before upload. AWS Marketplace sells third-party software; Storage Gateway provides hybrid storage; AWS Snowmobile (not Snowball) handles exabyte-scale migration.',
+  },
+  {
+    id: 'tech-201',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['ebs', 'snapshots', 'encryption', 'examtopics', 'sample-exam'],
+    question: 'What should you do in order to keep the data on EBS volumes safe? (Choose TWO.)',
+    options: [
+      'Regularly update firmware on EBS devices.',
+      'Create EBS snapshots.',
+      'Ensure that EBS data is encrypted at rest.',
+      'Store a backup daily in an external drive.',
+      'Prevent any unauthorized access to AWS data centers.',
+    ],
+    correctAnswers: [1, 2],
+    explanation:
+      'EBS snapshots provide point-in-time backups you can use to restore volumes or copy data for disaster recovery. Encryption at rest protects data on the volume and in snapshots. Customers do not patch EBS firmware or control physical data center access—that is AWS responsibility under the shared responsibility model.',
+  },
+  {
+    id: 'tech-202',
+    domain: 'cloud-technology',
+    task: '3.5',
+    tags: ['cloudfront', 'edge-locations', 'cdn', 'examtopics', 'sample-exam'],
+    question:
+      'What does Amazon CloudFront use to distribute content to global users with low latency?',
+    options: [
+      'AWS Global Accelerator',
+      'AWS Regions',
+      'AWS Edge Locations',
+      'AWS Availability Zones',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'CloudFront is a content delivery network (CDN) that caches copies of content at AWS edge locations (points of presence) close to users. Global Accelerator optimizes TCP/UDP routing over the AWS network; Regions and Availability Zones host primary workloads, not CloudFront’s global cache layer.',
+  },
+  {
+    id: 'tech-203',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['s3', 'glacier', 'deep-archive', 'storage', 'examtopics', 'sample-exam'],
+    question:
+      'The identification process of an online financial services company requires that new users must complete an online interview with their security team. The completed recorded interviews are only required in the event of a legal issue or a regulatory compliance breach. What is the most cost-effective service to store the recorded videos?',
+    options: [
+      'S3 Intelligent-Tiering',
+      'AWS Marketplace',
+      'Amazon S3 Glacier Deep Archive',
+      'Amazon EBS',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Glacier Deep Archive is designed for rarely accessed long-term retention at the lowest S3 storage cost—suited to compliance archives retrieved only during legal or audit events. Intelligent-Tiering suits unknown or changing access patterns with a monitoring fee; Marketplace sells third-party products; EBS is block storage for EC2, not economical for large infrequently accessed video archives.',
+  },
+  {
+    id: 'tech-204',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['elasticache', 'caching', 'performance', 'examtopics', 'sample-exam'],
+    question:
+      'A company is deploying a new two-tier web application in AWS. Where should the most frequently accessed data be stored so that the application’s response time is optimal?',
+    options: [
+      'AWS OpsWorks',
+      'AWS Storage Gateway',
+      'Amazon EBS volume',
+      'Amazon ElastiCache',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Amazon ElastiCache provides in-memory caching (Redis or Memcached) for hot data, reducing latency and database load in web tiers. OpsWorks is a configuration management service; Storage Gateway connects on-premises storage to AWS; EBS is durable block storage attached to EC2, not an in-memory cache layer for frequent reads.',
+  },
+  {
+    id: 'tech-205',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['vpc', 'networking', 'examtopics', 'sample-exam'],
+    question:
+      'What is the AWS service that provides a virtual network dedicated to your AWS account?',
+    options: [
+      'AWS VPN',
+      'AWS Subnets',
+      'AWS Dedicated Hosts',
+      'Amazon VPC',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Amazon Virtual Private Cloud (VPC) is a logically isolated virtual network you define in your AWS account, with your own IP ranges, subnets, and routing. AWS VPN connects on-premises networks to a VPC; subnets are components inside a VPC; Dedicated Hosts are physical servers for EC2 tenancy.',
+  },
+  {
+    id: 'tech-206',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['vpc', 'networking', 'isolation', 'examtopics', 'sample-exam'],
+    question:
+      'You are working on two projects that require completely different network configurations. Which AWS service or feature will allow you to isolate resources and network configurations?',
+    options: [
+      'Internet gateways',
+      'Virtual Private Cloud',
+      'Security Groups',
+      'Amazon CloudFront',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Use separate Amazon VPCs (or isolated subnets within a VPC) to segment projects with different network topologies, routing, and access controls. Internet gateways enable public internet access for a VPC; security groups filter traffic at the instance level; CloudFront is a CDN for content delivery.',
+  },
+  {
+    id: 'tech-207',
+    domain: 'cloud-technology',
+    task: '3.5',
+    tags: ['cloudfront', 'edge-locations', 'examtopics', 'sample-exam'],
+    question:
+      'AWS has created a large number of Edge Locations as part of its Global Infrastructure. Which of the following is NOT a benefit of using Edge Locations?',
+    options: [
+      'Edge locations are used by CloudFront to cache the most recent responses.',
+      'Edge locations are used by CloudFront to improve your end users’ experience when uploading files.',
+      'Edge locations are used by CloudFront to distribute traffic across multiple instances to reduce latency.',
+      'Edge locations are used by CloudFront to distribute content to global users with low latency.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'CloudFront edge locations cache and serve content closer to viewers for low latency—they do not load-balance traffic across multiple origin instances the way an Elastic Load Balancer does. Caching responses, accelerating uploads (where configured), and global content delivery are CloudFront edge benefits.',
+  },
+  {
+    id: 'tech-208',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['x-ray', 'microservices', 'observability', 'examtopics', 'sample-exam'],
+    question:
+      'A company is developing a new application using a microservices framework. The new application is having performance and latency issues. Which AWS Service should be used to troubleshoot these issues?',
+    options: [
+      'AWS CodePipeline',
+      'AWS X-Ray',
+      'Amazon Inspector',
+      'AWS CloudTrail',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'AWS X-Ray traces requests across microservices, showing latency bottlenecks, errors, and dependencies in a service map. CodePipeline automates CI/CD releases; Inspector scans for vulnerabilities; CloudTrail logs API activity for audit, not application performance debugging.',
+  },
+  {
+    id: 'tech-209',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['multi-az', 's3', 'dynamodb', 'fault-tolerance', 'examtopics', 'sample-exam'],
+    question:
+      'Which of the following AWS services is designed with native Multi-AZ fault tolerance in mind? (Choose TWO.)',
+    options: [
+      'Amazon Redshift',
+      'AWS Snowball',
+      'Amazon Simple Storage Service',
+      'Amazon EBS',
+      'Amazon DynamoDB',
+    ],
+    correctAnswers: [2, 4],
+    explanation:
+      'Amazon S3 automatically stores objects redundantly across multiple Availability Zones in a Region. Amazon DynamoDB replicates data across AZs for high availability and durability by default. EBS volumes are tied to a single AZ; Snowball is an offline transfer appliance; Redshift availability patterns differ and are not the classic Multi-AZ managed-store answer on this item.',
+  },
+  {
+    id: 'tech-210',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['s3', 'glacier', 'storage-classes', 'examtopics', 'sample-exam'],
+    question:
+      'Amazon Glacier is an Amazon S3 storage class that is suitable for storing […] & […]. (Choose TWO.)',
+    options: [
+      'Active archives',
+      'Dynamic websites’ assets',
+      'Long-term analytic data',
+      'Active databases',
+      'Cached data',
+    ],
+    correctAnswers: [0, 2],
+    explanation:
+      'S3 Glacier storage classes target infrequently accessed archival and long-term retention—such as active archives you retrieve occasionally and analytic datasets kept for years. Dynamic web assets, active databases, and hot cached data need low-latency storage like S3 Standard, EBS, or ElastiCache—not Glacier retrieval patterns.',
+  },
+  {
+    id: 'tech-211',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['alb', 'elb', 'http', 'examtopics', 'sample-exam'],
+    question:
+      'A company has deployed a new web application on multiple Amazon EC2 instances. Which of the following should they use to ensure that the incoming HTTP traffic is distributed evenly across the instances?',
+    options: [
+      'AWS EC2 Auto Recovery',
+      'AWS Auto Scaling',
+      'AWS Network Load Balancer',
+      'AWS Application Load Balancer',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'An Application Load Balancer distributes HTTP and HTTPS requests across registered targets in multiple Availability Zones. Auto Scaling adjusts capacity but does not load-balance HTTP by itself; NLB operates at layer 4 (TCP/UDP); EC2 Auto Recovery restarts impaired instances on the same hardware—it does not spread web traffic.',
+  },
+  {
+    id: 'tech-212',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['rds', 'managed-services', 'examtopics', 'sample-exam'],
+    question:
+      'What are the benefits of using the Amazon Relational Database Service? (Choose TWO.)',
+    options: [
+      'Lower administrative burden',
+      'Complete control over the underlying host',
+      'Resizable compute capacity',
+      'Scales automatically to larger or smaller instance types',
+      'Supports the document and key-value data structure',
+    ],
+    correctAnswers: [0, 2],
+    explanation:
+      'Amazon RDS is a managed relational database: AWS handles routine administration such as backups and patching, reducing operational overhead. You can change the DB instance class to resize CPU and memory. Full host control is EC2 self-managed; automatic instance-type scaling without action is not an RDS hallmark on this item; document/key-value stores are nonrelational services like DynamoDB.',
+  },
+  {
+    id: 'tech-213',
+    domain: 'cloud-technology',
+    task: '3.5',
+    tags: ['vpn', 'ipsec', 'hybrid', 'networking', 'examtopics', 'sample-exam'],
+    question:
+      'What is the connectivity option that uses Internet Protocol Security (IPSec) to establish encrypted connectivity between an on-premises network and the AWS Cloud?',
+    options: [
+      'Internet Gateway',
+      'AWS IQ',
+      'AWS Direct Connect',
+      'AWS Site-to-Site VPN',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'AWS Site-to-Site VPN creates IPsec-encrypted tunnels over the internet between your on-premises network and an AWS VPC (via virtual private gateway or transit gateway). An internet gateway enables public internet access for a VPC; IQ is a marketplace for AWS experts; Direct Connect is a dedicated private network link (encryption is optional/add-on, not defined by IPSec site-to-site VPN alone).',
+  },
+  {
+    id: 'tech-214',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['cloudformation', 'beanstalk', 'deployment', 'examtopics', 'sample-exam'],
+    question:
+      'App development companies move their business to AWS to reduce time-to-market and improve customer satisfaction, what are the AWS automation tools that help them deploy their applications faster? (Choose TWO.)',
+    options: [
+      'AWS CloudFormation',
+      'AWS Migration Hub',
+      'AWS IAM',
+      'AWS Elastic Beanstalk',
+      'Amazon Macie',
+    ],
+    correctAnswers: [0, 3],
+    explanation:
+      'AWS CloudFormation automates infrastructure as code for repeatable, fast environment provisioning. AWS Elastic Beanstalk deploys and scales web applications with minimal operational overhead. Migration Hub tracks migration progress; IAM manages access; Macie discovers sensitive data in S3—they are not primary application deployment automation tools.',
+  },
+  {
+    id: 'tech-215',
+    domain: 'cloud-technology',
+    task: '3.5',
+    tags: ['transit-gateway', 'vpc', 'networking', 'examtopics', 'sample-exam'],
+    question:
+      'A company has hundreds of VPCs in multiple AWS Regions worldwide. What service does AWS offer to simplify the connection management among the VPCs?',
+    options: [
+      'VPC Peering',
+      'AWS Transit Gateway',
+      'Amazon Connect',
+      'Security Groups',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'AWS Transit Gateway acts as a central hub to connect many VPCs and on-premises networks, simplifying routing at scale versus full mesh VPC peering. VPC peering is typically one-to-one; Amazon Connect is a cloud contact center; security groups filter instance traffic—they do not connect VPCs.',
+  },
+  {
+    id: 'tech-216',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['s3', 'lambda', 'scaling', 'serverless', 'examtopics', 'sample-exam'],
+    question:
+      'Which of the following AWS services scale automatically without your intervention? (Choose TWO.)',
+    options: [
+      'Amazon EC2',
+      'Amazon S3',
+      'AWS Lambda',
+      'Amazon EMR',
+      'Amazon EBS',
+    ],
+    correctAnswers: [1, 2],
+    explanation:
+      'Amazon S3 scales storage and request handling automatically as usage grows. AWS Lambda scales execution concurrency in response to incoming events without you provisioning servers. EC2 capacity changes require Auto Scaling or manual action; EMR clusters are configured and managed; EBS volume size must be provisioned or expanded explicitly.',
+  },
+  {
+    id: 'tech-217',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['elb', 'alb', 'health-checks', 'examtopics', 'sample-exam'],
+    question:
+      'How do ELBs improve the reliability of your application?',
+    options: [
+      'By distributing traffic across multiple S3 buckets',
+      'By replicating data to multiple availability zones',
+      'By creating database Read Replicas',
+      'By ensuring that only healthy targets receive traffic',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Elastic Load Balancers perform health checks on registered targets and route requests only to instances that pass—improving availability when a backend fails. They distribute traffic across compute targets, not S3 buckets; Multi-AZ data replication is a storage/database design; read replicas are an RDS feature, not ELB behavior.',
+  },
+  {
+    id: 'tech-218',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['ebs', 'database', 'storage', 'examtopics', 'sample-exam'],
+    question:
+      'A company is planning to migrate a database with high read/write activity to AWS. What is the best storage option to use?',
+    options: [
+      'AWS Storage Gateway',
+      'Amazon S3',
+      'Amazon EBS',
+      'Amazon Glacier',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Amazon EBS provides low-latency block storage attached to EC2 instances—suited to database workloads with heavy read/write I/O (or as the storage layer behind self-managed databases). S3 and Glacier are object storage for files and archives, not block I/O for active databases; Storage Gateway bridges on-premises storage to AWS rather than serving as primary high-IOPS database storage.',
+  },
+  {
+    id: 'tech-219',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['service-catalog', 'governance', 'examtopics', 'sample-exam'],
+    question: 'What does AWS Service Catalog provide?',
+    options: [
+      'It enables customers to quickly find descriptions and use cases for AWS services.',
+      'It enables customers to explore the different catalogs of AWS services.',
+      'It simplifies organizing and governing commonly deployed IT services.',
+      'It allows developers to deploy infrastructure on AWS using familiar programming languages.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'AWS Service Catalog lets administrators create and manage approved IT service portfolios (products, often backed by CloudFormation) that users can deploy with guardrails. It is not a general AWS service directory—that is documentation and the console; programming-language infrastructure deployment describes AWS CDK.',
+  },
+  {
+    id: 'tech-220',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['iac', 'cloudformation', 'automation', 'examtopics', 'sample-exam'],
+    question:
+      'Which of the following approaches will help you eliminate human error and automate the process of creating and updating your AWS environment?',
+    options: [
+      'Use Software test automation tools.',
+      'Use AWS CodeDeploy to build and automate your AWS environment.',
+      'Use code to provision and operate your AWS infrastructure.',
+      'Migrate all of your applications to a dedicated host.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Infrastructure as Code (IaC)—for example AWS CloudFormation or AWS CDK—uses templates or code to provision and update AWS resources consistently, reducing manual steps and human error. Test automation validates application behavior but does not define infrastructure; CodeDeploy automates application deployments, not full environment provisioning; dedicated hosts change tenancy model, not automation of environment creation.',
+  },
+  {
+    id: 'tech-221',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['cloud-directory', 'directory', 'examtopics', 'sample-exam'],
+    question: 'Which of the below options is true of Amazon Cloud Directory?',
+    options: [
+      'Amazon Cloud Directory allows the organization of hierarchies of data across multiple dimensions.',
+      'Amazon Cloud Directory enables the analysis of video and data streams in real time.',
+      'Amazon Cloud Directory allows users to access AWS with their existing Active Directory credentials.',
+      'Amazon Cloud Directory allows for registration and management of domain names.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Cloud Directory is a highly scalable directory for organizing application data into flexible hierarchies with multiple dimensions (for example organizational charts or device registries). Real-time stream analytics describes Kinesis; Active Directory sign-in describes AWS Directory Service or IAM Identity Center federation; domain registration describes Route 53.',
+  },
+  {
+    id: 'tech-222',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['serverless', 'lambda', 'dynamodb', 'examtopics', 'sample-exam'],
+    question: 'Which of the following AWS offerings are serverless services? (Choose TWO)',
+    options: [
+      'Amazon EC2.',
+      'AWS Lambda.',
+      'Amazon DynamoDB.',
+      'Amazon EMR.',
+      'Amazon RDS.',
+    ],
+    correctAnswers: [1, 2],
+    explanation:
+      'AWS Lambda runs code without provisioning servers—you pay per invocation and duration. Amazon DynamoDB is a fully managed serverless NoSQL database that scales automatically. EC2 requires you to manage instances; EMR runs big data clusters on EC2; RDS is a managed relational database that typically runs on provisioned database instances rather than a serverless model on this exam.',
+  },
+  {
+    id: 'tech-223',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['opsworks', 'chef', 'ec2', 'configuration', 'examtopics', 'sample-exam'],
+    question:
+      'Which AWS Service provides integration with Chef to automate the configuration of EC2 instances?',
+    options: ['AWS Config.', 'AWS OpsWorks.', 'AutoScaling.', 'AWS CloudFormation.'],
+    correctAnswers: [1],
+    explanation:
+      'AWS OpsWorks is a configuration management service that supports Chef and Puppet to automate how applications are configured on EC2 and on-premises servers. AWS Config records resource configuration compliance over time; Auto Scaling adjusts capacity; CloudFormation provisions infrastructure from templates but does not run Chef recipes for instance configuration.',
+  },
+  {
+    id: 'tech-224',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['cloudfront', 'cloudwatch', 'monitoring', 'examtopics', 'sample-exam'],
+    question:
+      'Which of the following services can be used to monitor the HTTP and HTTPS requests that are forwarded to Amazon CloudFront?',
+    options: ['AWS WAF.', 'Amazon CloudWatch.', 'AWS Cloud9.', 'AWS CloudTrail.'],
+    correctAnswers: [1],
+    explanation:
+      'Amazon CloudFront publishes metrics to Amazon CloudWatch—including request counts, bytes served, and error rates—for HTTP and HTTPS traffic through the distribution. AWS WAF filters web requests but is not the primary monitoring dashboard for CloudFront request metrics; Cloud9 is a cloud IDE; CloudTrail logs AWS API management calls, not end-user HTTP/HTTPS requests to CloudFront edge locations.',
+  },
+  {
+    id: 'tech-225',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['lambda', 'serverless', 'examtopics', 'sample-exam'],
+    question:
+      'Which of the following are true regarding the languages that are supported on AWS Lambda? (Choose TWO)',
+    options: [
+      'Lambda only supports Python and Node.js, but third party plugins are available to convert code in other languages to these formats.',
+      'Lambda natively supports a number of programming languages such as Node.js, Python, and Java.',
+      "Lambda is AWS' proprietary programming language for microservices.",
+      "Lambda doesn't support programming languages; it is a serverless compute service.",
+      'Lambda can support any programming language using an API.',
+    ],
+    correctAnswers: [1, 4],
+    explanation:
+      'AWS Lambda natively supports several runtimes (including Node.js, Python, Java, .NET, Go, and Ruby) and can run other languages through custom runtimes or container images that implement the Lambda Runtime API. Lambda is a serverless compute service, not a programming language itself, and it clearly executes code—you do not need third-party converters limited to Python and Node.js.',
+  },
+  {
+    id: 'tech-226',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['rds', 'ec2', 'sql-server', 'migration', 'examtopics', 'sample-exam'],
+    question:
+      'A customer is planning to migrate their Microsoft SQL Server databases to AWS. Which AWS Services can the customer use to run their Microsoft SQL Server database on AWS? (Choose TWO)',
+    options: [
+      'AWS Fargate.',
+      'Amazon Elastic Compute Cloud.',
+      'Amazon RDS.',
+      'AWS Database Migration service (DMS).',
+      'AWS Lambda.',
+    ],
+    correctAnswers: [1, 2],
+    explanation:
+      'You can run Microsoft SQL Server on Amazon EC2 (self-managed on Windows or Linux) or as a managed database with Amazon RDS for SQL Server. AWS DMS helps migrate data to AWS but does not host the ongoing database workload. Fargate runs containers; Lambda is serverless functions—not primary platforms for running SQL Server databases on this exam.',
+  },
+  {
+    id: 'tech-227',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['route-53', 'ec2', 'health-checks', 'examtopics', 'sample-exam'],
+    question: 'Which AWS Service can perform health checks on Amazon EC2 instances?',
+    options: [
+      'AWS CloudFormation.',
+      'Amazon Route 53.',
+      'Amazon Chime.',
+      'Amazon Aurora.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon Route 53 health checks monitor the health of endpoints such as EC2 instances, load balancers, and websites (HTTP, HTTPS, or TCP) and can drive DNS routing and failover decisions. CloudFormation provisions infrastructure; Chime is a communications service; Aurora is a relational database engine—not an EC2 health-check service on this exam item.',
+  },
+  {
+    id: 'tech-228',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['migration', 'sms', 'examtopics', 'sample-exam'],
+    question:
+      'You need to migrate a large number of on-premises workloads to AWS. Which AWS service is the most appropriate?',
+    options: [
+      'AWS File Transfer Acceleration.',
+      'AWS Server Migration Service.',
+      'AWS Database Migration Service.',
+      'AWS Application Discovery Service.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'AWS Server Migration Service (SMS) automates, schedules, and tracks incremental replication of live on-premises servers to AWS so you can migrate many workloads to EC2. AWS DMS focuses on database migration; Application Discovery Service inventories on-premises environments for planning but does not perform the server migrations; S3 Transfer Acceleration speeds uploads to S3, not bulk VM workload migration.',
+  },
+  {
+    id: 'tech-229',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['cloudformation', 'iac', 'examtopics', 'sample-exam'],
+    question: 'What are some key benefits of using AWS CloudFormation? (Choose TWO)',
+    options: [
+      'It helps AWS customers deploy their applications without worrying about the underlying infrastructure.',
+      'It applies advanced IAM security features automatically.',
+      'It automates the provisioning and updating of your infrastructure in a safe and controlled manner.',
+      'It allows you to model your entire infrastructure in just a text file.',
+      'It compiles and builds application code in a timely manner.',
+    ],
+    correctAnswers: [2, 3],
+    explanation:
+      'CloudFormation uses JSON or YAML templates to describe AWS resources (Infrastructure as Code) and automates create, update, and delete operations in a repeatable, controlled way—including change sets and stack rollback. It defines infrastructure rather than hiding it entirely (platform services like Elastic Beanstalk abstract more of the stack); IAM in templates must be authored deliberately; building application code is the role of services such as CodeBuild.',
+  },
+  {
+    id: 'tech-230',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['serverless', 'rds', 'emr', 'examtopics', 'sample-exam'],
+    question: 'Select the services that are server-based: (Choose TWO)',
+    options: [
+      'Amazon RDS.',
+      'Amazon DynamoDB.',
+      'AWS Lambda.',
+      'AWS Fargate.',
+      'Amazon EMR.',
+    ],
+    correctAnswers: [0, 4],
+    explanation:
+      'Amazon RDS runs on provisioned database instances (EC2-backed infrastructure you size and manage at the instance layer). Amazon EMR launches clusters of EC2 instances to run big data frameworks such as Spark and Hadoop. DynamoDB, Lambda, and Fargate are serverless—you do not provision or manage the underlying servers for those services on the exam.',
+  },
+  {
+    id: 'tech-231',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['codebuild', 'cicd', 'practice-exam-7', 'sample-exam'],
+    question: 'Which AWS service helps developers compile and test their code?',
+    options: [
+      'AWS CodeDeploy.',
+      'AWS CodeCommit.',
+      'CloudEndure.',
+      'AWS CodeBuild.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'AWS CodeBuild is a fully managed build service that compiles source code, runs tests, and produces deployable artifacts. CodeDeploy releases software; CodeCommit hosts Git repositories; CloudEndure is a migration/disaster recovery tool, not a build service.',
+  },
+  {
+    id: 'tech-232',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['cloudfront', 'cdn', 'practice-exam-7', 'sample-exam'],
+    question: 'What does the Amazon CloudFront service provide? (Choose TWO)',
+    options: [
+      'Tracks user activity and APl usage.',
+      'Increases application availability by caching at the edge.',
+      'Enables faster disaster recovery.',
+      'Stores archived data at very low costs.',
+      'Delivers content to end users with low latency.',
+    ],
+    correctAnswers: [1, 4],
+    explanation:
+      'Amazon CloudFront is a CDN that caches content at edge locations worldwide, improving availability and delivering low-latency responses to users. CloudTrail tracks API activity; disaster recovery and archival storage are not CloudFront’s primary functions—those involve backup, replication, and storage classes such as Glacier.',
+  },
+  {
+    id: 'tech-233',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['rds', 'database', 'practice-exam-7', 'sample-exam'],
+    question:
+      'An organization needs to build a financial application that requires support for ACID transactions. Which AWS database service is most appropriate in this case?',
+    options: ['RedShift.', 'RDS.', 'CloudHSM.', 'DMS.'],
+    correctAnswers: [1],
+    explanation:
+      'Amazon RDS provides managed relational databases (MySQL, PostgreSQL, Oracle, SQL Server, etc.) with full ACID transaction support. Redshift is an analytics warehouse; CloudHSM manages hardware encryption keys; DMS migrates databases—it does not serve as the primary transactional database.',
+  },
+  {
+    id: 'tech-234',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['rds', 'database-engines', 'practice-exam-7', 'sample-exam'],
+    question:
+      'Amazon RDS supports multiple database engines to choose from. Which of the following is not one of them?',
+    options: ['PostgreSQL.', 'Oracle.', 'Microsoft SQL Server.', 'Teradata.'],
+    correctAnswers: [3],
+    explanation:
+      'Amazon RDS supports engines such as PostgreSQL, MySQL, MariaDB, Oracle, SQL Server, and Db2—not Teradata. Teradata workloads typically run on EC2, partner solutions, or Teradata Vantage on AWS rather than as a native RDS engine option.',
+  },
+  {
+    id: 'tech-235',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['lightsail', 'wordpress', 'practice-exam-7', 'sample-exam'],
+    question:
+      'For new AWS customers, what is the EASIEST way to launch a simple WordPress website on AWS?',
+    options: [
+      'Run WordPress on an Amazon Lightsail instance.',
+      'Install WordPress on an Amazon EC2 instance.',
+      'Use the Amazon S3 Web hosting feature.',
+      'Host the website directly on AWS Cloud Development Kit (AWS CDK).',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Lightsail offers simple virtual private servers with one-click WordPress blueprints, flat pricing, and minimal setup—ideal for beginners. EC2 requires more manual configuration; S3 static hosting does not run dynamic WordPress PHP; CDK is infrastructure-as-code, not the easiest starting path.',
+  },
+  {
+    id: 'tech-236',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ec2', 'database', 'practice-exam-7', 'sample-exam'],
+    question:
+      'Which of the following services allows you to install and run custom relational database software?',
+    options: ['Amazon EC2.', 'Amazon Cognito.', 'Amazon RDS.', 'Amazon Inspector.'],
+    correctAnswers: [0],
+    explanation:
+      'Amazon EC2 gives full control of the operating system so you can install any relational database engine or custom configuration. RDS runs AWS-managed database engines with limited customization; Cognito is for user identity; Inspector scans for vulnerabilities.',
+  },
+  {
+    id: 'tech-237',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['lambda', 'serverless', 'practice-exam-7', 'sample-exam'],
+    question: 'Which of the following is NOT a benefit of using AWS Lambda?',
+    options: [
+      'AWS Lambda runs code without provisioning or managing servers.',
+      'AWS Lambda provides resizable compute capacity in the cloud.',
+      'There is no charge when your AWS Lambda code is not running.',
+      'AWS Lambda can be called directly from any mobile app.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Per this practice exam item, calling Lambda directly from a mobile app is not listed as a core Lambda benefit—production mobile integrations typically use API Gateway or similar endpoints with authentication. Lambda runs without servers, charges only for execution time, and auto-scales; “resizable compute capacity” describes EC2-style capacity planning more than Lambda’s execution model.',
+  },
+  {
+    id: 'tech-238',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['cloudfront', 's3', 'latency', 'practice-exam-7', 'sample-exam'],
+    question:
+      'Which of the following procedures can reduce latency when your end users are retrieving data? (Choose TWO)',
+    options: [
+      'Store media assets in the region closest to your end users.',
+      'Store media assets on an additional EBS volume and increase the capacity of your server.',
+      'Replicate media assets to at least two availability zones.',
+      'Reduce the size of media assets using the Amazon Elastic Transcoder.',
+      'Store media assets in S3 and use CloudFront to distribute these assets.',
+    ],
+    correctAnswers: [0, 4],
+    explanation:
+      'Place data in a Region close to users and front S3 with CloudFront so content is cached at edge locations near viewers. Extra EBS capacity on a single server does not reduce global latency; Multi-AZ replication improves availability within a Region, not necessarily edge proximity; transcoding changes format/size but is not the primary latency pattern in this answer.',
+  },
+  {
+    id: 'tech-239',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['serverless', 'fargate', 'lambda', 'practice-exam-7', 'sample-exam'],
+    question: 'Which of the following compute resources are serverless? (Choose TWO)',
+    options: [
+      'Amazon EC2.',
+      'AWS Fargate.',
+      'AWS Lambda.',
+      'Amazon ECS.',
+      'Amazon EMR.',
+    ],
+    correctAnswers: [1, 2],
+    explanation:
+      'AWS Fargate runs containers without managing servers; AWS Lambda runs functions without provisioning infrastructure. EC2 requires instance management; ECS on EC2 launch type uses managed clusters on servers you operate; EMR runs big data jobs on EC2 clusters.',
+  },
+  {
+    id: 'tech-240',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['cloudwatch', 'ec2', 'monitoring', 'practice-exam-7', 'sample-exam'],
+    question: 'Which AWS service collects metrics from running EC2 instances?',
+    options: [
+      'Amazon Inspector.',
+      'Amazon CloudWatch.',
+      'AWS CloudFormation.',
+      'AWS CloudTrail.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon CloudWatch collects and monitors metrics (CPU, network, disk, custom metrics) from EC2 and other AWS services. Inspector assesses vulnerabilities; CloudFormation provisions infrastructure; CloudTrail logs API calls.',
+  },
+  {
+    id: 'tech-241',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['dms', 'migration', 'practice-exam-7', 'sample-exam'],
+    question:
+      'Which of the following AWS services would help you migrate on-premise databases to AWS?',
+    options: [
+      'AWS DMS.',
+      'Amazon S3 Transfer Acceleration.',
+      'AWS Directory Service.',
+      'AWS Transit Gateway.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS Database Migration Service (DMS) replicates data from on-premises and other sources to AWS databases with minimal downtime. S3 Transfer Acceleration speeds object uploads; Directory Service hosts Active Directory; Transit Gateway connects networks—it does not migrate database contents.',
+  },
+  {
+    id: 'tech-242',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['autoscaling', 'ec2', 'practice-exam-7', 'sample-exam'],
+    question:
+      'Your application requirements for CPU and RAM are changing in an unpredictable way. Which service can be used to dynamically adjust these resources based on load?',
+    options: [
+      'Auto Scaling.',
+      'ELB.',
+      'Amazon Route53.',
+      'Amazon Elastic Container Service.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon EC2 Auto Scaling adjusts the number of instances (and can use mixed instance policies) based on demand metrics, changing aggregate CPU and memory capacity. Elastic Load Balancing distributes traffic; Route 53 is DNS; ECS orchestrates containers but Auto Scaling is the direct answer for dynamic EC2 capacity.',
+  },
+  {
+    id: 'tech-243',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['ecs', 'ec2', 'containers', 'practice-exam-8', 'sample-exam'],
+    question:
+      'A company wants to use Amazon Elastic Container Service (Amazon ECS) to run its containerized applications. For compliance reasons, the company wants to retain complete visibility and control over the underlying server cluster. Which Amazon ECS launch type will satisfy these requirements?',
+    options: [
+      'EC2 launch type.',
+      'Fargate launch type.',
+      'Lightsail launch type.',
+      'Lambda launch type.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ECS with the EC2 launch type runs containers on EC2 instances you manage, giving full visibility and control of the host cluster. Fargate is serverless containers without managing servers; Lightsail and Lambda are not ECS launch types.',
+  },
+  {
+    id: 'tech-244',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['elastic-beanstalk', 'deployment', 'practice-exam-8', 'sample-exam'],
+    question:
+      'You have just finished writing your application code. Which service can be used to automate the deployment and scaling of your application?',
+    options: [
+      'Amazon Simple Storage Service.',
+      'AWS Elastic Beanstalk.',
+      'AWS CodeCommit.',
+      'Amazon Elastic File System.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'AWS Elastic Beanstalk uploads code and automatically handles deployment, capacity provisioning, load balancing, and scaling. S3 stores objects; CodeCommit hosts Git repos; EFS provides shared file storage—they do not deploy and scale web applications end-to-end.',
+  },
+  {
+    id: 'tech-245',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['cloudwatch', 'alarms', 'ec2', 'practice-exam-8', 'sample-exam'],
+    question:
+      'A company is running a large web application that needs to always be available. The application tends to slow down when CPU usage is greater than 60%. How can they track when CPU usage goes above 60% for any of the EC2 Instances in their account?',
+    options: [
+      'Use CloudFront to monitor the CPU usage.',
+      'Set the AWS Config CPU threshold to 60% to receive a notification when EC2 usage exceeds that value.',
+      'Use CloudWatch Alarms to monitor the CPU and alert when the CPU usage is >= 60%.',
+      'Use SNS to monitor the utilization of the server.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Amazon CloudWatch Alarms watch EC2 CPUUtilization metrics and can notify via SNS when the threshold is breached. CloudFront is a CDN; Config tracks configuration compliance, not real-time CPU alerting; SNS delivers messages but does not collect CPU metrics by itself.',
+  },
+  {
+    id: 'tech-246',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ebs', 'ec2', 'database', 'practice-exam-8', 'sample-exam'],
+    question:
+      'What is the recommended storage option when hosting an often-changing database on an Amazon EC2 instance?',
+    options: [
+      'Amazon EBS.',
+      'Amazon RDS.',
+      'You can’t run a database inside an Amazon EC2 instance.',
+      'Amazon DynamoDB.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon EBS provides persistent block storage attached to EC2—suited to self-managed databases with frequent read/write changes. RDS is a separate managed service, not storage attached to your EC2 instance; databases can run on EC2; DynamoDB is a managed NoSQL service, not block storage for EC2-hosted DBs.',
+  },
+  {
+    id: 'tech-247',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['lambda', 'pricing', 'practice-exam-8', 'sample-exam'],
+    question: 'What factors determine how you are charged when using AWS Lambda? (Choose TWO)',
+    options: [
+      'Storage consumed.',
+      'Number of requests to your functions.',
+      'Number of volumes.',
+      'Placement groups.',
+      'Compute time consumed.',
+    ],
+    correctAnswers: [1, 4],
+    explanation:
+      'Lambda bills for the number of requests and the duration of execution (GB-seconds of compute time). Provisioned concurrency and ephemeral storage can add charges, but EBS volumes and placement groups are EC2 concepts, not Lambda pricing dimensions on this exam.',
+  },
+  {
+    id: 'tech-248',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['rds', 'database', 'practice-exam-8', 'sample-exam'],
+    question:
+      'Which database service should you use if your application and data schema require “joins” or complex transactions?',
+    options: [
+      'Amazon RDS.',
+      'AWS Outposts.',
+      'Amazon DocumentDB.',
+      'Amazon DynamoDB.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon RDS provides managed relational databases with SQL joins and ACID transactions. Outposts is on-premises AWS infrastructure; DocumentDB and DynamoDB are NoSQL stores with different query models—not primary choices for relational joins on this exam.',
+  },
+  {
+    id: 'tech-249',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['glacier', 'storage', 'practice-exam-8', 'sample-exam'],
+    question: 'What should you consider when storing data in Amazon Glacier?',
+    options: [
+      'Amazon Glacier only accepts data in a compressed format.',
+      'Glacier can only be used to store frequently accessed data and data archives.',
+      'Amazon Glacier does not provide immediate retrieval of data.',
+      'Attach Glacier to an EC2 Instance to be able to store data.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Amazon S3 Glacier storage classes are for archival data with retrieval times from minutes to hours—not immediate access like S3 Standard. Data need not be pre-compressed; Glacier is for infrequent access; you do not attach Glacier as a block device to EC2.',
+  },
+  {
+    id: 'tech-250',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['efs', 'storage', 'practice-exam-8', 'sample-exam'],
+    question:
+      'A company needs to host a big data application on AWS using EC2 instances. Which of the following AWS Storage services would they choose to automatically get high throughput to multiple compute nodes?',
+    options: [
+      'Amazon Elastic Block Store.',
+      'AWS Storage Gateway.',
+      'Amazon Elastic File System.',
+      'S3.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Amazon EFS is a managed NFS file system that scales throughput and can be mounted concurrently by many EC2 instances. EBS volumes attach to one instance (or multi-attach in limited cases); Storage Gateway hybridizes on-premises storage; S3 is object storage, not shared POSIX file access for compute clusters.',
+  },
+  {
+    id: 'tech-251',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['ebs', 'durability', 'practice-exam-8', 'sample-exam'],
+    question:
+      'What is the benefit of Amazon EBS volumes being automatically replicated within the same availability zone?',
+    options: ['Elasticity.', 'Durability.', 'Traceability.', 'Accessibility.'],
+    correctAnswers: [1],
+    explanation:
+      'EBS automatically replicates data within the AZ to protect against hardware failure, improving durability of block storage. Elasticity is scaling capacity; traceability is audit visibility; accessibility is reachability—not the primary benefit of intra-AZ replication.',
+  },
+  {
+    id: 'tech-252',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['elasticache', 'practice-exam-8', 'sample-exam'],
+    question: 'What is the Amazon ElastiCache service used for? (Choose TWO)',
+    options: [
+      'Provide an in-memory data storage service.',
+      'Reduce delivery costs using Edge Locations.',
+      'Improve web application performance.',
+      'Provide a Chef-compatible cache to speed up application response.',
+      'Distribute requests to multiple instances.',
+    ],
+    correctAnswers: [0, 2],
+    explanation:
+      'Amazon ElastiCache offers managed Redis or Memcached in-memory caches to reduce database load and latency, improving application performance. Edge delivery describes CloudFront; Chef compatibility describes OpsWorks; load distribution describes ELB.',
+  },
+  {
+    id: 'tech-253',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['s3', 'storage', 'practice-exam-8', 'sample-exam'],
+    question:
+      'What is the maximum amount of data that can be stored in S3 in a single AWS account?',
+    options: [
+      '100 PetaBytes.',
+      'Virtually unlimited storage.',
+      '5TeraBytes.',
+      '10 Exabytes.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon S3 is designed for virtually unlimited storage capacity—you scale usage as needed without a fixed account maximum. Individual objects have size limits (5 TB per object), but total bucket/account storage is not capped at a fixed petabyte value on the exam.',
+  },
+  {
+    id: 'tech-254',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['quick-start', 'deployment', 'practice-exam-9', 'sample-exam'],
+    question:
+      'An administrator needs to rapidly deploy a popular IT solution and start using it immediately. Where can the administrator find assistance?',
+    options: [
+      'AWS Well-Architected Framework documentation.',
+      'Amazon CloudFront.',
+      'AWS CodeCommit.',
+      'AWS Quick Start reference deployments.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'AWS Quick Starts are automated reference deployments built by AWS solutions architects for popular workloads—you can launch them quickly from templates. Well-Architected is design guidance; CloudFront is a CDN; CodeCommit is source control.',
+  },
+  {
+    id: 'tech-255',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['rds', 'practice-exam-9', 'sample-exam'],
+    question:
+      'What is one of the advantages of the Amazon Relational Database Service (Amazon RDS)?',
+    options: [
+      'It simplifies relational database administration tasks.',
+      'It provides 99.99999999999% reliability and durability.',
+      'It automatically scales databases for loads.',
+      'It enables users to dynamically adjust CPU and RAM resources.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon RDS automates routine administration such as backups, patching, and failover for supported engines. Eleven-nines durability describes S3; automatic scaling is more characteristic of Aurora Serverless or DynamoDB; instance class changes require action and are not instant dynamic CPU/RAM sliders.',
+  },
+  {
+    id: 'tech-256',
+    domain: 'cloud-technology',
+    task: '3.6',
+    tags: ['systems-manager', 'patching', 'practice-exam-9', 'sample-exam'],
+    question:
+      'A company has deployed several relational databases on Amazon EC2 instances. Every month the database software vendor releases new security patches that need to be applied to the databases. What is the MOST efficient way to apply the security patches?',
+    options: [
+      'Connect to each database instance on a monthly basis and download and apply the necessary security patches from the vendor.',
+      'Enable automate patching for the instances using the Amazon RDS console.',
+      'In AWS Config. configure a rule for the instances and the required patch level.',
+      'Use AWS Systems Manager to automate database patching according to a schedule.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'AWS Systems Manager Patch Manager can automate OS and application patching on EC2 on a schedule. RDS console patching applies to RDS instances, not self-managed databases on EC2; manual monthly login is inefficient; Config evaluates compliance but does not apply patches by itself.',
+  },
+  {
+    id: 'tech-257',
+    domain: 'cloud-technology',
+    task: '3.1',
+    tags: ['sdk', 'practice-exam-9', 'sample-exam'],
+    question:
+      'Which mechanism allows developers to access AWS services from application code?',
+    options: [
+      'AWS Software Development Kit.',
+      'AWS Management Console.',
+      'AWS CodePipeline.',
+      'AWS Config.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS SDKs provide language-specific libraries for calling AWS service APIs from application code. The console is a web UI; CodePipeline orchestrates CI/CD; Config tracks resource configuration compliance.',
+  },
+  {
+    id: 'tech-258',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['cloudwatch', 'monitoring', 'practice-exam-9', 'sample-exam'],
+    question: 'What is Amazon CloudWatch?',
+    options: [
+      'A code repository with customizable build and team commit features.',
+      'A metrics repository with customizable notification thresholds and channels.',
+      'A security configuration repository with threat analytics.',
+      'A rule repository of a web application firewall with automated vulnerability prevention features.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon CloudWatch collects metrics and logs, and alarms can notify through SNS when thresholds are breached. CodeCommit is source control; threat analytics describes GuardDuty; WAF rules describe AWS WAF.',
+  },
+  {
+    id: 'tech-259',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['hybrid', 'storage-gateway', 'direct-connect', 'practice-exam-9', 'sample-exam'],
+    question:
+      'Which AWS services provide a way to extend an on-premises architecture to the aws cloud? (Select TWO)',
+    options: [
+      'Amazon EBS.',
+      'Amazon Connect.',
+      'AWS Storage Gateway.',
+      'Amazon CloudFront.',
+      'AWS Direct Connect.',
+    ],
+    correctAnswers: [2, 4],
+    explanation:
+      'AWS Storage Gateway connects on-premises applications to AWS cloud storage; AWS Direct Connect provides dedicated network links to AWS. EBS is Regional block storage in AWS; Connect is a contact center; CloudFront is a global CDN.',
+  },
+  {
+    id: 'tech-260',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['elb', 'scaling', 'practice-exam-9', 'sample-exam'],
+    question:
+      'Which of the following services will automatically scale with an expected increase in web traffic?',
+    options: [
+      'AWS CodePipeline.',
+      'Elastic Load Balancing.',
+      'Amazon EBS.',
+      'AWS Direct Connect.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Elastic Load Balancing automatically scales to handle incoming request volume and distributes traffic across targets. CodePipeline is CI/CD; EBS is block storage; Direct Connect is a network link—it does not scale with HTTP traffic.',
+  },
+  {
+    id: 'tech-261',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['rds', 'elasticache', 'managed-services', 'practice-exam-9', 'sample-exam'],
+    question:
+      'What is the benefit of using AWS managed services, such as Amazon ElastiCache and Amazon Relational Database Service (Amazon RDS)?',
+    options: [
+      'They require the customer to monitor and replace failing instances.',
+      'They have better performance than customer-managed services.',
+      'They simplify patching and updating underlying OSs.',
+      'They do not require the customer to optimize instance type or size selections.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Managed services such as RDS and ElastiCache offload routine operations including patching and maintenance of the underlying platform. Customers still right-size instances and monitor workloads; performance depends on configuration—not a blanket guarantee over self-managed stacks.',
+  },
+  {
+    id: 'tech-262',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['hybrid', 'route-53', 'vpn', 'practice-exam-9', 'sample-exam'],
+    question:
+      'Which services can be used across hybrid AWS Cloud architectures? (Select TWO)',
+    options: [
+      'Amazon Route 53.',
+      'Virtual Private Gateway.',
+      'Classic Load Balancer.',
+      'Auto Scaling.',
+      'Amazon CloudWatch default metrics.',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Amazon Route 53 resolves DNS for hybrid endpoints (failover between on-premises and AWS). A virtual private gateway terminates Site-to-Site VPN connections into your VPC. Classic Load Balancers and Auto Scaling primarily serve AWS VPC workloads; CloudWatch can monitor hybrid nodes but is not a hybrid connectivity service.',
+  },
+  {
+    id: 'tech-263',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['elb', 'practice-exam-9', 'sample-exam'],
+    question: 'Which statement best describes Elastic Load Balancing?',
+    options: [
+      'It translates a domain name into an IP address using DNC.',
+      'It distributes incoming application traffic across one or more Amazon EC2 instances.',
+      'It collects metrics on connected Amazon EC2 instances.',
+      'It automatically adjusts the number of Amazon EC2 instances to support incoming traffic.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Elastic Load Balancing spreads incoming traffic across healthy targets in one or more AZs. Route 53 performs DNS; CloudWatch collects metrics; Auto Scaling adjusts instance count—often used with ELB but not ELB itself.',
+  },
+  {
+    id: 'tech-264',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['rds', 'cloudformation', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Which of the following can an AWS customer use to launch a new Amazon Relational Database Service (Amazon RDS) cluster? (Select TWO)',
+    options: [
+      'AWS Concierge.',
+      'AWS CloudFormation.',
+      'Amazon Simple Storage Service (Amazon S3).',
+      'Amazon EC2 Auto Scaling.',
+      'AWS Management Console.',
+    ],
+    correctAnswers: [1, 4],
+    explanation:
+      'You can create RDS databases through the AWS Management Console or automate provisioning with AWS CloudFormation templates. Concierge is Enterprise billing support; S3 is object storage; Auto Scaling adjusts EC2 capacity—it does not launch RDS clusters.',
+  },
+  {
+    id: 'tech-265',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['cloudwatch', 'logs', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Which of the following are features of Amazon CloudWatch Logs? (Select TWO)',
+    options: [
+      'Summaries by Amazon Simple Notification Service (Amazon SNS).',
+      'Free Amazon Elasticsearch Service analytics.',
+      'Provided at no charge.',
+      'Real-time monitoring.',
+      'Adjustable retention.',
+    ],
+    correctAnswers: [3, 4],
+    explanation:
+      'CloudWatch Logs ingests log events in near real time and lets you set retention policies per log group. SNS can notify on alarms but is not a built-in Logs summary feature; OpenSearch integration and storage incur charges beyond limited free tiers.',
+  },
+  {
+    id: 'tech-266',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['lambda', 'serverless', 'practice-exam-10', 'sample-exam'],
+    question: 'Which of the following is an AWS-managed compute service?',
+    options: [
+      'Amazon SWF.',
+      'Amazon EC2.',
+      'AWS Lambda.',
+      'Amazon Aurora.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'AWS Lambda is a fully managed serverless compute service—AWS runs and scales the execution environment. EC2 requires you to manage instances; SWF coordinates workflows; Aurora is a managed database, not general compute.',
+  },
+  {
+    id: 'tech-267',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['rds', 'efs', 'storage', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Which AWS services should be used for read/write of constantly changing data? (Select TWO)',
+    options: [
+      'Amazon Glacier.',
+      'Amazon RDS.',
+      'AWS Snowball.',
+      'Amazon Redshift.',
+      'Amazon EFS.',
+    ],
+    correctAnswers: [1, 4],
+    explanation:
+      'Amazon RDS supports transactional read/write workloads for relational data; Amazon EFS provides shared file storage with concurrent read/write access from many instances. Glacier and Snowball are for archive/offline transfer; Redshift is an analytics warehouse, not general OLTP read/write.',
+  },
+  {
+    id: 'tech-268',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['elasticache', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Which service is best for storing common database query results, which helps to alleviate database access load?',
+    options: [
+      'Amazon Machine Learning.',
+      'Amazon SQS.',
+      'Amazon ElastiCache.',
+      'Amazon EC2 Instance Store.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Amazon ElastiCache (Redis or Memcached) caches frequent query results in memory to reduce database read load. SageMaker/ML is for models; SQS is a message queue; instance store is ephemeral local disk—not a shared query cache layer.',
+  },
+  {
+    id: 'tech-269',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['athena', 's3', 'analytics', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Which AWS service can be used to query stored datasets directly from Amazon S3 using standard SQL?',
+    options: [
+      'AWS Glue.',
+      'AWS Data Pipeline.',
+      'Amazon CloudSearch.',
+      'Amazon Athena.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Amazon Athena runs serverless SQL queries directly against data in S3. Glue catalogs and prepares data; Data Pipeline moves data between services; CloudSearch is a managed search service, not SQL-on-S3 analytics.',
+  },
+  {
+    id: 'tech-270',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['cloudtrail', 'cloudwatch', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Which AWS services can be used to gather information about AWS account activity? (Select TWO)',
+    options: [
+      'Amazon CloudFront.',
+      'AWS Cloud9.',
+      'AWS CloudTrail.',
+      'AWS CloudHSM.',
+      'Amazon CloudWatch.',
+    ],
+    correctAnswers: [2, 4],
+    explanation:
+      'CloudTrail logs API and console activity for audit; CloudWatch collects metrics, logs, and alarms about resource behavior. CloudFront delivers content; Cloud9 is an IDE; CloudHSM manages hardware encryption keys.',
+  },
+  {
+    id: 'tech-271',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['s3', 'storage', 'practice-exam-10', 'sample-exam'],
+    question: 'Which of the following are characteristics of Amazon S3? (Select TWO)',
+    options: [
+      'A global file system.',
+      'An object store.',
+      'A local file store.',
+      'A network file system.',
+      'A durable storage system.',
+    ],
+    correctAnswers: [1, 4],
+    explanation:
+      'Amazon S3 is a durable object storage service storing objects in buckets—not a POSIX file system. EFS and FSx provide shared file systems; local file store describes on-instance disk.',
+  },
+  {
+    id: 'tech-272',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['ec2', 'parallel', 'media', 'practice-exam-10', 'sample-exam'],
+    question:
+      'What approach to transcoding a large number of individual video files adheres to AWS architecture principles?',
+    options: [
+      'Using many instances in parallel.',
+      'Using a single large instance during off-peak hours.',
+      'Using dedicated hardware.',
+      'Using a large GPU instance type.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Parallelizing work across many workers (for example EC2, Lambda, or Elastic Transcoder jobs) scales horizontally and finishes faster—aligned with cloud best practices. One big instance is a single point of failure; dedicated hardware opposes cloud elasticity.',
+  },
+  {
+    id: 'tech-273',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['rekognition', 'ml', 'practice-exam-10', 'sample-exam'],
+    question: 'What time-savings advantage is offered with the use of Amazon Rekognition?',
+    options: [
+      'Amazon Rekognition provides automatic watermarking of images.',
+      'Amazon Rekognition provides automatic detection of objects appearing in pictures.',
+      'Amazon Recognition provides the ability to resize millions of images automatically.',
+      'Amazon Rekognition uses Amazon Mechanical Turk to allow humans to bid on object detection jobs.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon Rekognition uses ML to detect objects, faces, text, and scenes in images and video without manual labeling. It does not watermark or resize images at scale; Mechanical Turk is a separate crowdsourcing service.',
+  },
+  {
+    id: 'tech-274',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['rds', 'managed-services', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Amazon Relational Database Service (Amazon RDS) offers which of the following benefits over traditional database management?',
+    options: [
+      'AWS manages the data stored in Amazon RDS tables.',
+      'AWS manages the maintenance of the operating system.',
+      'AWS automatically scales up instance types on demand.',
+      'AWS manages the database type.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'RDS automates OS patching and maintenance for the database instance. Customers manage schema, queries, and data; you choose the engine and instance class—automatic instance-type scaling without action is not a core RDS feature on the exam.',
+  },
+  {
+    id: 'tech-275',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['s3', 'versioning', 'practice-exam-10', 'sample-exam'],
+    question:
+      'Which service stores objects, provides real-time access to those objects, and offers versioning and lifecycle capabilities?',
+    options: [
+      'Amazon Glacier.',
+      'AWS Storage Gateway.',
+      'Amazon S3.',
+      'Amazon EBS.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Amazon S3 is object storage with immediate access, optional versioning, and lifecycle rules to transition or expire objects. Glacier is for archival retrieval delays; Storage Gateway hybridizes on-premises access; EBS is block storage for EC2.',
+  },
+  {
+    id: 'tech-276',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['elb', 'load-balancing', 'practice-exam-11', 'sample-exam'],
+    question: 'Why is it beneficial to use Elastic Load Balancers with applications?',
+    options: [
+      'They allow for the conversion from Application Load Balancers to Classic Load Balancers.',
+      'They are capable of handling constant changes in network traffic patterns.',
+      'They automatically adjust capacity.',
+      'They are provided at no charge to users.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Elastic Load Balancing distributes incoming traffic across targets and adapts as request rates change, improving availability and fault tolerance. ELB is not free; capacity scaling of EC2 fleets is typically handled by Auto Scaling, not the load balancer itself.',
+  },
+  {
+    id: 'tech-277',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['ec2', 'instance-store', 'storage', 'practice-exam-11', 'sample-exam'],
+    question:
+      'Which type of AWS storage is ephemeral and is deleted when an instance is stopped or terminated?',
+    options: [
+      'Amazon EBS.',
+      'Amazon EC2 instance store.',
+      'Amazon EFS.',
+      'Amazon S3.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'EC2 instance store volumes use local disk tied to the host and are lost when the instance stops or terminates (unless data was copied elsewhere). EBS, EFS, and S3 persist independently of a single instance lifecycle.',
+  },
+  {
+    id: 'tech-278',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['serverless', 'practice-exam-11', 'sample-exam'],
+    question: 'Which services are parts of the AWS serverless platform?',
+    options: [
+      'Amazon EC2, Amazon S3, Amazon Athena.',
+      'Amazon Kinesis, Amazon SQS, Amazon EMR.',
+      'AWS Step Functions, Amazon DynamoDB, Amazon SNS.',
+      'Amazon Athena, Amazon Cognito, Amazon EC2.',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Step Functions orchestrates serverless workflows; DynamoDB is a serverless NoSQL database; SNS is a managed pub/sub messaging service without servers to patch. EC2, EMR, and always-on compute options are not serverless in the exam sense.',
+  },
+  {
+    id: 'tech-279',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['aurora', 'rds', 'mysql', 'practice-exam-11', 'sample-exam'],
+    question:
+      'A customer needs to run a MySQL database that easily scales. Which AWS service should they use?',
+    options: [
+      'Amazon Aurora.',
+      'Amazon Redshift.',
+      'Amazon DynamoDB.',
+      'Amazon ElastiCache.',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Amazon Aurora is a MySQL- and PostgreSQL-compatible relational database that scales storage automatically and supports read replicas. Redshift is a data warehouse; DynamoDB is NoSQL; ElastiCache is in-memory caching.',
+  },
+  {
+    id: 'tech-280',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['s3', 'cloudfront', 'video', 'practice-exam-11', 'sample-exam'],
+    question:
+      'Which of the following AWS services can be used to serve large amounts of online video content with the lowest possible latency? (Select TWO)',
+    options: [
+      'API Gateway.',
+      'Amazon S3.',
+      'Amazon Elastic File System (EFS).',
+      'Amazon Glacier.',
+      'Amazon CloudFront.',
+    ],
+    correctAnswers: [1, 4],
+    explanation:
+      'Store video objects in Amazon S3 and deliver them globally through Amazon CloudFront edge locations for low latency. Glacier is for archival; EFS is shared file storage; API Gateway is for APIs, not bulk media delivery.',
+  },
+  {
+    id: 'tech-281',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['codecommit', 'devops', 'practice-exam-11', 'sample-exam'],
+    question: 'Which service’s PRIMARY purpose is software version control?',
+    options: [
+      'Amazon CodeStar.',
+      'AWS Command Line Interface (AWS CLI).',
+      'Amazon Cognito.',
+      'AWS CodeCommit.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'AWS CodeCommit is a managed Git repository for source code version control. CodeStar bundles CI/CD project setup; the CLI is a command-line tool; Cognito handles user authentication for apps.',
+  },
+  {
+    id: 'tech-282',
+    domain: 'cloud-technology',
+    task: '3.4',
+    tags: ['cloudformation', 'iac', 'practice-exam-11', 'sample-exam'],
+    question: 'Which AWS service provides the ability to manage infrastructure as code?',
+    options: [
+      'AWS CodePipeline.',
+      'AWS CodeDeploy.',
+      'AWS Direct Connect.',
+      'AWS CloudFormation.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'AWS CloudFormation (and CDK, which generates CloudFormation) provisions AWS resources from templates—true infrastructure as code. CodePipeline and CodeDeploy automate release pipelines and deployments; Direct Connect is a dedicated network link.',
+  },
+  {
+    id: 'tech-283',
+    domain: 'cloud-technology',
+    task: '3.3',
+    tags: ['rds', 'managed-services', 'practice-exam-11', 'sample-exam'],
+    question: 'Which AWS managed service is used to host databases?',
+    options: [
+      'AWS Batch.',
+      'AWS Artifact.',
+      'AWS Data Pipeline.',
+      'Amazon RDS.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Amazon RDS runs managed relational databases (MySQL, PostgreSQL, Oracle, SQL Server, MariaDB, Aurora). Batch runs batch jobs; Artifact hosts compliance documents; Data Pipeline moves and transforms data between AWS services.',
+  },
+  {
+    id: 'tech-284',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['efs', 'storage', 'practice-exam-11', 'sample-exam'],
+    question:
+      'Which AWS service provides a simple and scalable shared file storage solution for use with Linux-based AWS and on-premises servers?',
+    options: [
+      'Amazon S3.',
+      'Amazon Glacier.',
+      'Amazon EBS.',
+      'Amazon EFS.',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Amazon EFS provides elastic NFS file storage mountable from multiple EC2 instances and on-premises via VPN or Direct Connect. S3 and Glacier are object storage; EBS is block storage for a single instance.',
+  },
+  {
+    id: 'tech-285',
+    domain: 'cloud-technology',
+    task: '3.2',
+    tags: ['glacier', 'backup', 'storage', 'practice-exam-11', 'sample-exam'],
+    question:
+      'Which AWS service should be used for long-term, low-cost storage of data backups?',
+    options: [
+      'Amazon RDS.',
+      'Amazon Glacier.',
+      'AWS Snowball.',
+      'Amazon EBS.',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon S3 Glacier storage classes optimize infrequently accessed backup and archive data at low cost with retrieval times from minutes to hours. RDS hosts databases; Snowball is for large offline data transfer; EBS is higher-cost block storage for active workloads.',
   },
 ]
