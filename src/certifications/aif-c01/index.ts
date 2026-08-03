@@ -4,6 +4,7 @@ import { generativeAiCards } from './cards/domain2-generative-ai'
 import { applicationsCards } from './cards/domain3-applications'
 import { guidelinesCards } from './cards/domain4-guidelines'
 import { securityCards } from './cards/domain5-security'
+import { aifExamGuideSupplementCards } from './cards/aif-exam-guide-supplement'
 
 const cards = [
   ...fundamentalsCards,
@@ -11,6 +12,7 @@ const cards = [
   ...applicationsCards,
   ...guidelinesCards,
   ...securityCards,
+  ...aifExamGuideSupplementCards,
 ]
 
 export const aifC01Config: CertificationConfig = {
