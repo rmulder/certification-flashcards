@@ -40,5 +40,5 @@ export const deaC01Meta: CertificationMeta = {
     questionCount: 65,
     passPercent: 72,
   },
-  cardCount: 190,
+  cardCount: 259,
 }

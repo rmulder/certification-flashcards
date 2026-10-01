@@ -630,5 +630,243 @@ export const operationsCards: Card[] = [
     ],
     correctAnswers: [0],
     explanation: 'Dashboards consolidate operational KPIs for data platform health.',
-  }
+  },
+  {
+    id: 'dea-ops-043',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'performance'],
+    question:
+      'Specific Redshift analytical queries are slow; team needs root-cause analysis on plans and physical design. Most effective first step:',
+    options: [
+      'Run EXPLAIN, review sort keys, distribution keys, and encodings, then tune',
+      'Watch average QueryDuration only without inspecting individual SQL',
+      'Scale CPU based on cluster CPUUtilization alone',
+      'Vacuum based on ReadIOPS without examining query plans',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'EXPLAIN exposes operators and data movement; sort/dist/encoding align storage with query patterns. Aggregate duration or CPU/IOPS metrics alone do not show why a particular query is inefficient.',
+  },
+  {
+    id: 'dea-ops-044',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'roles'],
+    question: 'Typical responsibilities of a data engineer include: (Select THREE.)',
+    options: [
+      'Build and operate data ingestion and processing platforms',
+      'Catalog and document datasets for discoverability',
+      'Implement security and compliance controls on data pipelines',
+      'Own all ML model training and hyperparameter tuning',
+      'Primary owner of executive dashboard design in BI tools',
+      'Replace database administrators for every OLTP system',
+    ],
+    correctAnswers: [0, 1, 2],
+    explanation:
+      'Engineers focus on platforms, metadata, and secure pipelines. Model development aligns with data science; dashboard storytelling with analysts/BI roles; OLTP DBA duties may overlap but are not the core DE mandate.',
+  },
+  {
+    id: 'dea-ops-045',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'cloudformation'],
+    question: 'In an AWS CloudFormation template, which section is required?',
+    options: [
+      'Resources',
+      'Parameters',
+      'Mappings',
+      'Outputs',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Resources declares AWS infrastructure to create. Parameters, Mappings, Conditions, Transform, and Outputs are optional template sections that customize or expose the stack.',
+  },
+  {
+    id: 'dea-ops-046',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'msk'],
+    question:
+      'Streaming platform team must enforce Kafka ACLs and encryption in a managed Kafka service on AWS. Service aligned with DEA streaming security labs:',
+    options: [
+      'Amazon MSK with appropriate auth and ACL configuration',
+      'Amazon S3 Intelligent-Tiering',
+      'AWS DataSync',
+      'Amazon Athena workgroups only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'MSK is managed Kafka where access control and TLS align with streaming governance. The other services do not provide Kafka broker ACL management.',
+  },
+  {
+    id: 'dea-ops-047',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'pipeline-tuning'],
+    question:
+      'Glue jobs already saturate workers on large joins; Redshift cluster has spare capacity. Bottleneck is in Glue, so ineffective fix:',
+    options: [
+      'Only add Redshift nodes expecting faster Glue transforms',
+      'Profile Glue job bookmarks, DPUs, and partition strategy',
+      'Push aggregations into Redshift materialized views after load',
+      'Split stages with Step Functions for clearer retries',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Redshift scaling helps query-side performance, not Glue compute. Tune Glue resources and design; combine with warehouse-side preaggregation and orchestration as needed.',
+  },
+  {
+    id: 'dea-ops-048',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'emr-serverless'],
+    question:
+      'EMR Serverless applications are managed and debugged from:',
+    options: [
+      'EMR Studio (submit jobs, monitor Spark UI)',
+      'Amazon CloudFront distributions',
+      'AWS Artifact compliance PDFs only',
+      'Amazon Route 53 hosted zones',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'EMR Studio is the console for serverless applications, job submission, and Spark UI debugging. The other services are unrelated to EMR job operations.',
+  },
+  {
+    id: 'dea-ops-049',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'discovery'],
+    question: 'Early data discovery for a new analytics program includes: (Select THREE.)',
+    options: [
+      'Identify stakeholders and candidate data sources',
+      'Inventory existing data types and formats',
+      'Ingest sample datasets to explore structure and quality',
+      'Finalize disaster recovery runbooks before any exploration',
+      'Use application logs alone to replace stakeholder interviews',
+      'Deploy the full production pipeline before requirements',
+    ],
+    correctAnswers: [0, 1, 2],
+    explanation:
+      'Discovery clarifies what data exists and whether it fits use cases. DR hardening and full production builds come after understanding sources; logs supplement but do not replace stakeholder and catalog discovery.',
+  },
+  {
+    id: 'dea-ops-050',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'workflow'],
+    question: 'Which sequence best matches a typical AWS data analytics workflow?',
+    options: [
+      'Ingest, store, catalog, process, and deliver',
+      'Ingest, store, curate, and deliver only',
+      'Filter, ingest, store, process, and deliver without cataloging',
+      'Ingest, process, deliver, and visualize with no catalog step',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS emphasizes cataloging between storage and processing so engines discover schema, location, and governance. Curation may overlap ingest but does not replace catalog and process stages.',
+  },
+  {
+    id: 'dea-ops-051',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'roles'],
+    question:
+      'How do data engineer and data analyst roles differ in the AWS training model?',
+    options: [
+      'Engineers build pipelines that deliver curated data; analysts analyze it for business insights',
+      'Engineers decide all business KPIs; analysts operate Spark clusters',
+      'Analysts build ingestion code; engineers only create dashboards',
+      'Both roles jointly code the core ingestion platform equally',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Engineers implement platforms and gather analyst requirements during discovery. Analysts focus on insights and visualizations; architects own broader system design.',
+  },
+  {
+    id: 'dea-ops-052',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'roles'],
+    question: 'Enterprise data architecture design is primarily owned by the:',
+    options: [
+      'Data architect',
+      'Data analyst',
+      'QuickSight reader session',
+      'CloudTrail event rule',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Architects define target designs; engineers implement pipelines under those designs. Analysts consume curated outputs; QuickSight and CloudTrail are tools, not roles.',
+  },
+  {
+    id: 'dea-ops-053',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'redshift', 'monitoring'],
+    question:
+      'Amazon Redshift cluster metrics differ from WLM queue metrics because cluster metrics show:',
+    options: [
+      'Overall cluster health and performance, while WLM metrics focus on query queuing and processing',
+      'Per-node-only stats while WLM shows nothing about queries',
+      'Serverless-only signals unavailable on provisioned clusters',
+      'Node-level WLM data while cluster metrics ignore the whole cluster',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Cluster metrics summarize warehouse health; WLM queue metrics expose concurrency and queue wait for SQL workloads. Both exist for provisioned clusters; WLM reflects cluster-wide query behavior, not a single slice.',
+  },
+  {
+    id: 'dea-ops-054',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'explain'],
+    question: 'In Amazon Redshift, the EXPLAIN command is used to:',
+    options: [
+      'View the query plan and analyze operators such as scans and joins',
+      'Run SELECT to return result rows to the client',
+      'Update optimizer statistics on table columns',
+      'Create B-tree indexes on fact tables',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'EXPLAIN shows planned operators for tuning. SELECT retrieves data; ANALYZE updates statistics; Redshift does not use traditional index CREATE INDEX patterns like OLTP databases.',
+  },
+  {
+    id: 'dea-ops-055',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'glue', 'monitoring'],
+    question:
+      'Operators need Glue ETL job logs, run metrics, and workflow health in one place for troubleshooting. Primary service:',
+    options: [
+      'Amazon CloudWatch',
+      'AWS CloudTrail only',
+      'AWS Config compliance timelines',
+      'AWS CloudFormation stack events',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue publishes job and workflow telemetry to CloudWatch for live monitoring. CloudTrail audits API calls but is not the primary execution dashboard; Config tracks resource configuration drift; CloudFormation provisions infrastructure—it does not stream Spark executor logs.',
+  },
+  {
+    id: 'dea-ops-056',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'cost'],
+    question:
+      'Which AWS offerings help optimize and govern spend on data platform resources? (Select THREE.)',
+    options: [
+      'AWS Cost Explorer',
+      'AWS Budgets',
+      'AWS Auto Scaling (where applicable to compute)',
+      'AWS CloudTrail as the primary cost analytics tool',
+      'Amazon Aurora as a billing dashboard',
+      'Amazon ECS as a dedicated cost optimizer service',
+    ],
+    correctAnswers: [0, 1, 2],
+    explanation:
+      'Cost Explorer visualizes usage trends; Budgets alert on thresholds; Auto Scaling right-sizes capacity. CloudTrail audits API activity; Aurora and ECS are compute/data services—not AWS cost management products.',
+  },
 ]

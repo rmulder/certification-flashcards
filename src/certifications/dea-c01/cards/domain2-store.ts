@@ -735,5 +735,325 @@ export const storeCards: Card[] = [
     ],
     correctAnswers: [0],
     explanation: 'Maintenance operations reclaim space and optimize sort order in Redshift tables.',
-  }
+  },
+  {
+    id: 'dea-store-050',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 's3', 'data-lake'],
+    question:
+      'Structured and semi-structured datasets for a scalable analytics data lake should primarily land in:',
+    options: [
+      'Amazon S3',
+      'Amazon EFS as the lake foundation',
+      'Amazon RDS as the lake store',
+      'Amazon S3 Glacier for active query workloads',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'S3 is the standard durable object store for lake zones. EFS is shared POSIX file storage; RDS is OLTP relational; Glacier tiers trade latency for archive cost and are poor for interactive lake processing.',
+  },
+  {
+    id: 'dea-store-051',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'glue-catalog'],
+    question: 'Primary purpose of the AWS Glue Data Catalog:',
+    options: [
+      'Store and manage dataset metadata such as location, schema, and partitions',
+      'Host a managed Hadoop cluster for batch jobs',
+      'Provide serverless data warehousing and SQL analytics',
+      'Perform real-time stream processing',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The Data Catalog is the metadata layer for discovery and governance. Compute is EMR/Glue jobs; warehousing is Redshift/Athena; streaming uses Kinesis, Flink, or Glue streaming—not the catalog itself.',
+  },
+  {
+    id: 'dea-store-052',
+    domain: 'store',
+    task: '2.3',
+    tags: ['dea-c01', 'lake-formation'],
+    question: 'Lake Formation helps secure a data lake by: (Select THREE.)',
+    options: [
+      'Fine-grained table, column, and row access controls',
+      'Auditing data access and catalog changes',
+      'Tagging resources for governance and access policies',
+      'Replacing IAM as the only identity store for all AWS APIs',
+      'Auto-scaling EMR core nodes for cost',
+      'Detecting payment fraud in transactions',
+    ],
+    correctAnswers: [0, 1, 2],
+    explanation:
+      'Lake Formation adds lake-centric permissions, audit trails, and LF-Tags. IAM still defines principals; EMR scaling and fraud analytics are out of scope for Lake Formation.',
+  },
+  {
+    id: 'dea-store-053',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'federated'],
+    question:
+      'Amazon Redshift must join curated warehouse tables with live rows in Aurora PostgreSQL using credentials stored securely. Setup includes:',
+    options: [
+      'External schema federated query with secrets in AWS Secrets Manager',
+      'Copy entire Aurora database into HDFS on EMR only',
+      'Disable encryption on Aurora for faster joins',
+      'Use S3 Glacier as the federated source',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Federated queries push predicates to RDS/Aurora with credentials from Secrets Manager. Bulk HDFS copy is not the federated pattern; Glacier is not a live operational database.',
+  },
+  {
+    id: 'dea-store-054',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'materialized-views'],
+    question:
+      'Glue already loads Redshift, but repeated dashboards hit expensive joins and aggregations. To improve read performance without rerunning Glue each time:',
+    options: [
+      'Create Amazon Redshift materialized views that precompute the heavy logic',
+      'Add Redshift nodes only while transforms still run in Glue',
+      'Move the same joins into many Lambda functions',
+      'Replace Glue with AWS Batch lacking catalog integration',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Materialized views store precomputed results inside Redshift for faster queries. Scaling the warehouse does not speed Glue transforms; Lambda is ill-suited to large joins; Batch is not a drop-in Glue+Redshift ETL substitute.',
+  },
+  {
+    id: 'dea-store-055',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'emr'],
+    question: 'In an Amazon EMR cluster, core nodes differ from task nodes because core nodes:',
+    options: [
+      'Run HDFS data nodes and hold cluster data; task nodes are compute-only',
+      'Only schedule YARN jobs and never store data',
+      'Are optional while primary nodes are not required',
+      'Replace the need for Amazon S3 entirely',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Core nodes combine storage (HDFS) and compute. Task nodes add elastic compute without HDFS responsibility. Primary nodes manage the cluster; S3 remains the durable lake store in modern architectures.',
+  },
+  {
+    id: 'dea-store-056',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'quicksight'],
+    question:
+      'Dashboards need sub-second interactions on aggregated sales metrics refreshed hourly, not second-by-second warehouse data. QuickSight dataset mode:',
+    options: [
+      'Import into SPICE for in-memory accelerated queries',
+      'Direct query only with no caching ever',
+      'Store SPICE in S3 Glacier',
+      'Disable datasets and query CloudTrail instead',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'SPICE accelerates interactive BI via an in-memory engine. Direct query suits up-to-the-minute source data but is slower for heavy exploration; Glacier and CloudTrail are unrelated to QuickSight datasets.',
+  },
+  {
+    id: 'dea-store-057',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'quicksight'],
+    question:
+      'Executive dashboards must reflect Redshift changes within minutes with no stale SPICE copy. QuickSight connection preference:',
+    options: [
+      'Direct query to Redshift',
+      'SPICE import with weekly full refresh only',
+      'Static CSV upload replaced manually each quarter',
+      'Query IAM policy documents',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Direct query runs SQL against the live warehouse when freshness beats cache speed. SPICE trades freshness for performance; CSV and IAM are not analytics data sources here.',
+  },
+  {
+    id: 'dea-store-058',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'emr'],
+    question: 'Amazon EMR is best described as:',
+    options: [
+      'A managed cluster platform for Hadoop, Spark, Hive, Pig, and related big data workloads',
+      'A relational OLTP database compatible with MySQL',
+      'A metadata-only catalog with no compute',
+      'A CDN for static website assets',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'EMR runs open-source big data frameworks at scale and integrates with S3, DynamoDB, and other stores for ETL and analytics. It is not RDS, the Glue catalog alone, or CloudFront.',
+  },
+  {
+    id: 'dea-store-059',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'lake-formation', 'blueprint'],
+    question:
+      'Automate initial data lake setup (S3 locations, crawlers, and permissions templates) in Lake Formation using:',
+    options: [
+      'Lake Formation blueprints',
+      'Amazon CloudFront behaviors',
+      'Route 53 health checks',
+      'AWS Artifact PDFs',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Blueprints accelerate repeatable lake provisioning aligned with DEA Lab 2 patterns. CDN, DNS, and compliance document services do not build lakes.',
+  },
+  {
+    id: 'dea-store-060',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'emr'],
+    question: 'Amazon EMR primary (master) nodes run which control-plane services?',
+    options: [
+      'YARN ResourceManager and HDFS NameNode',
+      'Only Spark executors with no scheduling',
+      'S3 bucket replication engines',
+      'Redshift leader node processes',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Primary nodes manage the cluster, schedule work, and coordinate HDFS metadata. Executors run on core/task nodes; S3 and Redshift are separate services.',
+  },
+  {
+    id: 'dea-store-061',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'open-table-format', 'iceberg'],
+    question: 'Open table formats such as Iceberg on S3 commonly provide: (Select TWO.)',
+    options: [
+      'Transactional commits on object storage',
+      'Efficient record-level updates and deletes',
+      'Automatic federated queries to any RDBMS',
+      'Proprietary lock-in that blocks non-AWS tools',
+      'Guaranteed elimination of all data transfer charges',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Iceberg-style tables add ACID semantics and targeted file rewrites for row operations. They build on open Parquet/ORC files, do not auto-query RDS, and do not inherently cut cross-service transfer costs.',
+  },
+  {
+    id: 'dea-store-062',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'iceberg'],
+    question:
+      'After Iceberg tables are written to S3, discovery and governed access typically flow through:',
+    options: [
+      'AWS Glue Data Catalog with optional Lake Formation permissions',
+      'Amazon EBS snapshots only',
+      'AWS Secrets Manager as the table store',
+      'CloudFront cache keys',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Iceberg metadata and data files live in S3; the Glue catalog registers tables for Athena, Spectrum, EMR, and other engines with Lake Formation enforcing access.',
+  },
+  {
+    id: 'dea-store-063',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'federated'],
+    question:
+      'Redshift federated queries improve performance by pushing filters to Aurora/RDS using:',
+    options: [
+      'Predicate pushdown executed on the remote database',
+      'Copying the entire remote database into HDFS first',
+      'Disabling parallel compute in Redshift',
+      'Storing federated credentials in plain S3 objects',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Compute nodes issue subqueries with predicates applied at the source to reduce rows moved over the network. Bulk copy and plaintext secrets are anti-patterns.',
+  },
+  {
+    id: 'dea-store-064',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'open-table-format'],
+    question:
+      'Compared with raw Parquet folders, open table formats often reduce query overhead by:',
+    options: [
+      'Avoiding expensive full bucket listings and enabling smarter file pruning',
+      'Eliminating the need for any columnar storage',
+      'Replacing the Glue Data Catalog entirely',
+      'Forcing all queries through Amazon RDS',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Table metadata tracks snapshots and file-level stats for pruning. Formats still use columnar files like Parquet and integrate with—not replace—the catalog.',
+  },
+  {
+    id: 'dea-store-065',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'datashare'],
+    question:
+      'A Redshift cluster that publishes datasets to other clusters via CREATE DATASHARE acts as a:',
+    options: [
+      'Datashare producer',
+      'Datashare consumer',
+      'WLM queue slice owner',
+      'Glue crawler only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Producer clusters share objects; consumer clusters mount shared datashares. WLM slices are intra-cluster resources, not cross-cluster sharing roles.',
+  },
+  {
+    id: 'dea-store-066',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'glue', 'jdbc'],
+    question:
+      'Before a Glue crawler can catalog tables in an on-premises Oracle database, what must exist in the Data Catalog first?',
+    options: [
+      'A Glue JDBC connection defining network path and credentials',
+      'Athena CREATE VIEW statements over the database',
+      'Manually typed column lists for every table',
+      'Amazon S3 event notifications on the database',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Crawlers need a connection object to reach JDBC sources. Athena queries S3 through the catalog—it does not register remote OLTP schemas. Manual schema entry is error-prone at scale; S3 events do not apply to relational engines.',
+  },
+  {
+    id: 'dea-store-067',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'crawler', 'rds'],
+    question:
+      'Stock prices live in a relational database and must appear as catalog tables for downstream batch ingestion. Service that auto-discovers schema into the Glue Data Catalog:',
+    options: [
+      'AWS Glue crawler (with a JDBC connection)',
+      'Apache Spark on EMR as a catalog-only tool',
+      'Amazon S3 event notifications',
+      'Amazon Athena without any crawler or connection',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue crawlers infer schemas and register databases/tables once a JDBC connection exists. EMR Spark processes data—it is not the catalog discovery service. S3 events trigger on object changes, not RDS catalogs; Athena consumes catalog metadata rather than inventing it from RDS alone.',
+  },
+  {
+    id: 'dea-store-068',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'athena', 'parquet'],
+    question:
+      'Financial CSV files in S3 will be queried heavily with Amazon Athena. Best storage format for scan efficiency:',
+    options: [
+      'Apache Parquet (columnar)',
+      'JSON documents per transaction',
+      'Apache Avro as the primary analytics format',
+      'Uncompressed CSV forever',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Parquet columnar layout minimizes bytes scanned in Athena. JSON and row-oriented Avro are weaker for wide analytic filters; raw CSV lacks compression and column pruning benefits.',
+  },
 ]

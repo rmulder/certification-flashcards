@@ -510,5 +510,213 @@ export const securityCards: Card[] = [
     ],
     correctAnswers: [0],
     explanation: 'Audit readiness combines API trails, governance logs, and optional workgroup query logging.',
-  }
+  },
+  {
+    id: 'dea-sec-035',
+    domain: 'security',
+    task: '4.2',
+    tags: ['dea-c01', 'redshift', 'column-level'],
+    question:
+      'Only some database roles may read columns with PII in Amazon Redshift while others query the same table. Approach:',
+    options: [
+      'Grant column-level privileges aligned to roles',
+      'Grant SELECT on the whole table to all analysts',
+      'Rely on KMS encryption so unauthorized users see ciphertext in SQL results',
+      'Use CloudTrail alone to hide columns at query time',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Column-level grants restrict which attributes each DB user sees. Table-level access exposes all columns; KMS protects at rest/in transit but authorized sessions still decrypt; CloudTrail audits API calls—it does not filter query results.',
+  },
+  {
+    id: 'dea-sec-036',
+    domain: 'security',
+    task: '4.4',
+    tags: ['dea-c01', 'redshift', 'audit'],
+    question:
+      'Security team needs comprehensive audit of Amazon Redshift cluster activity and management changes. Select TWO practices.',
+    options: [
+      'Enable Amazon Redshift database audit logging',
+      'Configure AWS CloudTrail for Redshift control-plane API activity with durable log storage',
+      'Use federated queries as the primary audit mechanism',
+      'Implement dynamic data masking instead of any logging',
+      'Disable logs to reduce storage cost',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Database audit logs capture SQL/user activity inside the cluster; CloudTrail records management API events. Federated queries and DDM address access patterns, not centralized audit evidence; turning off logs removes visibility.',
+  },
+  {
+    id: 'dea-sec-037',
+    domain: 'security',
+    task: '4.3',
+    tags: ['dea-c01', 'redshift', 'ddm'],
+    question:
+      'Analysts may query customer tables but must see masked credit card values based on role. Amazon Redshift feature:',
+    options: [
+      'Dynamic data masking policies on sensitive columns',
+      'Row-level security without any column transformation',
+      'Column-level GRANT that fully blocks the column for all users',
+      'Customer-managed KMS key only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DDM obfuscates values at query time per policy. RLS filters rows; column deny hides data entirely rather than showing masked values; KMS does not mask plaintext for authorized queries.',
+  },
+  {
+    id: 'dea-sec-038',
+    domain: 'security',
+    task: '4.2',
+    tags: ['dea-c01', 'lake-formation'],
+    question:
+      'Lake Formation fine-grained permissions on a Glue table complement—but do not replace—which AWS identity layer?',
+    options: [
+      'IAM identities and policies for AWS principals accessing Lake Formation APIs',
+      'Amazon Rekognition collections',
+      'Amazon CloudFront signed URLs for all table rows',
+      'AWS Snowball Edge compute',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Lake Formation governs data lake access on top of IAM-authenticated principals. Rekognition, CloudFront, and Snowball are unrelated to LF permission grants.',
+  },
+  {
+    id: 'dea-sec-039',
+    domain: 'security',
+    task: '4.3',
+    tags: ['dea-c01', 'redshift'],
+    question:
+      'Dynamic data masking differs from column-level REVOKE because DDM:',
+    options: [
+      'Returns transformed values at query time for allowed access',
+      'Prevents all connection to the cluster',
+      'Encrypts S3 buckets automatically',
+      'Replaces the need for database users',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DDM lets authorized users query with masked output. Revoke blocks the column entirely. Cluster connectivity, S3 encryption, and IAM/database users remain separate concerns.',
+  },
+  {
+    id: 'dea-sec-040',
+    domain: 'security',
+    task: '4.4',
+    tags: ['dea-c01', 'compliance'],
+    question:
+      'Course modules on compliance and cost optimization for data platforms emphasize:',
+    options: [
+      'Governance controls alongside monitoring usage and right-sizing spend',
+      'Removing encryption to lower CPU',
+      'Disabling all catalog metadata to save pennies',
+      'Sharing root account keys for simpler audits',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DEA operations include compliant architectures and cost-aware design (storage tiers, serverless vs always-on, monitoring). Weakening security or sharing root keys violates governance goals.',
+  },
+  {
+    id: 'dea-sec-041',
+    domain: 'security',
+    task: '4.3',
+    tags: ['dea-c01', 'redshift', 'kms'],
+    question:
+      'Redshift encryption at rest with maximum control over the root KMS key (create, rotate, disable, audit) uses:',
+    options: [
+      'AWS KMS customer managed keys (CMKs)',
+      'AWS managed KMS keys only with no customer policy control',
+      'S3 server-side encryption keys for Redshift clusters',
+      'Amazon EBS encryption settings on Redshift nodes',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'CMKs give customer control over key lifecycle and access policies. AWS managed keys offer less control; Redshift does not use S3 or EBS encryption models for cluster at-rest encryption.',
+  },
+  {
+    id: 'dea-sec-042',
+    domain: 'security',
+    task: '4.2',
+    tags: ['dea-c01', 'redshift', 'rls'],
+    question:
+      'Sales reps should query a shared fact table but see only rows for their territory. Implement:',
+    options: [
+      'Row-level security policies in Amazon Redshift',
+      'Dynamic data masking on numeric measures only',
+      'Public SELECT grants on the table',
+      'Disable authentication for faster queries',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'RLS filters which rows each session returns. DDM transforms column values at query time; it does not replace row filters. Open access and no auth violate least privilege.',
+  },
+  {
+    id: 'dea-sec-043',
+    domain: 'security',
+    task: '4.1',
+    tags: ['dea-c01', 'glue', 'iam'],
+    question:
+      'Only approved engineers and applications may start Glue crawlers and ETL jobs. Control mechanism:',
+    options: [
+      'IAM policies and roles granting least-privilege Glue actions',
+      'Encrypting the Glue Data Catalog metadata only',
+      'Amazon S3 default encryption without IAM changes',
+      'AWS KMS keys without identity policies',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'IAM decides which principals can invoke Glue APIs and resources. Catalog encryption and S3 SSE protect data at rest; KMS manages keys—it does not replace identity-based authorization for who may run jobs.',
+  },
+  {
+    id: 'dea-sec-044',
+    domain: 'security',
+    task: '4.1',
+    tags: ['dea-c01', 'glue'],
+    question:
+      'Hardening AWS Glue includes storing JDBC connection passwords securely and restricting cross-account access to specific catalog databases. Select TWO.',
+    options: [
+      'AWS Secrets Manager (or connection secrets) for JDBC credentials',
+      'Glue resource policies on Data Catalog resources with conditional principals',
+      'Disabling IAM in favor of public Glue endpoints',
+      'Using CloudFront to encrypt Glue job shuffle data',
+      'Publishing connection strings in a public S3 README',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Secrets Manager keeps rotating credentials out of job scripts; resource policies complement IAM for fine-grained catalog sharing. IAM remains required; CloudFront is unrelated to Glue compute; public credential storage violates least privilege.',
+  },
+  {
+    id: 'dea-sec-045',
+    domain: 'security',
+    task: '4.5',
+    tags: ['dea-c01', 'gdpr', 'privacy'],
+    question:
+      'Customer personal data on AWS must support GDPR-style control. Capabilities customers typically use: (Select THREE.)',
+    options: [
+      'Choose AWS Regions where data is stored and processed',
+      'Manage KMS keys to encrypt data at rest and in transit',
+      'Use IAM to control who accesses data and AWS APIs',
+      'Rely on AWS Budgets as the primary privacy control',
+      'Move all processing back on-premises as an AWS feature',
+      'Deploy serverless pipelines as a substitute for access control',
+    ],
+    correctAnswers: [0, 1, 2],
+    explanation:
+      'Region choice, encryption key governance, and IAM access policies address residency, confidentiality, and authorization. Budgets manage cost; on-premises is outside AWS; pipelines do not replace identity and encryption controls.',
+  },
+  {
+    id: 'dea-sec-046',
+    domain: 'security',
+    task: '4.5',
+    tags: ['dea-c01', 'hipaa', 'config'],
+    question:
+      'Patient telemetry pipelines must stay HIPAA-aligned on deployed AWS resources and auto-remediate drift. Best approach:',
+    options: [
+      'Enable AWS Config recording and deploy a HIPAA conformance pack with remediation',
+      'Download AWS Artifact reports only and never evaluate live resources',
+      'Apply least-privilege IAM once with no ongoing configuration checks',
+      'Use Lake Formation column grants as the sole HIPAA control',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Config conformance packs bundle rules and optional remediation for frameworks like HIPAA. Artifact documents AWS compliance posture—it does not monitor your buckets and databases. IAM and Lake Formation help but do not continuously enforce full resource configuration.',
+  },
 ]

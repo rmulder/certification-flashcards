@@ -977,5 +977,416 @@ export const ingestionCards: Card[] = [
     ],
     correctAnswers: [0],
     explanation: 'Unstructured data needs OCR, parsing, or ML enrichment before structured analytics.',
-  }
+  },
+  {
+    id: 'dea-ing-066',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'datasync'],
+    question:
+      'Large volumes of files must move continuously from on-premises NFS or other cloud file storage into a data lake on S3. Which service is designed for this pattern?',
+    options: [
+      'AWS DataSync',
+      'AWS Database Migration Service (AWS DMS)',
+      'AWS Snowball',
+      'Amazon Data Firehose',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DataSync automates efficient, scheduled or recurring file and object transfers into S3. DMS targets databases, Snowball is bulk physical migration, and Firehose ingests streaming records—not bulk file sync.',
+  },
+  {
+    id: 'dea-ing-067',
+    domain: 'ingestion',
+    task: '1.3',
+    tags: ['dea-c01', 'emr'],
+    question:
+      'An ETL stage joins several large datasets and runs heavy aggregations before loading Redshift. Which compute option fits the transformation step?',
+    options: [
+      'Amazon EMR with Spark, Hive, or similar frameworks',
+      'AWS Lambda only',
+      'Amazon Aurora as the transform engine',
+      'Amazon Redshift as the primary transform cluster',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'EMR provides managed Hadoop/Spark scale for complex distributed transforms. Lambda is for short event-driven work; Aurora and Redshift are optimized for transactional or analytic queries, not large multi-source ETL compute.',
+  },
+  {
+    id: 'dea-ing-068',
+    domain: 'ingestion',
+    task: '1.4',
+    tags: ['dea-c01', 'step-functions'],
+    question:
+      'A multi-step serverless pipeline (extract, Glue transform, load to Redshift) needs durable workflow orchestration with retries. Best choice:',
+    options: [
+      'AWS Step Functions coordinating Lambda, Glue, and other steps',
+      'Amazon ECS task definitions alone',
+      'AWS Batch as the primary workflow engine',
+      'A single Lambda function with no state machine',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Step Functions is the managed orchestration service for serverless ETL workflows. ECS orchestrates containers; Batch runs jobs but lacks integrated workflow state; one Lambda cannot reliably coordinate long multi-step pipelines.',
+  },
+  {
+    id: 'dea-ing-069',
+    domain: 'ingestion',
+    task: '1.3',
+    tags: ['dea-c01', 'open-table-format'],
+    question:
+      'Parquet files already live in S3; the team wants full open-table-format benefits (ACID-style commits, better pruning). Recommended approach:',
+    options: [
+      'Run an AWS Glue ETL job to rewrite data into the open table format in the lake',
+      'Query raw Parquet in Athena only and skip table formats',
+      'Assume Parquet alone is always faster than any table format',
+      'Register an open-table-format table metadata-only on unchanged Parquet without rewriting',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Physical conversion via Glue (or similar) materializes format features in stored data. Metadata-only external tables do not deliver the same storage and transaction benefits as converting and writing new table-format datasets.',
+  },
+  {
+    id: 'dea-ing-070',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'glue'],
+    question: 'Which capabilities are core to AWS Glue? (Select THREE.)',
+    options: [
+      'Scheduling and running ETL jobs',
+      'Batch and streaming ETL processing',
+      'Central data cataloging',
+      'IAM user lifecycle management',
+      'Automatic Rekognition image labeling',
+      'Dedicated cost-optimization billing product',
+    ],
+    correctAnswers: [0, 1, 2],
+    explanation:
+      'Glue is serverless ETL plus the Data Catalog. Identity is IAM; image analysis is Rekognition; Glue is not a standalone “cost optimization” service despite being pay-per-use.',
+  },
+  {
+    id: 'dea-ing-071',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'flink'],
+    question:
+      'Streaming analytics with stateful windowing on Kinesis or MSK without operating Flink clusters. Managed option:',
+    options: [
+      'Amazon Managed Service for Apache Flink',
+      'Amazon S3 Glacier',
+      'AWS Snow Family only',
+      'Amazon RDS',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Managed Flink runs stream processing with autoscaling infrastructure. Glacier and Snow are storage/migration; RDS is relational OLTP, not a stream processor.',
+  },
+  {
+    id: 'dea-ing-072',
+    domain: 'ingestion',
+    task: '1.4',
+    tags: ['dea-c01', 'step-functions', 'emr'],
+    question:
+      'Spark transformation jobs on EMR must run in sequence with error handling between stages. Common orchestration pattern from DEA labs:',
+    options: [
+      'AWS Step Functions state machine invoking EMR or Glue steps',
+      'Manual SSH to the primary node for each run',
+      'S3 event → single Lambda with 15-minute limit for entire pipeline',
+      'Disable retries to simplify operations',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Step Functions coordinates long-running Spark/ETL stages with built-in retry and branching. Manual runs do not scale; one Lambda cannot replace a full Spark pipeline.',
+  },
+  {
+    id: 'dea-ing-073',
+    domain: 'ingestion',
+    task: '1.3',
+    tags: ['dea-c01', 'emr-serverless'],
+    question:
+      'Short-lived Spark batch jobs should start on submit, scale automatically, and stop when idle. Deployment option:',
+    options: [
+      'Amazon EMR Serverless',
+      'Always-on EMR cluster with fixed core nodes',
+      'Amazon EC2 Auto Scaling without EMR',
+      'Amazon Redshift Spectrum only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'EMR Serverless provisions workers per job and bills for processing time—suited to transient batch Spark/Hudi workloads. Long-lived clusters add ops overhead; Spectrum queries S3 data from Redshift, it is not a Spark submit target.',
+  },
+  {
+    id: 'dea-ing-074',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'streaming', 'glue-catalog'],
+    question:
+      'Real-time stream processing is required, but the team only updated the Glue Data Catalog. What is missing?',
+    options: [
+      'A compute engine such as Glue streaming, EMR Spark Structured Streaming, or Managed Flink',
+      'Another metadata table in the catalog',
+      'Replacing S3 with EFS for streaming',
+      'Using CloudTrail as the stream processor',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The Data Catalog stores metadata only. Streaming analytics needs a processing service—Glue ETL streaming, Spark on EMR, or Managed Flink—not catalog changes alone.',
+  },
+  {
+    id: 'dea-ing-075',
+    domain: 'ingestion',
+    task: '1.3',
+    tags: ['dea-c01', 'emr', 'spark'],
+    question:
+      'Very large datasets in S3 must be transformed with Apache Spark or Hadoop before loading Redshift. Best fit when you need full cluster control:',
+    options: [
+      'Amazon EMR',
+      'Amazon EventBridge',
+      'AWS Lambda',
+      'Amazon EventBridge Scheduler only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'EMR runs Spark and Hadoop at scale on S3 data. EventBridge routes events; Lambda is short-lived; Glue fits many ETL cases but exam scenarios citing Spark/Hadoop cluster control point to EMR.',
+  },
+  {
+    id: 'dea-ing-076',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'incremental'],
+    question:
+      'A nightly pipeline should load only rows added or changed in the source database since the previous successful run. Ingestion pattern:',
+    options: [
+      'Incremental ingestion using change markers or high-water timestamps',
+      'Full refresh that overwrites the entire target each run',
+      'Generic scheduled batch with no change detection',
+      'Event-driven ingestion when no change events are published',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Incremental loads limit work to new or updated records. Full refresh reprocesses everything; blind batch schedules ignore deltas; event-driven patterns need explicit change notifications.',
+  },
+  {
+    id: 'dea-ing-077',
+    domain: 'ingestion',
+    task: '1.3',
+    tags: ['dea-c01', 'glue', 'cost'],
+    question:
+      'Non-urgent Glue ETL workloads should spend less on idle Spark capacity while staying serverless. Feature to evaluate:',
+    options: [
+      'AWS Glue Flex jobs',
+      'Provisioning On-Demand EC2 instances for each Glue job',
+      'Disabling job logs and metrics to hide failures',
+      'Raising max concurrent runs without workload tuning',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Flex jobs defer compute until data is processed, cutting idle cost for flexible SLAs. Glue jobs are already serverless—not user-picked EC2; turning off observability hurts ops; more concurrency alone can increase spend.',
+  },
+  {
+    id: 'dea-ing-078',
+    domain: 'ingestion',
+    task: '1.3',
+    tags: ['dea-c01', 'emr', 's3'],
+    question:
+      'Apache Spark on Amazon EMR must read and write large datasets in Amazon S3 as the primary data lake. File system layer:',
+    options: [
+      'EMRFS (EMR File System)',
+      'HDFS as the default store for all S3 objects',
+      'Amazon EFS mounted as the only S3 substitute',
+      'Cluster local disks after downloading every object',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'EMRFS presents S3 as a Hadoop-compatible filesystem with consistency and encryption options. HDFS targets cluster storage; EFS is shared file storage, not the standard S3 integration; local disks do not scale for lake-sized data.',
+  },
+  {
+    id: 'dea-ing-079',
+    domain: 'ingestion',
+    task: '1.3',
+    tags: ['dea-c01', 'emr', 'cost'],
+    question:
+      'Overnight EMR batch jobs are fault-tolerant and not deadline-critical. Cost and elasticity practices include:',
+    options: [
+      'Spot Instances with EMR managed scaling enabled',
+      'On-Demand Instances only with a fixed cluster size',
+      'Disabling auto scaling to simplify capacity',
+      'Turning off partitioning and compression to save CPU',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'EMR tolerates Spot interruption with task retries; managed scaling matches nodes to workload. All On-Demand fixed clusters waste money idle; disabling scale ignores demand spikes; partitioning and compression improve performance and cost at query time.',
+  },
+  {
+    id: 'dea-ing-080',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'kinesis', 'cost'],
+    question:
+      'A Kinesis Data Streams workload has few consumers and does not need sub-second read latency. Cost-friendly consumer model:',
+    options: [
+      'Shared throughput (standard consumers)',
+      'Enhanced Fan-Out dedicated throughput per consumer',
+      'Adding shards without evaluating consumer count',
+      'Dedicated throughput for every Lambda poll',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Standard consumers share shard read capacity—enough when latency requirements are relaxed. Enhanced Fan-Out adds per-consumer cost for isolated low-latency pipes; extra shards raise spend without fixing consumer model choice.',
+  },
+  {
+    id: 'dea-ing-081',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'kinesis', 'latency'],
+    question:
+      'Many parallel Kinesis consumers need minimal read latency without competing for the same shard throughput. Feature:',
+    options: [
+      'Enhanced Fan-Out (dedicated throughput per consumer)',
+      'Shared throughput only with one poll per second per shard',
+      'Disabling all consumers except one',
+      'Storing records only in CloudWatch Logs',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Enhanced Fan-Out pushes records over dedicated connections (HTTP/2) so consumers do not share the 2 MB/s per shard standard limit. Standard iterators poll and share capacity—fine for cost-sensitive, low fan-out designs.',
+  },
+  {
+    id: 'dea-ing-082',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'msk', 'monitoring'],
+    question:
+      'Operations wants broker CPU, disk, and throughput metrics for an Amazon MSK cluster. Metrics are published to:',
+    options: [
+      'Amazon CloudWatch',
+      'AWS Lambda execution environment only',
+      'Amazon QuickSight datasets automatically',
+      'Amazon OpenSearch Service as the MSK metrics store',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'MSK integrates with CloudWatch for cluster health and tuning. Lambda may consume/produce Kafka records but does not collect MSK infrastructure metrics; QuickSight visualizes data you connect; OpenSearch is a sink for logs/search, not MSK’s native metrics channel.',
+  },
+  {
+    id: 'dea-ing-083',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'kinesis', 'encryption'],
+    question:
+      'Encryption at rest for records in Amazon Kinesis Data Streams is enabled how?',
+    options: [
+      'Automatically using AWS KMS as data enters and leaves the service',
+      'Only when each shard is created with a manual toggle',
+      'By clients encrypting payloads before PutRecord only',
+      'Optional stream setting that defaults to off',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Kinesis encrypts at the stream level with KMS—always on for at-rest protection. Encryption is not per-shard configuration; producers are not required to pre-encrypt; it is not an optional off-by-default feature.',
+  },
+  {
+    id: 'dea-ing-084',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'kinesis', 'msk'],
+    question:
+      'Why use short-term streaming stores such as Kinesis Data Streams or Amazon MSK in a pipeline? (Select TWO.)',
+    options: [
+      'Buffer ingestion when downstream processing or networks fail temporarily',
+      'Decouple producers from consumers for flexible scaling',
+      'Replace S3 Glacier for multi-year regulatory archives',
+      'Build BI dashboards directly inside the stream',
+      'Perform zero-ETL warehouse modeling inside Kafka topics',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Streams retain data briefly so consumers can catch up after outages and teams can evolve processors independently. Long-term compliance archives belong in durable object storage; streams are not BI or ETL engines.',
+  },
+  {
+    id: 'dea-ing-085',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'streaming', 'efficiency'],
+    question:
+      'A streaming pipeline processes too many bytes per minute. Techniques that reduce the amount of data processed: (Select TWO.)',
+    options: [
+      'Filter out events that downstream systems do not need',
+      'Compress payloads where appropriate before further processing',
+      'Add more Kinesis shards only',
+      'Increase parallel consumer tasks without dropping fields',
+      'Raise partition count with no schema change',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Filtering and compression shrink useful workload volume. Scaling shards, parallelism, or partitions improves throughput but does not reduce the data each stage must handle.',
+  },
+  {
+    id: 'dea-ing-086',
+    domain: 'ingestion',
+    task: '1.3',
+    tags: ['dea-c01', 'emr', 'spark-streaming'],
+    question:
+      'Spark Structured Streaming on EMR must survive driver failures and preserve exactly-once semantics. Enable:',
+    options: [
+      'Checkpointing to durable storage (for example S3 via the cluster)',
+      'Client-side gzip on Kinesis only',
+      'Per-record KMS encryption in application code instead of checkpoints',
+      'Random repartition without state storage',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Checkpoints persist offsets and state so jobs restart from the last consistent point. Compression and encryption address size/security—not fault tolerance; repartitioning alone does not recover state after failure.',
+  },
+  {
+    id: 'dea-ing-087',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'flink'],
+    question:
+      'Amazon Managed Service for Apache Flink guarantees consistent results when failures occur during stateful stream processing using:',
+    options: [
+      'Exactly-once processing semantics with checkpointed state',
+      'Manual deletion of all state after each record',
+      'CloudFront caching of stream batches',
+      'Glue crawlers on the stream',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Managed Flink checkpoints state and supports exactly-once sinks for critical real-time apps (fraud, maintenance alerts). Clearing state per record breaks recovery; crawlers catalog files—they do not run Flink logic.',
+  },
+  {
+    id: 'dea-ing-088',
+    domain: 'ingestion',
+    task: '1.3',
+    tags: ['dea-c01', 'flink'],
+    question:
+      'In a Managed Flink application, which component executes the parallel data processing tasks assigned by the coordinator?',
+    options: [
+      'Task Managers',
+      'Job Manager only (no workers)',
+      'Apache ZooKeeper (primary compute engine)',
+      'Amazon CloudWatch (runs operators)',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The Job Manager schedules work and manages lifecycle; Task Managers run operators on data. ZooKeeper coordinates cluster metadata; CloudWatch observes metrics—it does not execute Flink tasks.',
+  },
+  {
+    id: 'dea-ing-089',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'lambda', 'kinesis'],
+    question:
+      'A Lambda function consumes Kinesis with the default event source mapping. How does it read records from each shard?',
+    options: [
+      'Polls the shard (shared throughput, about once per second baseline)',
+      'Receives a dedicated push stream per shard without polling',
+      'Pulls records directly from Amazon RDS',
+      'Reads S3 object listings instead of stream records',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Standard mappings poll shards and share read throughput with other consumers. Enhanced Fan-Out (when enabled) pushes over dedicated connections; RDS and S3 are unrelated Kinesis consumer patterns.',
+  },
 ]
