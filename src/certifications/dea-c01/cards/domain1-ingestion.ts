@@ -1389,4 +1389,396 @@ export const ingestionCards: Card[] = [
     explanation:
       'Standard mappings poll shards and share read throughput with other consumers. Enhanced Fan-Out (when enabled) pushes over dedicated connections; RDS and S3 are unrelated Kinesis consumer patterns.',
   },
+  {
+    id: 'dea-ing-090',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'dms', 'cdc'],
+    question:
+      'AWS DMS is replicating Oracle into an S3 data lake with near-zero application downtime. After the initial copy starts, how does DMS finish catching up?',
+    options: [
+      'Full load, then apply cached changes that occurred during the load, then ongoing CDC from transaction logs',
+      'CDC only with no initial copy of existing rows',
+      'A single UNLOAD from the source followed by a one-time COPY',
+      'Schema Conversion Tool replacing DMS for ongoing replication',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DMS migrates existing data (full load) while caching in-flight changes, applies those cached changes, then continues CDC from source logs. SCT converts schemas; it does not replace CDC. UNLOAD/COPY is a Redshift pattern, not DMS replication.',
+  },
+  {
+    id: 'dea-ing-091',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'glue-studio'],
+    question:
+      'Analysts need a drag-and-drop Spark ETL job with live schema inference and job monitoring, without writing a full Spark script first. Tool:',
+    options: [
+      'AWS Glue Studio (visual ETL, notebooks, and script editor)',
+      'Amazon MWAA DAG editor only',
+      'Amazon Athena workgroups',
+      'AWS Batch job queues',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue Studio provides visual ETL, Jupyter-style notebooks, a script editor, and job monitoring on the serverless Spark engine. MWAA orchestrates Airflow; Athena queries lakes; Batch runs compute jobs but is not Glue visual ETL.',
+  },
+  {
+    id: 'dea-ing-092',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'glue', 'python-shell', 'ray'],
+    question:
+      'A small Python cleanup script should run natively in Glue without a Spark cluster. Engine that matches, and its main limit:',
+    options: [
+      'Glue Python shell on a single EC2 instance, limited by that instance capacity',
+      'Glue for Apache Spark, which always requires a multi-node cluster even for tiny jobs',
+      'Glue for Ray, which is only for SQL DDL',
+      'Amazon Redshift COPY as the Python runtime',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Python shell jobs run native Python on one instance—fine for light work, poor for big data. Spark jobs use managed Spark for batch/streaming; Ray scales Python across machines. COPY loads Redshift tables; it is not a Glue engine.',
+  },
+  {
+    id: 'dea-ing-093',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'glue', 'dynamicframe'],
+    question:
+      'Incoming S3 JSON has the same field as string in some records and integer in others. Glue Spark library type designed for this messy schema:',
+    options: [
+      'DynamicFrame (Glue ETL library)',
+      'A rigid Spark DataFrame with a single enforced type and no resolveChoice',
+      'Amazon RDS row types',
+      'Kinesis record aggregation only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue DynamicFrames handle inconsistent field types across a dataset (resolveChoice and related operations). Strict DataFrames fail on mixed types unless you add extra handling; RDS and KPL aggregation do not solve Glue schema messiness.',
+  },
+  {
+    id: 'dea-ing-094',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'glue', 'crawler', 'classifier'],
+    question:
+      'A Glue crawler should recognize a proprietary log layout that built-in classifiers miss. Configure:',
+    options: [
+      'A custom classifier (for example grok, JSON, or XML) used before built-in classifiers',
+      'Amazon Macie as the schema inference engine',
+      'Redshift DISTSTYLE KEY on the log files',
+      'S3 Glacier Flexible Retrieval as a SerDe',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Crawlers use custom or built-in classifiers to infer format and schema. Macie finds sensitive data; distribution styles apply to Redshift tables; Glacier is a storage class, not a classifier.',
+  },
+  {
+    id: 'dea-ing-095',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'glue', 'crawler', 'partitions'],
+    question:
+      'A Glue crawler compares schemas under an S3 prefix. Compatible schemas become partitions of one table when they match above approximately:',
+    options: [
+      '70% similarity (partition threshold)',
+      '10% similarity always merged',
+      'Exactly 100% identical files only, with no threshold',
+      'Zero matching columns required',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue crawlers combine compatible schemas into one table definition when the compared schemas exceed the partition threshold (about 70%). Below that, the crawler creates separate tables per path.',
+  },
+  {
+    id: 'dea-ing-096',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'glue-streaming'],
+    question:
+      'Serverless Glue streaming ETL should continuously clean clickstream data in transit. Supported sources include: (Select TWO.)',
+    options: [
+      'Amazon Kinesis Data Streams',
+      'Amazon MSK or self-managed Apache Kafka',
+      'Amazon S3 Glacier Deep Archive as a live stream',
+      'Amazon CloudFront cache invalidations only',
+      'AWS Artifact reports',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Glue streaming consumes Kinesis, MSK, and Kafka, then writes to cataloged targets such as S3, Redshift, JDBC, Iceberg, Hudi, or Delta. Glacier and Artifact are not stream sources.',
+  },
+  {
+    id: 'dea-ing-097',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'kinesis', 'kpl'],
+    question:
+      'Many tiny click events under-use Kinesis shard write capacity. Producer-side technique that packs small records into larger PutRecords payloads (up to 1 MB):',
+    options: [
+      'Kinesis Producer Library (KPL) aggregation',
+      'Enhanced Fan-Out on every producer',
+      'Glue crawlers on each event',
+      'Redshift VACUUM after every PutRecord',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'KPL aggregates small user records into larger Kinesis records to use shard throughput efficiently, with retries. Enhanced Fan-Out is a consumer feature; crawlers and VACUUM are unrelated to producer packing.',
+  },
+  {
+    id: 'dea-ing-098',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'kinesis', 'kcl'],
+    question:
+      'A KCL consumer application finished permanently. After terminating the worker instances, which leftover resource should you delete so it does not keep costing money or confuse a later app?',
+    options: [
+      'The DynamoDB table KCL used to track lease and checkpoint state',
+      'The Kinesis stream itself whenever any consumer stops',
+      'Amazon S3 Glacier vaults created by KCL',
+      'The Glue Data Catalog database for the stream',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'KCL persists shard leases and checkpoints in DynamoDB. Delete that table when the application is retired. Stopping workers does not imply deleting the stream; KCL does not create Glacier vaults or Glue databases as its state store.',
+  },
+  {
+    id: 'dea-ing-099',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'firehose', 'dynamic-partitioning'],
+    question:
+      'Firehose should land streaming JSON into S3 prefixes grouped by customer_id inside each record. Feature:',
+    options: [
+      'Dynamic partitioning on keys in the payload',
+      'Kinesis shard splitting only',
+      'Glue job bookmarks on the delivery stream',
+      'Redshift DISTSTYLE ALL on the Firehose buffer',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Dynamic partitioning continuously partitions Firehose output using keys in the data and writes matching S3 prefixes. Shard splits change stream capacity; bookmarks and DISTSTYLE are not Firehose partitioners.',
+  },
+  {
+    id: 'dea-ing-100',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'firehose', 'parquet'],
+    question:
+      'Firehose should convert incoming JSON to a columnar format in S3 before Athena queries. Built-in conversion targets:',
+    options: [
+      'Apache Parquet or Apache ORC',
+      'Avro only, with no Parquet option',
+      'Microsoft Excel workbooks',
+      'Protocol Buffers exclusively',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Firehose can convert JSON to Parquet or ORC for cheaper, faster analytics. Other input formats can be turned into JSON first with Lambda. Excel and protobuf are not the built-in Firehose columnar targets.',
+  },
+  {
+    id: 'dea-ing-101',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'firehose', 'redshift'],
+    question:
+      'Firehose delivers compressed files that Redshift COPY must load. Compression format Firehose supports for the Redshift path:',
+    options: [
+      'GZIP only (ZIP and SNAPPY are not valid for the Redshift destination path)',
+      'SNAPPY only',
+      'ZIP only',
+      'BZIP2 as the sole Redshift option',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Firehose can compress with GZIP, ZIP, or SNAPPY for S3, but only GZIP is supported when data is further loaded to Redshift.',
+  },
+  {
+    id: 'dea-ing-102',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'msk', 'serverless'],
+    question:
+      'Kafka ingestion must scale partitions automatically with no broker instance-type or broker-count choices, billed by throughput. Cluster type:',
+    options: [
+      'Amazon MSK Serverless',
+      'MSK Provisioned with Standard brokers you size yourself',
+      'Amazon Kinesis On-Demand as a Kafka API',
+      'Amazon MQ for ActiveMQ',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'MSK Serverless provisions and balances partitions for you and charges for data streamed and retained. Provisioned MSK requires instance, storage, and broker decisions. Kinesis is not Kafka-compatible; Amazon MQ is not MSK.',
+  },
+  {
+    id: 'dea-ing-103',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'msk-connect'],
+    question:
+      'CDC from Aurora MySQL must land continuously in an MSK topic without a custom producer app. Managed feature:',
+    options: [
+      'Amazon MSK Connect (Kafka Connect source connector)',
+      'AWS Glue Python shell as a Kafka broker',
+      'Amazon Athena federated query as the Kafka producer',
+      'S3 Lifecycle as the Kafka source',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'MSK Connect runs managed Kafka Connect source and sink connectors that copy data between Kafka and external systems. Glue Python shell, Athena, and Lifecycle are not Kafka Connect runtimes.',
+  },
+  {
+    id: 'dea-ing-104',
+    domain: 'ingestion',
+    task: '1.3',
+    tags: ['dea-c01', 'eventbridge-pipes'],
+    question:
+      'Kinesis records should be filtered, optionally enriched, then sent to Step Functions with little custom glue code. Service designed for this point-to-point pattern:',
+    options: [
+      'Amazon EventBridge Pipes',
+      'Amazon CloudFront behaviors',
+      'AWS Artifact agreements',
+      'Amazon Route 53 alias records',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Pipes connect supported sources (Kinesis, DynamoDB Streams, SQS, MSK, MQ) to targets with optional filter and enrichment (Lambda, Step Functions, API Gateway). CDN, compliance docs, and DNS do not implement this pipe.',
+  },
+  {
+    id: 'dea-ing-105',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'flink', 'windowing'],
+    question:
+      'Managed Flink must aggregate events into non-overlapping 5-minute buckets versus overlapping last-15-minute windows. Window types:',
+    options: [
+      'Tumbling windows for fixed non-overlapping intervals; sliding windows for overlapping intervals',
+      'Tumbling windows always overlap; sliding windows never overlap',
+      'Session windows are the only Flink window type on AWS',
+      'Glue crawlers implement Flink window operators',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Flink windowing supports tumbling (fixed, non-overlapping), sliding (overlapping time windows), and custom event-time windows. Crawlers catalog files; they do not run Flink operators.',
+  },
+  {
+    id: 'dea-ing-106',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'redshift', 'auto-copy'],
+    question:
+      'New files in an S3 prefix should load into a Redshift table automatically without a separate Glue or Lambda pipeline. Feature:',
+    options: [
+      'Redshift AUTO COPY job (COPY JOB AUTO ON after an S3 event integration)',
+      'Athena CTAS into Redshift local storage',
+      'S3 Object Lock as a load trigger',
+      'CloudFront invalidation as the COPY scheduler',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'An auto-copy job watches the S3 path and runs COPY when new objects arrive, after you create an S3 event integration. Athena CTAS writes query results, not Redshift auto-ingest; Object Lock and CloudFront are unrelated.',
+  },
+  {
+    id: 'dea-ing-107',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'redshift', 'streaming'],
+    question:
+      'Near-real-time analytics on Kinesis or MSK should avoid staging in S3. Redshift pattern:',
+    options: [
+      'Streaming ingestion into a materialized view that is refreshed as a stream consumer',
+      'Firehose COPY every 24 hours only',
+      'UNLOAD from Kinesis into Glacier then COPY',
+      'Glue crawler on the Kinesis ARN',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Redshift streaming ingestion lands Kinesis or MSK data in a materialized view, assigning shards to slices and skipping S3 staging. Nightly Firehose, Glacier hops, and crawlers do not provide this low-latency path.',
+  },
+  {
+    id: 'dea-ing-108',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'zero-etl'],
+    question:
+      'Aurora PostgreSQL operational data must appear in Redshift for dashboards without a customer-managed ETL job. First option to evaluate:',
+    options: [
+      'Amazon Redshift zero-ETL integration from the supported source',
+      'AWS DMS only, because zero-ETL never supports Aurora',
+      'Physical Snowball shipment each hour',
+      'Public unauthenticated JDBC from the internet',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Zero-ETL automates replication from sources such as Aurora MySQL/PostgreSQL, RDS for MySQL, DynamoDB, and some SaaS apps into Redshift. Use DMS when the source is unsupported (for example Oracle, Db2, or many non-AWS databases).',
+  },
+  {
+    id: 'dea-ing-109',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'etl', 'elt'],
+    question:
+      'Large joins and aggregations should run inside Redshift after a bulk load into staging tables, not in an external Spark cluster. Pipeline style:',
+    options: [
+      'ELT: extract, load to staging, then transform with SQL in the warehouse',
+      'ETL only: all transforms must finish before any Redshift load',
+      'Schema-on-read lake queries with no warehouse tables',
+      'MSK Connect as the warehouse SQL engine',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ELT loads into staging then transforms with Redshift SQL (joins, filters, aggregations). Classic ETL transforms before load. Schema-on-read describes lakes; MSK Connect moves streams, it does not replace warehouse SQL.',
+  },
+  {
+    id: 'dea-ing-110',
+    domain: 'ingestion',
+    task: '1.3',
+    tags: ['dea-c01', 'ecs', 'fargate'],
+    question:
+      'A daily containerized S3 batch job should be as simple as possible for a team new to containers, with almost no servers to manage. Combination:',
+    options: [
+      'Amazon ECS with the Fargate launch type, scheduled (EventBridge or ECS scheduled task)',
+      'Amazon ECS with the EC2 launch type so you still patch container instances',
+      'Amazon EKS with EC2 managed node groups and a Kubernetes Job',
+      'Amazon EKS with Fargate and Kubernetes CronJobs as the simplest path',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ECS on Fargate runs the task without managing EC2 or a Kubernetes control plane. EKS adds cluster and Job/CronJob complexity even on Fargate. ECS on EC2 still requires instance management.',
+  },
+  {
+    id: 'dea-ing-111',
+    domain: 'ingestion',
+    task: '1.1',
+    tags: ['dea-c01', 'kinesis', 'enhanced-fan-out'],
+    question:
+      'Several analytics apps must each get dedicated Kinesis read throughput (Enhanced Fan-Out). Required registration step:',
+    options: [
+      'Call RegisterStreamConsumer for each consumer application, then subscribe to shards',
+      'Set shard count equal to the number of downstream apps',
+      'Create a Firehose stream so it fans out to every HTTP endpoint',
+      'Attach a resource policy that raises the default shared 2 MB/s per-shard cap for standard iterators',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Enhanced Fan-Out requires registering each consumer (RegisterStreamConsumer) to receive a consumer ARN and dedicated ~2 MB/s per shard via SubscribeToShard. Extra shards and Firehose do not grant EFO. A policy cannot lift standard shared-iterator limits the way EFO does.',
+  },
+  {
+    id: 'dea-ing-112',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'bedrock', 'llm'],
+    question:
+      'An Amazon Bedrock InvokeModel (or Converse) call sets maxTokens / max_tokens. That parameter limits:',
+    options: [
+      'How many tokens the model may generate in the completion',
+      'How many tokens may be stored in a prompt cache',
+      'The sum of input plus output tokens for the whole account',
+      'How many tokens are allowed in the input prompt only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'maxTokens caps generated output length for that inference request. Input size is a separate context-window limit; account-level token quotas are not this parameter; prompt cache size is unrelated.',
+  },
 ]

@@ -1056,4 +1056,295 @@ export const storeCards: Card[] = [
     explanation:
       'Parquet columnar layout minimizes bytes scanned in Athena. JSON and row-oriented Avro are weaker for wide analytic filters; raw CSV lacks compression and column pruning benefits.',
   },
+  {
+    id: 'dea-store-069',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 's3', 'zones'],
+    question:
+      'A lake should keep original ingested files for audit, store cleaned rows separately, and publish joined analytics-ready datasets. Zone layout:',
+    options: [
+      'Raw zone (original format), cleaned zone (standardized), curated zone (joined for use cases)',
+      'A single public bucket with no prefixes',
+      'Only Glacier Deep Archive for all active analytics',
+      'RDS as the only lake zone',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Student-guide lake design segments S3 by processing stage: raw preserves source format; cleaned holds filtered/standardized data; curated holds merged datasets for analytics and ML. Landing, logs, archive, and sandbox buckets are additional optional zones.',
+  },
+  {
+    id: 'dea-store-070',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 's3', 'pii', 'zones'],
+    question:
+      'PII files arrive from partners and must be masked before they enter the durable raw lake. Extra bucket the course recommends:',
+    options: [
+      'A landing zone where data is masked before promotion into the raw zone',
+      'The curated zone as the first landing place for unmasked PII',
+      'CloudFront as the PII store',
+      'Amazon SQS as long-term PII storage',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'For sensitive data, use a landing zone, mask or tokenize there, then move into the raw zone so the lake never stores unmasked PII in the durable ingest bucket.',
+  },
+  {
+    id: 'dea-store-071',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 's3', 'storage-class'],
+    question:
+      'Match S3 archival classes to retrieval needs: millisecond restore vs hours at lowest cost vs flexible archive retrieval. Pairing:',
+    options: [
+      'Glacier Instant Retrieval; Glacier Deep Archive; Glacier Flexible Retrieval',
+      'S3 Standard for all three; Glacier does not exist',
+      'Express One Zone for 12-hour compliance archive',
+      'S3 One Zone-IA for multi-AZ 11-nines archive',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Instant Retrieval is millisecond archive; Flexible Retrieval is lower-cost archive with flexible restore times; Deep Archive is cheapest long-term archive with longer restores. Express One Zone is high-performance single-AZ hot storage, not deep archive.',
+  },
+  {
+    id: 'dea-store-072',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 's3', 'express'],
+    question:
+      'A latency-sensitive lake path needs the lowest-latency S3 class and hundreds of thousands of requests per second. Storage class and bucket type:',
+    options: [
+      'S3 Express One Zone in an S3 directory bucket',
+      'S3 Glacier Deep Archive in a general purpose bucket',
+      'S3 One Zone-IA for multi-AZ hot data',
+      'Amazon EFS as an S3 storage class',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'S3 Express One Zone is purpose-built for frequently accessed, lowest-latency object storage using directory buckets. Deep Archive is slow archive; One Zone-IA is infrequent access, not Express performance; EFS is a file system, not an S3 class.',
+  },
+  {
+    id: 'dea-store-073',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'schema-on-read'],
+    question:
+      'How do data lakes and warehouses typically apply schema?',
+    options: [
+      'Lakes use schema on read (raw data first); warehouses use schema on write (model before load)',
+      'Lakes require schema on write; warehouses never have a schema',
+      'Both always enforce schema on write only',
+      'Neither stores structured data',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Warehouses store curated structured data designed before insert (schema on write) for fast local SQL. Lakes store raw structured, semi-structured, and unstructured data cheaply and apply schema when queried (schema on read).',
+  },
+  {
+    id: 'dea-store-074',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'redshift-serverless', 'rpu'],
+    question:
+      'Amazon Redshift Serverless bills compute how, and what is one RPU?',
+    options: [
+      'RPU-hours per second with a 60-second minimum; 1 RPU = 16 GB of memory',
+      'Always-on DC2 nodes billed monthly whether queries run or not',
+      'Per S3 LIST request only',
+      'Per Glue DPU with no warehouse capacity setting',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Serverless charges for RPU-hours on a per-second basis (60-second minimum), including queries over open file formats in S3. One RPU provides 16 GB of memory. Provisioned DC2 billing is a different model.',
+  },
+  {
+    id: 'dea-store-075',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'redshift-serverless'],
+    question:
+      'In Redshift Serverless, which construct holds compute (base capacity, usage limits) versus database objects (schemas, tables, users)?',
+    options: [
+      'Workgroup = compute; namespace = data and users',
+      'Namespace = compute; workgroup = only CloudWatch alarms',
+      'Leader node = serverless compute unit',
+      'Query group = the Serverless namespace',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'A workgroup is a collection of compute resources (base RPUs 8–512, default 128, usage and query limits). A namespace is a collection of database objects and users. Leader nodes exist on provisioned clusters, not as the Serverless workgroup abstraction.',
+  },
+  {
+    id: 'dea-store-076',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'redshift', 'ra3'],
+    question:
+      'RA3 nodes with Redshift Managed Storage (RMS) let you scale compute independently of storage because:',
+    options: [
+      'Hot data caches on local SSD; cold data tiers to S3-backed managed storage',
+      'All table data lives only on the leader node EBS volume',
+      'RA3 stores every block exclusively in Glacier Deep Archive',
+      'RMS replaces the need for any sort or distribution keys',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'RMS decouples compute from storage: high-performance SSD holds hot blocks and S3 holds cold data, scaling automatically. Leader-node-only storage, Glacier-only RMS, and “no keys needed” are incorrect.',
+  },
+  {
+    id: 'dea-store-077',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'redshift', 'multi-az'],
+    question:
+      'A provisioned RA3 warehouse must keep data current (RPO of zero) and recover faster from an AZ failure. Deployment option and SLA contrast:',
+    options: [
+      'Multi-AZ RA3: compute in two AZs, 99.99% SLA vs 99.9% single-AZ',
+      'Single-AZ DC2 with no snapshots',
+      'Pause and resume as the HA strategy',
+      'Spectrum external tables as Multi-AZ failover',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Multi-AZ deploys compute in two AZs behind one endpoint, keeps data current (zero RPO), and improves RTO and SLA to 99.99% versus 99.9% single-AZ. Pause/resume saves idle cost; it is not AZ failover. Spectrum queries S3; it is not cluster HA.',
+  },
+  {
+    id: 'dea-store-078',
+    domain: 'store',
+    task: '2.3',
+    tags: ['dea-c01', 'redshift', 'pause'],
+    question:
+      'A provisioned Redshift cluster is unused nights and weekends. Cost action that keeps the warehouse but stops compute charges while idle:',
+    options: [
+      'Pause the cluster and resume it when queries return',
+      'Delete automated snapshots to pause billing',
+      'Set DISTSTYLE ALL to zero cost',
+      'Disable WLM queues instead of pausing',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Pause and resume stops compute when the cluster is idle and brings it back later. Snapshots, distribution style, and WLM do not implement idle-cost pause.',
+  },
+  {
+    id: 'dea-store-079',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'redshift', 'elastic-resize'],
+    question:
+      'A provisioned cluster needs more nodes for a peak with minimal downtime. Resize type:',
+    options: [
+      'Elastic resize to add or remove nodes with minimal downtime',
+      'Classic resize as the only option with no session impact ever',
+      'Deleting the leader node',
+      'UNLOAD then drop the cluster without restore',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Elastic resize scales node count up or down with minimal downtime to match workload. Classic resize takes longer. Removing the leader or dropping the cluster is not a scale operation.',
+  },
+  {
+    id: 'dea-store-080',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'diststyle'],
+    question:
+      'Choose the Redshift distribution style: small dimension copied to every node; large fact joined on customer_id; staging table that is never joined.',
+    options: [
+      'ALL, KEY on customer_id, EVEN',
+      'EVEN, ALL, KEY',
+      'KEY, EVEN, ALL',
+      'AUTO is invalid and cannot be used',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ALL places a full copy of a small table on every node for collocated joins. KEY collocates join keys. EVEN round-robins rows when the table is not joined. AUTO is the default and lets Redshift pick a style from table size.',
+  },
+  {
+    id: 'dea-store-081',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'open-table-format', 'hudi', 'delta'],
+    question:
+      'AWS Glue supports which open table formats for transactional lakes on S3? (Select THREE.)',
+    options: [
+      'Apache Iceberg',
+      'Apache Hudi',
+      'Delta Lake',
+      'Amazon EBS snapshots as a table format',
+      'CloudFront cache behaviors',
+      'Route 53 private hosted zones',
+    ],
+    correctAnswers: [0, 1, 2],
+    explanation:
+      'Glue supports Iceberg, Hudi, and Delta Lake, adding ACID, record-level updates, compaction, time travel, and schema evolution on S3. EBS, CloudFront, and Route 53 are not lake table formats.',
+  },
+  {
+    id: 'dea-store-082',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'compaction', 'small-files'],
+    question:
+      'Athena and Spark jobs crawl millions of tiny JSON objects and run slowly. Storage optimization called out in the course:',
+    options: [
+      'Compact small files and convert to columnar formats such as Parquet',
+      'Increase the number of tiny files to improve parallelism always',
+      'Store each row as its own Glacier archive',
+      'Disable partitioning so every query lists the whole bucket',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The small-files problem increases LIST and open overhead. Compaction plus columnar formats (and partitioning) cuts scan time. More tiny files, per-row Glacier objects, and no partitions make it worse.',
+  },
+  {
+    id: 'dea-store-083',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'redshift', 'datashare'],
+    question:
+      'A producer Redshift cluster shares views that should pick up underlying table DDL changes without being rebound. View type to include in the datashare:',
+    options: [
+      'Late-binding views (along with regular and materialized views as needed)',
+      'Only temporary tables, which cannot be shared',
+      'STL system tables as the datashare unit',
+      'S3 inventory reports as Redshift views',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Datashares can include schemas, tables, regular views, late-binding views, materialized views, and SQL UDFs. Late-binding views do not bind to underlying objects at creation time, so they survive some schema changes.',
+  },
+  {
+    id: 'dea-store-084',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'redshift', 'data-exchange'],
+    question:
+      'A company wants to license live Redshift datasets to external subscribers with AWS handling billing. Datashare type:',
+    options: [
+      'AWS Data Exchange datashares added to a Data Exchange product',
+      'Standard datashare to a random public IP',
+      'UNLOAD to a public S3 bucket with no agreement',
+      'Lake Formation blueprint as a marketplace SKU',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Data Exchange datashares are the licensing unit for sharing Redshift data through AWS Data Exchange; AWS manages subscription billing. Standard datashares share within accounts/orgs you control; public UNLOAD is not licensed sharing.',
+  },
+  {
+    id: 'dea-store-085',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'glue-catalog'],
+    question:
+      'After a Glue crawler finishes, what is stored in the Data Catalog versus what remains in S3?',
+    options: [
+      'Catalog: metadata (location, schema, partitions, SerDe); S3: the actual data files',
+      'Catalog: a full copy of every source row',
+      'Catalog: only IAM policies; no table metadata',
+      'S3 stores schemas only; the catalog stores file bytes',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The catalog holds table name, database, storage descriptor (format, location, SerDe), schema, partition keys, and parameters—not the source data itself. ETL engines use that metadata to read the files in S3.',
+  },
 ]

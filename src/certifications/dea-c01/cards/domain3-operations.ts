@@ -503,13 +503,14 @@ export const operationsCards: Card[] = [
     tags: ['dea-c01', 'pivot'],
     question: 'Transform long-format sales rows to wide columns by month uses SQL:',
     options: [
-      'PIVOT or conditional aggregation',
+      'Conditional aggregation with CASE expressions and GROUP BY',
       'SELECT 1',
       'DROP SCHEMA',
       'Only INSERT without SELECT',
     ],
     correctAnswers: [0],
-    explanation: 'Pivoting reshapes data for reporting; grouping and CASE expressions achieve similar results.',
+    explanation:
+      'Redshift reporting pivots use SUM(CASE WHEN ...) (or similar) grouped by the remaining dimensions. Window PARTITION BY does not create new columns; PostgreSQL tablefunc CROSSTAB is not Redshift SQL.',
   },
   {
     id: 'dea-ops-035',
@@ -868,5 +869,311 @@ export const operationsCards: Card[] = [
     correctAnswers: [0, 1, 2],
     explanation:
       'Cost Explorer visualizes usage trends; Budgets alert on thresholds; Auto Scaling right-sizes capacity. CloudTrail audits API activity; Aurora and ECS are compute/data services—not AWS cost management products.',
+  },
+  {
+    id: 'dea-ops-057',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'roles', 'personas'],
+    question:
+      'Match personas: fosters a data-driven culture and AI strategy; designs pipeline stages and schemas; extracts statistical/ML insight. Order:',
+    options: [
+      'Chief data officer, data architect, data scientist',
+      'Data analyst, Glue crawler, CloudTrail',
+      'QuickSight reader, S3 bucket, Lambda',
+      'Data engineer, NAT gateway, Cost Explorer',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The CDO owns culture, quality, governance, and strategy. Architects design pipelines, integration, and catalog schemas. Scientists apply statistics and ML. Engineers implement and operate pipelines; analysts consume curated data for business questions.',
+  },
+  {
+    id: 'dea-ops-058',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'orchestration'],
+    question:
+      'The course groups AWS Glue, CodePipeline, SageMaker Pipelines, and AWS Batch as:',
+    options: [
+      'Purpose-built orchestrators for specific use cases',
+      'General-purpose orchestrators like Step Functions and MWAA',
+      'S3 storage classes',
+      'Redshift distribution styles',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Purpose-built orchestrators target one domain (Glue for data integration, CodePipeline for CI/CD, SageMaker Pipelines for ML, Batch for batch compute). Step Functions and MWAA are general-purpose workflow engines.',
+  },
+  {
+    id: 'dea-ops-059',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'glue-dq', 'dqdl'],
+    question:
+      'Glue Data Quality can evaluate catalog tables at rest and filter bad rows inside ETL jobs in transit. Language used to declare those rules:',
+    options: [
+      'Data Quality Definition Language (DQDL), with recommended or custom rules',
+      'Amazon States Language only',
+      'WLM JSON on the Glue job',
+      'VPC flow log syntax',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DQDL expresses Glue Data Quality rules. You can accept recommendations or write custom rules, then evaluate at rest in the catalog or in transit in ETL. ASL is Step Functions; WLM is Redshift; VPC flow logs are network telemetry.',
+  },
+  {
+    id: 'dea-ops-060',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'glue', 'pii'],
+    question:
+      'A Glue job must detect and mask PII across many countries during ETL. Transform called out in the course:',
+    options: [
+      'Detect PII transform (hundreds of entity types plus custom regex)',
+      'Redshift VACUUM as a PII scanner',
+      'S3 Inventory as the only PII detector',
+      'CloudFront signed cookies for column masking',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue Detect PII can detect, mask, or remove sensitive entities (on the order of 250 types from 50+ countries) and custom regex identities while data is processed.',
+  },
+  {
+    id: 'dea-ops-061',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'ato'],
+    question:
+      'A new Redshift table should get sort and distribution keys without a DBA picking them. Capability:',
+    options: [
+      'Automatic table optimization (ATO) observing queries and altering keys',
+      'Manual DISTSTYLE EVEN forever with no Advisor',
+      'Deleting sort keys to force full scans',
+      'Glue crawlers writing Redshift sort keys',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ATO continuously watches how queries use tables and applies sort and distribution keys automatically, typically within hours, with minimal query impact. Glue crawlers catalog data; they do not set Redshift keys.',
+  },
+  {
+    id: 'dea-ops-062',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'wlm'],
+    question:
+      'Redshift automatic WLM (recommended) differs from manual WLM because automatic WLM:',
+    options: [
+      'Dynamically allocates memory and concurrency, and can prioritize shorter queries with query priority settings',
+      'Always uses eight fixed slots you must size by hand',
+      'Disables concurrency scaling permanently',
+      'Replaces SQL with MapReduce',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Automatic WLM sets concurrency to Auto, allocates memory dynamically, can send work to concurrency scaling, and supports priorities (Lowest through Highest). Manual WLM uses static queues and is discouraged for changing workloads.',
+  },
+  {
+    id: 'dea-ops-063',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'automv'],
+    question:
+      'Redshift should create and drop hidden materialized views based on whether they help latency versus refresh cost. Feature:',
+    options: [
+      'Automated materialized views (AutoMV)',
+      'STL_QUERY only',
+      'S3 Intelligent-Tiering on RMS',
+      'MSK Connect AutoMQ',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AutoMV uses ML to create materialized views when they should improve latency, keep them fresh, and drop them when they no longer pay off. STL views are diagnostics; Intelligent-Tiering and MSK are unrelated.',
+  },
+  {
+    id: 'dea-ops-064',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'materialized-views'],
+    question:
+      'Users keep writing SQL against base tables, but Redshift should automatically run equivalent logic against an existing materialized view. Optimizer feature:',
+    options: [
+      'Automatic query rewrite to the materialized view',
+      'Mandatory rewrite of every dashboard to UNLOAD',
+      'DISTSTYLE KEY on the leader node only',
+      'Glue job bookmarks inside Redshift',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The optimizer can rewrite queries that hit the same base tables as a materialized view so they read the precomputed result, improving performance and reducing cost without changing user SQL.',
+  },
+  {
+    id: 'dea-ops-065',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift-advisor'],
+    question:
+      'Operations wants ranked, cluster-specific advice on COPY file layout, WLM memory, missing VACUUM, and idle clusters to pause. Tool:',
+    options: [
+      'Amazon Redshift Advisor',
+      'AWS Artifact as a query tuner',
+      'Amazon Macie sort-key recommendations',
+      'Route 53 health checks on SQL',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Advisor analyzes cluster metrics and recommends ingestion, query/WLM, table (sort/dist, vacuum/analyze), and cost actions such as pausing clusters idle for 7 days. Artifact, Macie, and Route 53 do not tune Redshift tables.',
+  },
+  {
+    id: 'dea-ops-066',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'redshift', 'data-api'],
+    question:
+      'A Lambda function should run Redshift SQL without keeping a JDBC connection open. Interface:',
+    options: [
+      'Amazon Redshift Data API (asynchronous HTTP, Secrets Manager or temporary credentials)',
+      'Permanent superuser password in the Lambda zip',
+      'Direct SSH to a compute node',
+      'S3 Select against RMS as SQL',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The Data API exposes a secure HTTP endpoint for SQL (SELECT, DML, DDL, COPY, UNLOAD) without persistent connections; calls are asynchronous. Embedding passwords, SSH to nodes, and S3 Select are not the Data API.',
+  },
+  {
+    id: 'dea-ops-067',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'udf'],
+    question:
+      'A Redshift SQL query must call out to a Python Lambda that masks emails using a third-party library. Function type:',
+    options: [
+      'Lambda UDF (external scalar function)',
+      'SQL UDF only, which cannot leave the cluster',
+      'Glue Python shell registered as a DISTKEY',
+      'Firehose dynamic partitioning inside SELECT',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Lambda UDFs run custom code (Java, Python, and other Lambda languages) as part of SQL and can reach other AWS services. SQL UDFs stay inside Redshift SELECT logic and cannot use those network/library capabilities.',
+  },
+  {
+    id: 'dea-ops-068',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'stored-procedures'],
+    question:
+      'Wrap a multi-statement load, transform, and truncate in one transactional Redshift routine without granting table INSERT to analysts. Object and dialect:',
+    options: [
+      'Stored procedure in PL/pgSQL, granted EXECUTE instead of table writes',
+      'A materialized view that truncates facts',
+      'An S3 lifecycle rule in SQL',
+      'A Kinesis iterator in PL/SQL on Oracle only',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Redshift stored procedures use PL/pgSQL (variables, loops, transactions, SECURITY DEFINER patterns) so callers can run privileged work without direct table grants. MVs do not encapsulate truncate/load scripts.',
+  },
+  {
+    id: 'dea-ops-069',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift-ml'],
+    question:
+      'Analysts should train and run a classification model with SQL against warehouse tables without exporting data to a separate ML cluster. Feature:',
+    options: [
+      'Amazon Redshift ML (CREATE MODEL and prediction in SQL)',
+      'Amazon Rekognition as the warehouse model trainer',
+      'Amazon Polly text-to-speech on fact tables',
+      'AWS Snowball as an in-database ML engine',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Redshift ML creates, trains, evaluates, and deploys models from SQL so scoring stays in the warehouse. Rekognition, Polly, and Snowball are not in-database ML for Redshift tables.',
+  },
+  {
+    id: 'dea-ops-070',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'redshift', 'sys-views'],
+    question:
+      'A data engineer needs SQL-accessible history of user queries, including COPY and CTAS text, inside Redshift. Views:',
+    options: [
+      'SYS_QUERY_HISTORY and SYS_QUERY_TEXT (plus SYS_CONNECTION_LOG / SYS_USERLOG for sessions and users)',
+      'AWS Artifact PDF attachments queried with SQL',
+      'Route 53 query logs as warehouse STL',
+      'S3 Inventory as SYS_QUERY_TEXT',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Redshift system views such as SYS_QUERY_HISTORY and SYS_QUERY_TEXT expose query status, type, and SQL (including COPY, UNLOAD, VACUUM, ANALYZE, CTAS). Connection and user logs have matching SYS views. Artifact and DNS logs are not these views.',
+  },
+  {
+    id: 'dea-ops-071',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'cost', 'savings-plans'],
+    question:
+      'Beyond Cost Explorer and Budgets, which commitment discount the course lists for steady compute on data platforms?',
+    options: [
+      'Savings Plans (and related reserved capacity where applicable)',
+      'Making all S3 buckets public to lower request prices',
+      'Disabling encryption to reduce KMS cost only',
+      'Turning off CloudWatch to hide spend',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Savings Plans (and reserved instances where they still apply) reduce cost for predictable compute. Public buckets, dropping encryption, and disabling monitoring are not cost-optimization practices taught in the course.',
+  },
+  {
+    id: 'dea-ops-072',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'encode'],
+    question:
+      'Default and recommended settings for new Redshift tables for sort keys, column encoding, and distribution:',
+    options: [
+      'SORTKEY AUTO, ENCODE AUTO, DISTSTYLE AUTO',
+      'No sort key, RAW encoding, DISTSTYLE ALL on every fact table',
+      'Interleaved sort keys on all tables with no AUTO option',
+      'Manual BYTEDICT on every column including uncompressed keys',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The course treats AUTO sort keys, ENCODE AUTO, and DISTSTYLE AUTO as the default best practice so Redshift can adjust as data and queries change. ALL on large facts and raw encoding everywhere are anti-patterns.',
+  },
+  {
+    id: 'dea-ops-073',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'pivot'],
+    question:
+      'A Redshift fact table stores one revenue row per product category and quarter. Analysts need one row per category with Q1–Q4 as columns. Exam-tested SQL pattern:',
+    options: [
+      'GROUP BY category with SUM(CASE WHEN quarter = \'Q1\' THEN revenue END) (and the same for Q2–Q4)',
+      'SUM(revenue) OVER (PARTITION BY quarter) then GROUP BY category to manufacture quarter columns',
+      'PostgreSQL tablefunc CROSSTAB as native Redshift syntax',
+      'Rely on a window function alone, which always emits new physical columns',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Conditional aggregation with CASE (or FILTER) and GROUP BY is the standard Redshift way to reshape long facts into wide reports. PARTITION BY computes windowed values but does not pivot into Q1–Q4 columns. CROSSTAB is a PostgreSQL extension, not Redshift.',
+  },
+  {
+    id: 'dea-ops-074',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'dynamodb', 'idempotent'],
+    question:
+      'A Glue Spark job writes curated rows to DynamoDB and can be retried after a scheduler double-fire. How do you keep retries from creating duplicate items?',
+    options: [
+      'Use the natural business key as the partition key so a retry PutItem overwrites the same item with the same values',
+      'Generate a new UUID partition key on every run so each execution inserts a unique row',
+      'Append a run timestamp to the key so each retry is a new item',
+      'Increment a version attribute as a new item for every retry to keep full history as the primary copy',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Idempotent loads reuse a stable business key so a second write replaces the same item. Random UUIDs, timestamps, and versioned new items create duplicates instead of making retries safe.',
   },
 ]

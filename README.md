@@ -15,7 +15,7 @@ A local study app for IT certification exams. Runs entirely in your browser with
 | DOP-C02 | AWS Certified DevOps Engineer - Professional | **Available** (190 cards) |
 | SAP-C02 | AWS Certified Solutions Architect - Professional | **Available** (190 cards) |
 | SCS-C03 | AWS Certified Security - Specialty | **Available** (190 cards) |
-| DEA-C01 | AWS Certified Data Engineer - Associate | **Available** (259 cards) |
+| DEA-C01 | AWS Certified Data Engineer - Associate | **Available** (335 cards) |
 | MLS-C01 | AWS Certified Machine Learning - Specialty | **Available** (190 cards, retired exam) |
 | ANS-C01 | AWS Certified Advanced Networking - Specialty | **Available** (190 cards, retires Aug 2026) |
 

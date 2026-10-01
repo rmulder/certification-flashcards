@@ -719,4 +719,311 @@ export const securityCards: Card[] = [
     explanation:
       'Config conformance packs bundle rules and optional remediation for frameworks like HIPAA. Artifact documents AWS compliance posture—it does not monitor your buckets and databases. IAM and Lake Formation help but do not continuously enforce full resource configuration.',
   },
+  {
+    id: 'dea-sec-047',
+    domain: 'security',
+    task: '4.1',
+    tags: ['dea-c01', 'vpc-endpoint'],
+    question:
+      'Private subnet Glue jobs must reach S3 and DynamoDB without NAT or the public internet, and also reach Glue and CloudWatch APIs privately. Endpoint types:',
+    options: [
+      'Gateway endpoints for S3 and DynamoDB; interface endpoints (PrivateLink) for Glue, CloudWatch, and most other APIs',
+      'Gateway endpoints for Glue and CloudWatch only',
+      'Interface endpoints as the only way to reach S3',
+      'Internet gateways required for all AWS APIs from private subnets',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Gateway endpoints add prefix-list routes for S3 and DynamoDB over the AWS private network and do not use PrivateLink. Interface endpoints are ENIs with private IPs for a wide range of services including Glue and CloudWatch.',
+  },
+  {
+    id: 'dea-sec-048',
+    domain: 'security',
+    task: '4.5',
+    tags: ['dea-c01', 'shared-responsibility'],
+    question:
+      'Under the AWS shared responsibility model, which items remain the customer\'s job for a data platform?',
+    options: [
+      'Guest OS and application patching on unmanaged compute, security groups, data classification, encryption choices, and IAM permissions',
+      'Physical data center hardware and global infrastructure only',
+      'AWS-operated hypervisor and Regions exclusively',
+      'Nothing; AWS encrypts and classifies all customer data automatically without configuration',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS secures the cloud (hardware, software, networking, facilities). Customers secure data in the cloud: OS/app config on IaaS, firewall/security groups, classifying data, encryption, and IAM. Managed services shift more OS work to AWS but not data classification or access policy.',
+  },
+  {
+    id: 'dea-sec-049',
+    domain: 'security',
+    task: '4.2',
+    tags: ['dea-c01', 'lake-formation', 'named-resource'],
+    question:
+      'Lake Formation grants can target a specific database/table/view and include or exclude columns, or match LF-Tags instead. These two models are:',
+    options: [
+      'Named resource method versus tag-based access control',
+      'Gateway endpoints versus interface endpoints',
+      'DISTSTYLE KEY versus ALL',
+      'Firehose buffering versus KPL aggregation',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Named-resource grants apply to listed Data Catalog objects (with optional column include/exclude and data filters). Tag-based access uses LF-Tags on tables or columns. The other pairs are networking, warehouse, or streaming concepts.',
+  },
+  {
+    id: 'dea-sec-050',
+    domain: 'security',
+    task: '4.2',
+    tags: ['dea-c01', 'lake-formation', 'data-filter'],
+    question:
+      'Analysts may query a Glue table but must see only rows where country = \'Italy\' and must not see the address column. Lake Formation controls: (Select TWO.)',
+    options: [
+      'Data filters with a row expression such as country=\'Italy\'',
+      'Column include/exclude or column tags on address',
+      'Redshift VACUUM as the lake row filter',
+      'CloudFront signed URLs for each Parquet row',
+      'Disabling the Glue catalog',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Lake Formation data filters implement row- and cell-level access; named-resource grants or LF-Tags control columns. VACUUM, CloudFront, and deleting the catalog are not LF row/column enforcement.',
+  },
+  {
+    id: 'dea-sec-051',
+    domain: 'security',
+    task: '4.2',
+    tags: ['dea-c01', 'lake-formation', 'hybrid-access'],
+    question:
+      'Some IAM principals should start using Lake Formation permissions on a registered S3 location while existing Glue/S3 IAM users keep working unchanged. Registration mode:',
+    options: [
+      'Hybrid access mode (opt-in principals use Lake Formation; others keep IAM on S3 and Glue)',
+      'Lake Formation only, which immediately breaks all IAM-based lake access',
+      'Public ACLs on the bucket',
+      'Replacing IAM with database passwords for S3',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Hybrid access mode supports two pathways: selected principals opted into Lake Formation grants, and everyone else still authorized by IAM on S3 and Glue. Lake Formation-only mode enforces LF for that location more strictly.',
+  },
+  {
+    id: 'dea-sec-052',
+    domain: 'security',
+    task: '4.2',
+    tags: ['dea-c01', 'lake-formation', 'credential-vending'],
+    question:
+      'Athena queries a Lake Formation table but the analyst has no direct s3:GetObject on the bucket. How does access work?',
+    options: [
+      'Trusted engine checks Lake Formation, receives temporary S3 credentials, reads objects, then applies column/row/cell filters before returning results',
+      'The user must attach AdministratorAccess to query any lake table',
+      'Athena downloads the entire bucket via a public ACL',
+      'Glue crawlers vend long-lived access keys into the query',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Credential vending: the integrated service (Athena, EMR, Spectrum, Glue) authorizes with Lake Formation, gets temporary credentials, reads S3, and enforces LF policies on the result. Direct S3 IAM on the data location is not required for that principal.',
+  },
+  {
+    id: 'dea-sec-053',
+    domain: 'security',
+    task: '4.1',
+    tags: ['dea-c01', 'redshift', 'iam-auth'],
+    question:
+      'Redshift users should log in with temporary database credentials from IAM users, roles, or a corporate IdP instead of stored cluster passwords. Pattern:',
+    options: [
+      'IAM authentication (and federation) for database logins',
+      'A shared superuser password in Secrets Manager used by every analyst',
+      'Disabling SSL so passwords are optional',
+      'Publicly accessible clusters without identity',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'IAM authentication issues temporary database credentials so you need not store static Redshift passwords. Federation maps corporate IdP users. Shared superuser passwords and open clusters violate least privilege.',
+  },
+  {
+    id: 'dea-sec-054',
+    domain: 'security',
+    task: '4.4',
+    tags: ['dea-c01', 'redshift', 'audit'],
+    question:
+      'Redshift Serverless audit logs (connections, users, queries) can be delivered where, unlike provisioned clusters?',
+    options: [
+      'Amazon CloudWatch Logs only (not as S3 log files)',
+      'Only local disk on a leader node you SSH into',
+      'AWS Artifact as query logs',
+      'Route 53 resolver query logs',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'When you collect audit logging for Redshift Serverless, it cannot be sent to S3 log files—only to CloudWatch. Provisioned clusters can export audit logs to CloudWatch or S3. System table logging still happens automatically.',
+  },
+  {
+    id: 'dea-sec-055',
+    domain: 'security',
+    task: '4.5',
+    tags: ['dea-c01', 'guardduty'],
+    question:
+      'The security team wants ML-based threat detection on AWS account activity, networks, and data-related resources—not just PII classification in S3. Service:',
+    options: [
+      'Amazon GuardDuty',
+      'Amazon Macie only',
+      'Amazon QuickSight SPICE',
+      'AWS Glue DataBrew',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'GuardDuty is the threat detection service for suspicious use of AWS resources. Macie classifies sensitive data in S3; QuickSight visualizes BI; DataBrew prepares datasets.',
+  },
+  {
+    id: 'dea-sec-056',
+    domain: 'security',
+    task: '4.5',
+    tags: ['dea-c01', 'audit-manager', 'artifact'],
+    question:
+      'How do AWS Artifact and AWS Audit Manager differ for compliance evidence?',
+    options: [
+      'Artifact provides AWS (and ISV) compliance reports and agreements; Audit Manager continuously audits your AWS usage against frameworks',
+      'Artifact scans live S3 objects for PII; Audit Manager is only a PDF store',
+      'Both replace IAM authentication',
+      'Audit Manager issues KMS keys; Artifact runs Glue jobs',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Artifact is on-demand access to AWS security/compliance reports and agreements. Audit Manager automates evidence collection from your account usage. Neither replaces IAM, KMS, or Glue.',
+  },
+  {
+    id: 'dea-sec-057',
+    domain: 'security',
+    task: '4.5',
+    tags: ['dea-c01', 'pci', 'fedramp'],
+    question:
+      'A Redshift workload handling cardholder data for a US federal agency may need which additional frameworks beyond HIPAA and GDPR? (Select TWO.)',
+    options: [
+      'PCI DSS',
+      'FedRAMP',
+      'Amazon Polly SSML',
+      'S3 Transfer Acceleration as a compliance standard',
+      'Kinesis enhanced fan-out as an audit framework',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'The course lists HIPAA, PCI, and FedRAMP among standards that drive architectural and evidence requirements, with Artifact, Audit Manager, Config, and Security Hub as supporting services. Polly, Transfer Acceleration, and enhanced fan-out are not compliance frameworks.',
+  },
+  {
+    id: 'dea-sec-058',
+    domain: 'security',
+    task: '4.1',
+    tags: ['dea-c01', 'msk', 'iam'],
+    question:
+      'An MSK cluster should authenticate and authorize clients with a single AWS-native mechanism instead of mixing TLS identity with separate Kafka ACLs. Method used in the streaming lab:',
+    options: [
+      'Amazon MSK IAM access control',
+      'Anonymous PLAINTEXT listeners',
+      'Hard-coded ZooKeeper digest ACLs only',
+      'Public 0.0.0.0/0 on broker ports without auth',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'MSK IAM access control handles both authentication and authorization so you do not need one mechanism for identity and another for Kafka ACLs. Open listeners and public brokers are insecure.',
+  },
+  {
+    id: 'dea-sec-059',
+    domain: 'security',
+    task: '4.3',
+    tags: ['dea-c01', 'glue-catalog', 'kms'],
+    question:
+      'Glue Data Catalog metadata (not just S3 objects) must be encrypted with a customer-managed key. Integration:',
+    options: [
+      'Enable Data Catalog encryption with AWS KMS (customer managed or AWS managed key)',
+      'S3 SSE-S3 automatically encrypts Glue table metadata',
+      'Redshift ENCODE AUTO encrypts the catalog',
+      'CloudFront signed URLs encrypt catalog JSON',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue can encrypt catalog metadata with KMS. S3 encryption protects objects in buckets, not the catalog store. Column encoding and CloudFront are unrelated to catalog encryption.',
+  },
+  {
+    id: 'dea-sec-060',
+    domain: 'security',
+    task: '4.2',
+    tags: ['dea-c01', 'redshift', 'datashare', 'lake-formation'],
+    question:
+      'A Redshift datashare includes an employee table; HR may see SSN columns but other consumers must not. Central control plane:',
+    options: [
+      'Lake Formation managed datashares with column- and row-level permissions on share objects',
+      'Making the datashare publicly readable',
+      'UNLOAD of the full table to a public bucket',
+      'Disabling IAM on the consumer cluster',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Lake Formation can enforce database, table, column, and row permissions on Redshift datashare objects so PII columns stay hidden from non-HR roles. Public shares and UNLOAD dump data without that governance.',
+  },
+  {
+    id: 'dea-sec-061',
+    domain: 'security',
+    task: '4.2',
+    tags: ['dea-c01', 'iam', 'policy-simulator'],
+    question:
+      'A new IAM policy for a Glue job role must be proven to allow only the intended S3 actions on specific prefixes before it is attached in production. Safest first test:',
+    options: [
+      'IAM Policy Simulator against the draft policy, actions, and resource ARNs',
+      'Attach the policy in production and read CloudTrail data events afterward',
+      'SSH to a test EC2 instance with the policy and guess from CLI errors',
+      'Skip simulation and grant s3:* on * so the job cannot fail',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Policy Simulator evaluates Allow/Deny for chosen actions and resources without changing production access. CloudTrail after a prod attach is too late; EC2 bash tests are clumsy and still need a principal; wildcard admin is not least privilege.',
+  },
+  {
+    id: 'dea-sec-062',
+    domain: 'security',
+    task: '4.4',
+    tags: ['dea-c01', 'cloudtrail-lake'],
+    question: 'In AWS CloudTrail Lake, an event data store is primarily:',
+    options: [
+      'An immutable collection of management and optional data events that you query with SQL',
+      'A writable relational table with full CRUD for editing past API calls',
+      'A Kinesis delivery stream that forwards every event in real time',
+      'A short-lived S3 staging prefix that expires before you can query it',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Event data stores retain CloudTrail events immutably for SQL analysis in CloudTrail Lake. They are not OLTP CRUD tables, not a Kinesis pipeline, and not a disposable staging bucket.',
+  },
+  {
+    id: 'dea-sec-063',
+    domain: 'security',
+    task: '4.3',
+    tags: ['dea-c01', 'tokenization', 'pii'],
+    question:
+      'PII in a Glue-to-Redshift pipeline must mask to the same token on every run (so joins still work) but must stay irreversible if any lookup table is deleted. Technique:',
+    options: [
+      'Deterministic tokenization with a one-way hash (or HMAC) so the same input always yields the same irreversible token',
+      'Format-preserving encryption with a stored key so analysts can decrypt when needed',
+      'Random tokens regenerated every job, even if that breaks referential integrity',
+      'k-anonymity generalization that collapses many people into one bucket and cannot join on a stable id',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'A keyed hash or HMAC is consistent across runs and not reversible from the token alone. FPE is reversible with the key. Regenerated random maps break joins. k-anonymity hides individuals in groups; it does not produce a stable unique token per original value.',
+  },
+  {
+    id: 'dea-sec-064',
+    domain: 'security',
+    task: '4.2',
+    tags: ['dea-c01', 'lake-formation', 'lf-tags'],
+    question:
+      'An LF-Tag grant requires department=engineering AND sensitivity=public. A new table is tagged department=engineering, sensitivity=confidential. Access for that principal:',
+    options: [
+      'Denied: every key in the grant must match (AND); confidential is not public',
+      'Allowed: LF-Tags OR together, so matching department alone is enough',
+      'Allowed as soon as an administrator refreshes a tag cache',
+      'Allowed because any overlapping tag key grants the table',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Lake Formation LF-TBAC evaluates grant expressions conjunctively: all listed tag key/value pairs must match the resource. Engineering plus confidential fails a grant that also requires sensitivity=public. There is no "one key is enough" OR behavior for those expressions.',
+  },
 ]
