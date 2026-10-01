@@ -604,4 +604,22 @@ export const fundamentalsCards: Card[] = [
     explanation:
       'Data drift occurs when production data distribution diverges from training data. Monitoring detects drift and triggers retraining to maintain model relevance.',
   },
+  {
+    id: 'aif-fund-039',
+    domain: 'fundamentals',
+    task: '1.3',
+    tags: ['lifecycle', 'feature-engineering', 'data-collection', 'multi-select'],
+    question:
+      'A data science team wants to improve a model\'s performance. The data science team wants to increase the number of variables in the training dataset. Which ML pipeline steps will meet these requirements? (Select TWO)',
+    options: [
+      'Data collection',
+      'Model monitoring',
+      'Model evaluation',
+      'Hyperparameter tuning',
+      'Feature engineering',
+    ],
+    correctAnswers: [0, 4],
+    explanation:
+      'Data collection gathers and labels raw data from multiple sources, adding new fields that can become training variables. Feature engineering creates, transforms, extracts, and selects features—directly increasing the number of variables fed to the model. Model monitoring tracks production drift; model evaluation measures performance after training; hyperparameter tuning adjusts algorithm settings—they do not add variables to the training dataset.',
+  },
 ]
