@@ -162,7 +162,7 @@ type AutomationItem = {
 
 function getAutomationItems(): AutomationItem[] {
   return [
-  { slug: 'cloudformation', task: '3.1', tags: ['cloudformation', 'iac'], resource: 'AWS CloudFormation User Guide', focus: 'stack lifecycle, drift detection, and rollback behavior', url: 'https://docs.aws.amazon.com/cloudformation/' },
+  { slug: 'cloudformation', task: '3.1', tags: ['cloudformation', 'iac'], resource: 'AWS CloudFormation User Guide', focus: 'stack lifecycle, drift detection, rollback behavior, and change sets', url: 'https://docs.aws.amazon.com/cloudformation/' },
   { slug: 'cdk', task: '3.1', tags: ['cdk', 'iac'], resource: 'AWS CDK Developer Guide', focus: 'high-level IaC patterns mapped to CloudFormation', url: 'https://docs.aws.amazon.com/cdk/' },
   { slug: 'ssm-automation', task: '3.2', tags: ['systems-manager', 'automation'], resource: 'AWS Systems Manager Automation documentation', focus: 'runbooks and operational task automation', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html' },
   { slug: 'patch-manager', task: '3.2', tags: ['patch-manager', 'systems-manager'], resource: 'Systems Manager Patch Manager documentation', focus: 'fleet patching baselines and patch windows', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-patch.html' },
@@ -170,7 +170,7 @@ function getAutomationItems(): AutomationItem[] {
   { slug: 'codepipeline', task: '3.3', tags: ['codepipeline', 'cicd'], resource: 'AWS CodePipeline User Guide', focus: 'pipeline orchestration and release stages', url: 'https://docs.aws.amazon.com/codepipeline/' },
   { slug: 'codedeploy', task: '3.3', tags: ['codedeploy', 'deployment-strategies'], resource: 'AWS CodeDeploy User Guide', focus: 'blue/green and rolling deployment operations', url: 'https://docs.aws.amazon.com/codedeploy/' },
   { slug: 'config', task: '3.4', tags: ['config', 'compliance'], resource: 'AWS Config Developer Guide', focus: 'config rules, drift checks, and conformance packs', url: 'https://docs.aws.amazon.com/config/' },
-  { slug: 'control-tower', task: '3.4', tags: ['control-tower', 'multi-account'], resource: 'AWS Control Tower documentation', focus: 'landing zone governance and guardrails', url: 'https://docs.aws.amazon.com/controltower/' },
+  { slug: 'control-tower', task: '3.4', tags: ['control-tower', 'multi-account'], resource: 'AWS Control Tower documentation', focus: 'landing zone governance, guardrails, and account lifecycle', url: 'https://docs.aws.amazon.com/controltower/' },
   { slug: 'service-catalog', task: '3.5', tags: ['service-catalog', 'self-service'], resource: 'AWS Service Catalog Administrator Guide', focus: 'standardized product portfolios and approvals', url: 'https://docs.aws.amazon.com/servicecatalog/' },
   ]
 }
@@ -185,15 +185,15 @@ function buildDeploymentAutomationExtras(): Card[] {
       domain: 'deployment-automation',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-drill'],
-      question: `Which official AWS resource is best for ${item.focus} in SOA-C03 prep?`,
+      question: `A platform team must standardize ${item.focus}. Which source should they use first to build dependable automation?`,
       options: [
         item.resource,
-        'Only AWS keynote summaries',
-        'Random cheat sheets',
-        'A blog post without source links',
+        'A random cheat sheet copied between repos',
+        'A one-page blog summary with no references',
+        'Only old architecture screenshots',
       ],
       correctAnswers: [0],
-      explanation: `Primary source: ${item.resource}. Start here: ${item.url}`,
+      explanation: `Production automation should start from canonical AWS behavior and limits in official docs: ${item.url}.`,
     })
     n++
 
@@ -202,15 +202,15 @@ function buildDeploymentAutomationExtras(): Card[] {
       domain: 'deployment-automation',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-authority'],
-      question: `You are reviewing ${item.focus}. Which source should you prioritize first?`,
+      question: `Two engineers disagree on implementation details for ${item.focus}. Which source should settle the design?`,
       options: [
         'Only old screenshots of the console',
         item.resource,
-        'A non-AWS forum thread',
-        'An unrelated service FAQ',
+        'A community thread with no citations',
+        'An unrelated AWS FAQ page',
       ],
       correctAnswers: [1],
-      explanation: `Use first-party AWS documentation for exam-aligned accuracy: ${item.url}`,
+      explanation: `SOA-C03 operations questions align to first-party service documentation: ${item.url}.`,
     })
     n++
 
@@ -219,15 +219,15 @@ function buildDeploymentAutomationExtras(): Card[] {
       domain: 'deployment-automation',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-priority'],
-      question: `For dependable study of ${item.focus}, where should you begin first?`,
+      question: `Before implementing ${item.focus} in a lab, which first step gives the most reliable baseline?`,
       options: [
-        'Only social posts',
-        'Only trial-and-error in production',
+        'Rely on copied snippets from chat threads',
+        'Try changes directly in production first',
         item.resource,
-        'Only AI-generated summaries',
+        'Memorize an answer key without context',
       ],
       correctAnswers: [2],
-      explanation: `Start with the official guide before secondary prep sources: ${item.url}`,
+      explanation: `Use AWS service docs first, then validate with sandbox labs and failure testing: ${item.url}.`,
     })
     n++
   }

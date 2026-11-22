@@ -168,11 +168,11 @@ type SecurityItem = {
 function getSecurityItems(): SecurityItem[] {
   return [
   { slug: 'iam', task: '4.1', tags: ['iam', 'identity'], resource: 'IAM User Guide', focus: 'policy evaluation and least-privilege design', url: 'https://docs.aws.amazon.com/IAM/latest/UserGuide/' },
-  { slug: 'sts', task: '4.1', tags: ['sts', 'cross-account'], resource: 'AWS STS documentation', focus: 'temporary credentials and AssumeRole patterns', url: 'https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html' },
+  { slug: 'sts', task: '4.1', tags: ['sts', 'cross-account'], resource: 'AWS STS documentation', focus: 'temporary credentials, session duration, and AssumeRole patterns', url: 'https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html' },
   { slug: 'kms', task: '4.2', tags: ['kms', 'encryption'], resource: 'AWS KMS Developer Guide', focus: 'key policies, grants, and encryption workflows', url: 'https://docs.aws.amazon.com/kms/' },
   { slug: 'secrets-manager', task: '4.2', tags: ['secrets-manager', 'rotation'], resource: 'AWS Secrets Manager User Guide', focus: 'secret rotation and secure application credentials', url: 'https://docs.aws.amazon.com/secretsmanager/' },
   { slug: 'guardduty', task: '4.3', tags: ['guardduty', 'threat-detection'], resource: 'Amazon GuardDuty User Guide', focus: 'threat-detection findings and triage operations', url: 'https://docs.aws.amazon.com/guardduty/' },
-  { slug: 'security-hub', task: '4.3', tags: ['security-hub', 'findings'], resource: 'AWS Security Hub User Guide', focus: 'aggregated security findings and compliance views', url: 'https://docs.aws.amazon.com/securityhub/' },
+  { slug: 'security-hub', task: '4.3', tags: ['security-hub', 'findings'], resource: 'AWS Security Hub User Guide', focus: 'aggregated security findings, controls, and compliance views', url: 'https://docs.aws.amazon.com/securityhub/' },
   { slug: 'inspector', task: '4.4', tags: ['inspector', 'vulnerabilities'], resource: 'Amazon Inspector User Guide', focus: 'continuous vulnerability scanning and prioritization', url: 'https://docs.aws.amazon.com/inspector/' },
   { slug: 'macie', task: '4.4', tags: ['macie', 'data-protection'], resource: 'Amazon Macie User Guide', focus: 'S3 sensitive data discovery and classification', url: 'https://docs.aws.amazon.com/macie/' },
   { slug: 'waf', task: '4.5', tags: ['waf', 'web-security'], resource: 'AWS WAF documentation', focus: 'L7 web ACL design and managed rule usage', url: 'https://docs.aws.amazon.com/waf/' },
@@ -181,7 +181,7 @@ function getSecurityItems(): SecurityItem[] {
   { slug: 'artifact', task: '4.6', tags: ['artifact', 'audit'], resource: 'AWS Artifact documentation', focus: 'compliance reports and agreement retrieval', url: 'https://docs.aws.amazon.com/artifact/' },
   { slug: 'detective', task: '4.3', tags: ['detective', 'investigations'], resource: 'Amazon Detective User Guide', focus: 'security investigations from linked findings', url: 'https://docs.aws.amazon.com/detective/' },
   { slug: 'access-analyzer', task: '4.1', tags: ['access-analyzer', 'iam'], resource: 'IAM Access Analyzer documentation', focus: 'external-access analysis for policies and resources', url: 'https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html' },
-  { slug: 'cloudtrail-lake', task: '4.6', tags: ['cloudtrail', 'audit-analytics'], resource: 'CloudTrail Lake documentation', focus: 'audit event retention and SQL-style event analysis', url: 'https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake.html' },
+  { slug: 'cloudtrail-lake', task: '4.6', tags: ['cloudtrail', 'audit-analytics'], resource: 'CloudTrail Lake documentation', focus: 'audit event retention, delegated administration, and event analytics', url: 'https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake.html' },
   ]
 }
 
@@ -195,15 +195,15 @@ function buildSecurityComplianceExtras(): Card[] {
       domain: 'security-compliance',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-drill'],
-      question: `Which official AWS resource is best for ${item.focus} in SOA-C03 prep?`,
+      question: `A security operations team is formalizing controls for ${item.focus}. Which source should define the baseline?`,
       options: [
         item.resource,
         'Only third-party exam notes',
-        'A generic cloud blog with no AWS references',
-        'Only console screenshots',
+        'An unsourced cloud-security blog',
+        'Only screenshot-based runbooks',
       ],
       correctAnswers: [0],
-      explanation: `Primary source: ${item.resource}. Start here: ${item.url}`,
+      explanation: `Security controls should be anchored to first-party AWS guidance for correct behavior and limits: ${item.url}.`,
     })
     n++
 
@@ -212,7 +212,7 @@ function buildSecurityComplianceExtras(): Card[] {
       domain: 'security-compliance',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-authority'],
-      question: `You are studying ${item.focus}. Which source should you trust first for exam prep?`,
+      question: `During an incident postmortem, teams disagree on expected AWS behavior for ${item.focus}. Which source should resolve it?`,
       options: [
         'Only community comments',
         item.resource,
@@ -220,7 +220,7 @@ function buildSecurityComplianceExtras(): Card[] {
         'Only old, unrelated service docs',
       ],
       correctAnswers: [1],
-      explanation: `AWS first-party references should anchor security and compliance prep: ${item.url}`,
+      explanation: `For security decisions and exam alignment, prioritize canonical AWS service documentation: ${item.url}.`,
     })
     n++
 
@@ -229,15 +229,15 @@ function buildSecurityComplianceExtras(): Card[] {
       domain: 'security-compliance',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-priority'],
-      question: `For dependable coverage of ${item.focus}, where should you begin first?`,
+      question: `For dependable SOA-C03 prep on ${item.focus}, which first step is best before labs and practice tests?`,
       options: [
-        'Only unsourced study groups',
-        'Only short-form videos',
+        'Rely only on unsourced study groups',
+        'Rely only on short-form videos',
         item.resource,
-        'Only release headlines',
+        'Use only release-note headlines',
       ],
       correctAnswers: [2],
-      explanation: `Start with the AWS canonical source, then reinforce with labs and practice: ${item.url}`,
+      explanation: `Read the canonical AWS source first, then reinforce with hands-on labs and scenario drills: ${item.url}.`,
     })
     n++
   }
