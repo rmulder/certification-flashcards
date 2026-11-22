@@ -881,4 +881,38 @@ export const applicationsCards: Card[] = [
     explanation:
       'RAG systems fail in retrieval or generation. Effective evaluation measures whether the right context was fetched and whether the answer uses it accurately.',
   },
+  {
+    id: 'aif-app-054',
+    domain: 'applications',
+    task: '3.4',
+    tags: ['rouge', 'evaluation', 'text-generation', 'foundation-models'],
+    question:
+      'A company wants to assess the performance of a foundation model (FM) for text generation. Which technique or metric will meet these requirements?',
+    options: [
+      'F1 score',
+      'Reinforcement learning',
+      'Fine-tuning',
+      'Recall-Oriented Understudy for Gisting Evaluation (ROUGE)',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'ROUGE compares generated text to reference outputs and is widely used to evaluate summarization and text generation quality. F1 score measures binary classification accuracy (precision and recall), not generative output quality. Reinforcement learning is a training technique that maximizes reward—it is not an evaluation metric. Fine-tuning customizes a model on domain data to improve predictions; it improves the model rather than assessing its performance.',
+  },
+  {
+    id: 'aif-app-055',
+    domain: 'applications',
+    task: '3.1',
+    tags: ['jumpstart', 'open-source', 'foundation-models', 'compliance'],
+    question:
+      'A company wants to use an open source foundation model (FM) to evaluate if contracts adhere to compliance rules. Which AWS service will meet these requirements?',
+    options: [
+      'Amazon Textract',
+      'Amazon Q Business',
+      'Amazon Kendra',
+      'Amazon SageMaker JumpStart',
+    ],
+    correctAnswers: [3],
+    explanation:
+      'Amazon SageMaker JumpStart provides access to pre-trained open source models—including foundation models—for deployment and customization on SageMaker, suitable for document analysis and summarization workflows such as contract review. Amazon Textract extracts text and structure from documents but does not provide FM access. Amazon Q Business and Amazon Kendra are managed assistant/search services—not open source FM platforms for you to run and customize directly.',
+  },
 ]
