@@ -160,7 +160,8 @@ type AutomationItem = {
   url: string
 }
 
-const automationItems: AutomationItem[] = [
+function getAutomationItems(): AutomationItem[] {
+  return [
   { slug: 'cloudformation', task: '3.1', tags: ['cloudformation', 'iac'], resource: 'AWS CloudFormation User Guide', focus: 'stack lifecycle, drift detection, and rollback behavior', url: 'https://docs.aws.amazon.com/cloudformation/' },
   { slug: 'cdk', task: '3.1', tags: ['cdk', 'iac'], resource: 'AWS CDK Developer Guide', focus: 'high-level IaC patterns mapped to CloudFormation', url: 'https://docs.aws.amazon.com/cdk/' },
   { slug: 'ssm-automation', task: '3.2', tags: ['systems-manager', 'automation'], resource: 'AWS Systems Manager Automation documentation', focus: 'runbooks and operational task automation', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html' },
@@ -171,13 +172,14 @@ const automationItems: AutomationItem[] = [
   { slug: 'config', task: '3.4', tags: ['config', 'compliance'], resource: 'AWS Config Developer Guide', focus: 'config rules, drift checks, and conformance packs', url: 'https://docs.aws.amazon.com/config/' },
   { slug: 'control-tower', task: '3.4', tags: ['control-tower', 'multi-account'], resource: 'AWS Control Tower documentation', focus: 'landing zone governance and guardrails', url: 'https://docs.aws.amazon.com/controltower/' },
   { slug: 'service-catalog', task: '3.5', tags: ['service-catalog', 'self-service'], resource: 'AWS Service Catalog Administrator Guide', focus: 'standardized product portfolios and approvals', url: 'https://docs.aws.amazon.com/servicecatalog/' },
-]
+  ]
+}
 
 function buildDeploymentAutomationExtras(): Card[] {
   const cards: Card[] = []
   let n = 13
 
-  for (const item of automationItems) {
+  for (const item of getAutomationItems()) {
     cards.push({
       id: `soa-automation-${String(n).padStart(3, '0')}`,
       domain: 'deployment-automation',
