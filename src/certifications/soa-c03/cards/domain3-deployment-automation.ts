@@ -162,16 +162,16 @@ type AutomationItem = {
 
 function getAutomationItems(): AutomationItem[] {
   return [
-  { slug: 'cloudformation', task: '3.1', tags: ['cloudformation', 'iac'], resource: 'AWS CloudFormation User Guide', focus: 'stack lifecycle, drift detection, rollback behavior, and change sets', url: 'https://docs.aws.amazon.com/cloudformation/' },
-  { slug: 'cli-config', task: '3.1', tags: ['aws-cli', 'operations-basics'], resource: 'AWS CLI User Guide', focus: 'CLI configuration defaults and command-line operations setup', url: 'https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html' },
+  { slug: 'cloudformation', task: '3.1', tags: ['cloudformation', 'iac'], resource: 'AWS CloudFormation User Guide', focus: 'stack lifecycle and safe update workflows for infrastructure changes', url: 'https://docs.aws.amazon.com/cloudformation/' },
+  { slug: 'change-sets', task: '3.1', tags: ['cloudformation', 'change-sets'], resource: 'CloudFormation change sets documentation', focus: 'previewing stack updates before execution', url: 'https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html' },
   { slug: 'ssm-automation', task: '3.2', tags: ['systems-manager', 'automation'], resource: 'AWS Systems Manager Automation documentation', focus: 'runbooks and operational task automation', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html' },
   { slug: 'patch-manager', task: '3.2', tags: ['patch-manager', 'systems-manager'], resource: 'Systems Manager Patch Manager documentation', focus: 'fleet patching baselines and patch windows', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-patch.html' },
   { slug: 'state-manager', task: '3.2', tags: ['state-manager', 'systems-manager'], resource: 'Systems Manager State Manager documentation', focus: 'continuous instance configuration enforcement', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state.html' },
-  { slug: 'codepipeline', task: '3.3', tags: ['codepipeline', 'cicd'], resource: 'AWS CodePipeline User Guide', focus: 'pipeline orchestration and release stages', url: 'https://docs.aws.amazon.com/codepipeline/' },
-  { slug: 'codedeploy', task: '3.3', tags: ['codedeploy', 'deployment-strategies'], resource: 'AWS CodeDeploy User Guide', focus: 'blue/green and rolling deployment operations', url: 'https://docs.aws.amazon.com/codedeploy/' },
+  { slug: 'stacksets', task: '3.3', tags: ['cloudformation', 'stacksets', 'multi-account'], resource: 'CloudFormation StackSets documentation', focus: 'rolling out standardized stacks across accounts and Regions', url: 'https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/what-is-cfnstacksets.html' },
+  { slug: 'cfn-bootstrap', task: '3.3', tags: ['cloudformation', 'cfn-init', 'cfn-signal'], resource: 'CloudFormation helper scripts documentation', focus: 'EC2 bootstrap status signaling during stack deployments', url: 'https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-helper-scripts-reference.html' },
   { slug: 'config', task: '3.4', tags: ['config', 'compliance'], resource: 'AWS Config Developer Guide', focus: 'config rules, drift checks, and conformance packs', url: 'https://docs.aws.amazon.com/config/' },
   { slug: 'session-manager', task: '3.4', tags: ['systems-manager', 'session-manager', 'vpc-endpoints'], resource: 'AWS Systems Manager Session Manager documentation', focus: 'secure instance access without bastion hosts using Session Manager and VPC endpoints', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html' },
-  { slug: 'cloudshell', task: '3.5', tags: ['cloudshell', 'cli'], resource: 'AWS CloudShell User Guide', focus: 'browser-based CLI environment with preauthenticated AWS credentials and common tools', url: 'https://docs.aws.amazon.com/cloudshell/latest/userguide/welcome.html' },
+  { slug: 'rollback-triggers', task: '3.5', tags: ['cloudformation', 'rollback'], resource: 'CloudFormation rollback triggers documentation', focus: 'automatic rollback based on CloudWatch alarms during updates', url: 'https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-rollback-triggers.html' },
   ]
 }
 
