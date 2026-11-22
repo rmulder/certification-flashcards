@@ -165,7 +165,8 @@ type SecurityItem = {
   url: string
 }
 
-const securityItems: SecurityItem[] = [
+function getSecurityItems(): SecurityItem[] {
+  return [
   { slug: 'iam', task: '4.1', tags: ['iam', 'identity'], resource: 'IAM User Guide', focus: 'policy evaluation and least-privilege design', url: 'https://docs.aws.amazon.com/IAM/latest/UserGuide/' },
   { slug: 'sts', task: '4.1', tags: ['sts', 'cross-account'], resource: 'AWS STS documentation', focus: 'temporary credentials and AssumeRole patterns', url: 'https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html' },
   { slug: 'kms', task: '4.2', tags: ['kms', 'encryption'], resource: 'AWS KMS Developer Guide', focus: 'key policies, grants, and encryption workflows', url: 'https://docs.aws.amazon.com/kms/' },
@@ -181,13 +182,14 @@ const securityItems: SecurityItem[] = [
   { slug: 'detective', task: '4.3', tags: ['detective', 'investigations'], resource: 'Amazon Detective User Guide', focus: 'security investigations from linked findings', url: 'https://docs.aws.amazon.com/detective/' },
   { slug: 'access-analyzer', task: '4.1', tags: ['access-analyzer', 'iam'], resource: 'IAM Access Analyzer documentation', focus: 'external-access analysis for policies and resources', url: 'https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html' },
   { slug: 'cloudtrail-lake', task: '4.6', tags: ['cloudtrail', 'audit-analytics'], resource: 'CloudTrail Lake documentation', focus: 'audit event retention and SQL-style event analysis', url: 'https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake.html' },
-]
+  ]
+}
 
 function buildSecurityComplianceExtras(): Card[] {
   const cards: Card[] = []
   let n = 13
 
-  for (const item of securityItems) {
+  for (const item of getSecurityItems()) {
     cards.push({
       id: `soa-security-${String(n).padStart(3, '0')}`,
       domain: 'security-compliance',
