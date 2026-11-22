@@ -1347,4 +1347,837 @@ export const storeCards: Card[] = [
     explanation:
       'The catalog holds table name, database, storage descriptor (format, location, SerDe), schema, partition keys, and parameters—not the source data itself. ETL engines use that metadata to read the files in S3.',
   },
+  {
+    id: 'dea-store-086',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 's3-tables', 'iceberg'],
+    question:
+      'A lakehouse needs Iceberg tables with S3-managed storage that is optimized for analytics TPS, not a self-managed Iceberg layout in a general purpose bucket. v1.1 in-scope feature:',
+    options: [
+      'Amazon S3 Tables in a table bucket, which stores Apache Iceberg tables as subresources',
+      'S3 Glacier Deep Archive as an interactive Iceberg catalog',
+      'Amazon EFS with CSV folders advertised as Iceberg',
+      'Amazon S3 Standard-IA objects named .iceberg with no table metadata',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'S3 Tables use a distinct table-bucket type built for Iceberg tabular data (higher TPS, SQL via Athena/Redshift/Spark). Glacier, EFS, and renamed objects are not S3 Tables.',
+  },
+  {
+    id: 'dea-store-087',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 's3-tables', 'compaction'],
+    question:
+      'Iceberg on S3 Tables should compact small files, expire old snapshots, and drop unreferenced objects without a nightly Glue Spark maintenance job. Default behavior:',
+    options: [
+      'S3 Tables automatic maintenance: compaction, snapshot management, and unreferenced file removal',
+      'Athena OPTIMIZE/VACUUM as the only supported maintenance path on S3 Tables',
+      'Manual EMR cluster required because table buckets never compact',
+      'S3 Lifecycle transitions Iceberg metadata to Glacier, which is equivalent to compaction',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Table buckets run compaction (default target ~512 MB), snapshot management, and unused-file cleanup. Athena cannot run OPTIMIZE/VACUUM on S3 Tables—you configure maintenance on S3. Lifecycle to Glacier is not Iceberg compaction.',
+  },
+  {
+    id: 'dea-store-088',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 's3-tables', 'glue-catalog'],
+    question:
+      'After S3 Tables are created, Athena and Redshift should discover them through the account Data Catalog. Integration step:',
+    options: [
+      'Integrate table buckets with AWS Glue Data Catalog (creates the s3tablescatalog catalog in that Region)',
+      'Point Athena at the table-bucket HTTP website endpoint with no catalog',
+      'Register each Parquet file as its own Glue crawler source with no Iceberg metadata',
+      'Export table definitions to Amazon Kendra as the metastore',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'One Region-level analytics integration adds s3tablescatalog so current and future table buckets, namespaces, and tables show up for Athena, Redshift, EMR, and related engines. Kendra is search, not a table catalog.',
+  },
+  {
+    id: 'dea-store-089',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 's3-tables', 'security'],
+    question:
+      'A team wants a public S3 Tables table bucket so partners can list Iceberg files on the internet. Constraint:',
+    options: [
+      'Impossible: Block Public Access is always on for table buckets and cannot be disabled',
+      'Enable a bucket website and ACL PublicRead on the table bucket',
+      'Set the s3tables namespace policy to Principal: * with no condition',
+      'Turn off Block Public Access the same way as a general purpose bucket',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'S3 Tables uses the s3tables API namespace and always-on Block Public Access. Share through IAM, Lake Formation, and analytics integrations—not public ACLs.',
+  },
+  {
+    id: 'dea-store-090',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'hnsw', 'ivf'],
+    question:
+      'Aurora PostgreSQL (pgvector) will take frequent inserts of new embeddings and serve low-latency k-NN. Index type to prefer (skill 2.1.8):',
+    options: [
+      'HNSW: graph index that supports incremental inserts and typically better query latency/recall than IVFFlat',
+      'IVFFlat only: centroids never go stale, so it is always better for changing data',
+      'B-tree on the embedding column, which is the pgvector ANN default',
+      'No index: sequential scan is required for any dataset larger than 1,000 vectors',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'HNSW is the usual production choice on Aurora/pgvector for mutating vector data. IVFFlat is cheaper to build and uses less memory but freezes centroids, so recall drops until you rebuild. B-tree is not an ANN vector index.',
+  },
+  {
+    id: 'dea-store-091',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'memorydb', 'aurora'],
+    question:
+      'A session cache needs microsecond GET/SET of hot keys. A separate RAG path needs SQL plus vector similarity on the same operational database. Pair (skill 2.1.3):',
+    options: [
+      'Amazon MemoryDB (or ElastiCache) for the key-value cache; Aurora PostgreSQL with pgvector (HNSW/IVF) for SQL + embeddings',
+      'S3 Glacier for the session cache because it is cheapest per GET',
+      'Amazon Keyspaces as the only supported pgvector engine',
+      'Amazon Redshift RA3 as a microsecond key-value store',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'The exam guide cites HNSW on Aurora PostgreSQL and MemoryDB for fast key/value. Glacier is archive; Keyspaces is Cassandra-compatible CQL; Redshift is a warehouse, not a cache.',
+  },
+  {
+    id: 'dea-store-092',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'bedrock', 'vectorization'],
+    question:
+      'Policy PDFs in S3 must support semantic Q&A via a foundation model. Vectorization pipeline the exam names (skill 2.4.6):',
+    options: [
+      'Amazon Bedrock Knowledge Bases: ingest, chunk, embed, and store vectors in a supported vector store, then retrieve at query time',
+      'Amazon Athena CTAS to VARCHAR as a vector index',
+      'Amazon Kinesis Data Firehose gzip as embeddings',
+      'AWS Glue crawler classifiers as an embedding model',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Bedrock Knowledge Bases is the managed RAG/vectorization path (unstructured S3/docs into embeddings). CTAS, Firehose compression, and crawlers do not create vector indexes.',
+  },
+  {
+    id: 'dea-store-093',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'sagemaker-catalog'],
+    question:
+      'A producer project curates a Glue table with business glossary terms. Other domain projects must discover it and request access. SageMaker Catalog pattern (skill 2.2.6):',
+    options: [
+      'Publish the asset to the domain-scoped SageMaker Catalog; consumer projects subscribe and the owner project grants after approval',
+      'Leave the table unpublished in the project; discovery still spans the whole organization automatically',
+      'Email a JDBC password; Catalog publish is only for SageMaker training jobs',
+      'Register the table in Amazon Kendra as the business data catalog',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'SageMaker Catalog is the v1.1 business catalog: domain-wide discovery, producer-owned assets, subscribe/approve fulfillment. Unpublished project artifacts stay inside the project. Kendra is not that catalog.',
+  },
+  {
+    id: 'dea-store-094',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'keyspaces', 'dynamodb'],
+    question:
+      'An existing Apache Cassandra application must move to AWS with CQL retained. A different app needs a serverless key-value store with single-digit millisecond GetItem and DynamoDB Streams. Stores:',
+    options: [
+      'Amazon Keyspaces (for Cassandra) for the CQL app; Amazon DynamoDB for the key-value app',
+      'Amazon Neptune for both because Gremlin replaces CQL and DynamoDB APIs',
+      'Amazon DocumentDB as a DynamoDB drop-in with Streams',
+      'Amazon MemoryDB as a Cassandra-compatible CQL endpoint',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Keyspaces is the in-scope Cassandra-compatible managed service. DynamoDB is the serverless key-value/document store with Streams. Neptune is graph; DocumentDB is MongoDB-compatible; MemoryDB is Redis.',
+  },
+  {
+    id: 'dea-store-095',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift-spectrum', 'parquet'],
+    question:
+      'Redshift Spectrum on an S3 lake must scan as little as possible. Which two storage choices actually help? (Select TWO.)',
+    options: [
+      'A columnar format such as Parquet or ORC so Spectrum reads only needed columns',
+      'Hive-style partitions on the predicates used in WHERE clauses so Spectrum can prune prefixes',
+      'Gzip of each file into a single 1–5 GB unsplittable blob',
+      'Millions of <10 KB objects and non-splittable encodings so every reader opens more files',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Columnar layouts plus predicate partitioning cut bytes and LIST work. Huge unsplittable gzip, tiny files, and non-splittable formats slow Spectrum; they do not make it faster.',
+  },
+  {
+    id: 'dea-store-096',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'athena', 'orc'],
+    question:
+      'Athena queries a growing set of daily CSV logs and needs shorter scans plus reader parallelism. Layout:',
+    options: [
+      'Convert to multiple ORC (or Parquet) files per day, partition by date, rely on columnar projection/predicate pushdown',
+      'Convert to JSON and keep one giant object per day',
+      'Convert to Avro only, because Avro is columnar like ORC',
+      'One single Parquet file per day so Athena can use only one reader',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ORC/Parquet are columnar and splittable; several files per partition let Athena parallelize. JSON/Avro are weaker for column pruning. A single file per day limits concurrency.',
+  },
+  {
+    id: 'dea-store-097',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'athena', 'crawler'],
+    question:
+      'A Glue crawler excludes *.json while cataloging an S3 prefix that also has CSV. Athena still reads the JSON. Fastest fix that does not change CSV IAM access:',
+    options: [
+      'Move the JSON objects to a different prefix (or bucket) that is not the table location Athena scans',
+      'Trust the crawler exclude as an Athena read filter—Athena honors crawler exclude patterns at query time',
+      'A console checkbox in Athena that permanently ignores JSON anywhere in the account',
+      'An S3 bucket policy that denies json while you still point the table at the mixed prefix, expecting shorter scans',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Athena reads whatever is under the table’s S3 location; crawler exclude only affects what the crawler catalogs. Relocating unwanted files is the documented fix. Deny policies do not make mixed prefixes scan faster.',
+  },
+  {
+    id: 'dea-store-098',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'dynamodb', 'gsi', 'lsi'],
+    question:
+      'A DynamoDB table is partitioned on RideID with TripStartTime as the base sort key. Drivers need completed rides only, without a table scan. Access pattern:',
+    options: [
+      'A global secondary index with DriverID as the partition key and RideStatus as the sort key, then Query that GSI',
+      'A local secondary index on DriverID; an LSI must keep the base table’s partition key (RideID)',
+      'A GSI partitioned on RiderID when the query is by driver',
+      'A FilterExpression on the base table as a replacement for a Query-able key',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'A GSI can use a different partition key than the base table. An LSI cannot—it always shares the base PK. FilterExpression still reads matching PK items and then drops rows, which is not a skip-scan index.',
+  },
+  {
+    id: 'dea-store-099',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'glue-crawler', 'redshift'],
+    question:
+      'Redshift table DDL changes must show up in the Glue Data Catalog every day for lake engines. Lightweight sync:',
+    options: [
+      'Schedule a Glue crawler with a JDBC connection to Redshift and write updates to the Glue Data Catalog',
+      'AWS DataSync as a Redshift metastore replicator into Glue',
+      'AWS SCT writing Hive metastore DDL on a cron, skipping Glue',
+      'A daily crawler that updates only an Apache Hive metastore and never Glue',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue crawlers support JDBC sources including Redshift and refresh Glue catalog schemas. DataSync copies files, not table DDL. SCT converts schemas for migrations; it is not the daily Glue catalog sync. Hive-only misses the Glue catalog the lake uses.',
+  },
+  {
+    id: 'dea-store-100',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'diststyle'],
+    question:
+      'A Redshift cluster cannot grow. Small, rarely updated dimensions sit next to huge EVEN facts. Distribution that helps joins without copying facts to every node:',
+    options: [
+      'DISTSTYLE ALL on those small, slowly changing tables; declare primary and foreign keys so the optimizer can use them',
+      'DISTSTYLE ALL on every hundred-gigabyte fact table',
+      'Keep EVEN on tiny dimensions that are joined on every query, with no keys declared',
+      'Invent partition keys on RA3 local disks as a substitute for ALL/KEY/EVEN',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ALL copies a small table to every node so joins avoid redistributing it. ALL on large facts wastes storage and slows loads. Declared PK/FK are informational but help the planner. EVEN is fine for unjoined staging, not for hot tiny dimensions.',
+  },
+  {
+    id: 'dea-store-101',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'rds', 'performance-insights'],
+    question:
+      'RDS for MySQL is write-heavy, instance CPU is pegged, and the app is slowing. Which two actions actually cut CPU? (Select TWO.)',
+    options: [
+      'Use Performance Insights to find expensive SQL, then tune those statements',
+      'Move to a larger instance class if vCPU is still saturated after query work',
+      'Add more secondary indexes first on a write-heavy workload (indexes add write CPU)',
+      'Put ElastiCache in front when almost all load is writes, not reads',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Performance Insights shows which SQL burns CPU. A larger class adds vCPU if the instance is the limit. Extra indexes and read caches do not help a write-dominated CPU problem and can make writes worse. Weekly reboots are not a tuning strategy.',
+  },
+  {
+    id: 'dea-store-102',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'dynamodb', 'autoscaling'],
+    question:
+      'A provisioned DynamoDB table spikes every Monday morning and is quiet on weekends. Most cost-effective consistent peak performance:',
+    options: [
+      'Application Auto Scaling scheduled actions: raise provisioned RCU/WCU before Monday, lower them for the weekend',
+      'Leave provisioned capacity at the Monday peak 24×7',
+      'Split into two tables each at half the capacity and hope queries fan out',
+      'Switch to on-demand when the traffic shape is already a known weekly calendar',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Scheduled auto scaling pre-warms provisioned capacity for known peaks and drops it off-peak. Always-on peak waste money. Table-splitting is not a capacity feature. On-demand fits unpredictable spikes, not a cheap predictable weekly pattern.',
+  },
+  {
+    id: 'dea-store-103',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'glue-crawler', 'partitions'],
+    question:
+      'Athena tables need year/month/day partitions created daily and must pick up schema changes. Partition projection alone is not enough. Job:',
+    options: [
+      'A scheduled AWS Glue crawler on the S3 prefix (discovers new partitions and evolving schema)',
+      'Glue DataBrew as the partition registrar',
+      'A Lambda that only MSCK REPAIR TABLE and never updates schema',
+      'Partition projection properties with no crawler, when new columns also appear each week',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'A crawler both adds Hive-style partitions and refreshes schema in the Glue Catalog. Projection is great for stable date layouts but does not infer new columns. DataBrew prepares data; it is not the catalog partition job.',
+  },
+  {
+    id: 'dea-store-104',
+    domain: 'store',
+    task: '2.3',
+    tags: ['dea-c01', 's3', 'lifecycle'],
+    question:
+      '10 million new objects/day, 2 KB–5 MB: hot 60 days, infrequent 61–180 (ms reads), 181–365 retrieve within an hour, then delete. Native rule:',
+    options: [
+      'S3 Lifecycle: Standard → Standard-IA after 60 days → Glacier Flexible Retrieval after 180 days → expire after 365 days',
+      'Intelligent-Tiering with Archive Access as the only control, plus a bucket policy that “expires” objects',
+      'S3 Inventory plus Batch Operations each day to copy classes by hand',
+      'A daily Lambda that rewrites every object into a new storage class',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Lifecycle transitions and expiration match those ages without inventory jobs. Standard-IA is millisecond infrequent access; Glacier Flexible Retrieval is minutes-to-hours. Intelligent-Tiering Archive Access and DIY Batch/Lambda are extra machinery. Tiny objects can have IA/Glacier minimum-size billing, but the exam still wants Lifecycle over custom movers.',
+  },
+  {
+    id: 'dea-store-105',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'dynamodb', 'global-tables'],
+    question:
+      'A NoSQL OLTP store must stay fully managed, single-digit millisecond, and writable in multiple Regions. Least ops:',
+    options: [
+      'Amazon DynamoDB global tables (multi-active replication)',
+      'Amazon Keyspaces as the only global OLTP option',
+      'Amazon DocumentDB with a customer-managed multi-Region mesh as the serverless default',
+      'Amazon Timestream, which is a time-series store rather than a general document/key-value OLTP engine',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DynamoDB global tables are the managed multi-Region, multi-active OLTP path. Keyspaces and DocumentDB can be NoSQL but are not the exam’s global single-digit-ms default. Timestream is for time series.',
+  },
+  {
+    id: 'dea-store-106',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'iceberg', 'glue', 'compaction'],
+    question:
+      'Glue-managed Iceberg (Parquet) tables are slow to query. Which two Glue Data Catalog optimizations help? (Select TWO.)',
+    options: [
+      'Generate column-level statistics on a schedule so engines can prune and plan',
+      'Enable Glue managed compaction so small Iceberg files are rewritten into larger ones',
+      '“Automatically optimize indexes” on Iceberg in Glue as a documented catalog feature',
+      'Switch Iceberg to copy-on-write in the Glue Catalog console as the compaction substitute',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Glue can compute Iceberg column stats and run managed compaction on Parquet Iceberg tables. There is no Glue “auto-index Iceberg” or COW toggle that replaces those two.',
+  },
+  {
+    id: 'dea-store-107',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'kinesis', 'resource-policy'],
+    question:
+      'A Lambda in Account B must read an enhanced-fan-out Kinesis stream in Account A. The B-side execution role already allows Kinesis reads. Still missing:',
+    options: [
+      'A resource-based policy on the stream in Account A that allows that cross-account role to read',
+      'An SCP attached to Account A that “grants” stream access (SCPs cannot grant)',
+      'An SCP on Account B as the stream-owner policy',
+      'A resource-based policy on the Lambda function granting the stream to itself',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Cross-account Kinesis reads need identity-based permission on the role and a resource-based policy on the stream. SCPs only set a permission ceiling. The Lambda function policy authorizes who may invoke Lambda, not who may read Kinesis.',
+  },
+  {
+    id: 'dea-store-108',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'athena', 'iceberg'],
+    question:
+      'Serverless SQL on S3 must JOIN partitioned objects, keep ACID, and avoid a cluster. Cost-effective engine:',
+    options: [
+      'Amazon Athena on Apache Iceberg tables (partitioned, transactional)',
+      'Amazon S3 Select as a multi-bucket JOIN and ACID store',
+      'Redshift Spectrum, which requires a warehouse you keep warm for this ad-hoc lake job',
+      'Amazon EMR as the serverless SQL default',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Athena queries Iceberg in S3 with partitions and ACID, pay-per-query, no cluster. S3 Select is per-object. Spectrum needs Redshift. EMR is a cluster.',
+  },
+  {
+    id: 'dea-store-109',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'hudi', 'incremental'],
+    question:
+      'A 1 TB S3 dimension (~10 million rows) gets up to 10,000 record changes a day. Lowest runtime updates:',
+    options: [
+      'Apache Hudi (or similar open table format) on EMR/Glue Spark so only the change set is upserted',
+      'Load the full 1 TB plus deltas into Pandas on Glue Python shell and DataFrame.update',
+      'Two Spark DataFrames and a generic Spark “update” of the whole base table every day',
+      'Rewrite the entire 1 TB Parquet tree in EMR with no incremental commit log',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Hudi (and Iceberg/Delta) apply record-level upserts using a commit log so you do not rewrite 1 TB for 10k rows. Full DataFrame updates scan the history every day.',
+  },
+  {
+    id: 'dea-store-110',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'athena', 'partitioning'],
+    question:
+      'Hourly sensor files are queried daily by sensor category (millions of rows). Fastest layout:',
+    options: [
+      'Parquet, partition by sensor category, sort by event date inside the partition',
+      'ORC partitioned only by date and sorted by category (category queries still list every date prefix)',
+      'CSV partitioned by date, sorted by operational status',
+      'CSV partitioned by date, sorted by category',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Partition keys should match the filter you always use—here, category—so Athena prunes other categories. Columnar Parquet plus a date sort helps time filters inside a category. Date-only partitions and CSV do extra I/O.',
+  },
+  {
+    id: 'dea-store-111',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'athena', 'partition-projection'],
+    question:
+      'An Athena table is daily-partitioned for five years and Glue partition metadata lookups are slow. Automate new days without a Lambda that ADD PARTITIONs:',
+    options: [
+      'Athena partition projection with a date type and a range from five years ago through now (and an S3 template)',
+      'A daily Lambda that registers tomorrow’s partition in Glue',
+      'Collapse five years of days into monthly partitions as the only metadata fix',
+      'Allocate more Athena DPU as if that replaced Glue partition APIs',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Projection computes Hive-style date partitions at query time from table properties, so Glue is not called per partition and new dates appear as data lands. Lambdas and coarser partitions are extra ops or change the grain. Athena SQL capacity does not shrink catalog metadata.',
+  },
+  {
+    id: 'dea-store-112',
+    domain: 'store',
+    task: '2.3',
+    tags: ['dea-c01', 'dynamodb', 'ttl'],
+    question:
+      'A busy DynamoDB table must shrink automatically after 30 days without pausing traffic or paying delete WCU. Feature:',
+    options: [
+      'DynamoDB TTL: write a Unix-epoch expiry on each item; expired items are deleted in the background at no extra write cost',
+      'EventBridge plus Lambda Scan/Delete of old items (consumes RCU/WCU and needs a schedule)',
+      'A DynamoDB stream Lambda that deletes “old” items on every write',
+      'An S3-style lifecycle configuration on the DynamoDB table (that API does not exist)',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'TTL is the managed age-out path and does not consume provisioned write capacity for those deletes. Scans, streams, and fictional lifecycle rules are more ops and can affect throughput. Deletion is asynchronous (often within a couple of days after expiry).',
+  },
+  {
+    id: 'dea-store-113',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'redshift', 'datashare'],
+    question:
+      'A sales BI Redshift cluster must JOIN weekly summaries from a busy ETL cluster without copying data or burning ETL compute:',
+    options: [
+      'Make the BI cluster a datashare consumer; queries run on the consumer, the ETL cluster keeps producing',
+      'Grant analysts direct login to the ETL cluster and run their JOINs there',
+      'Materialized views on the ETL cluster that sales queries against the producer',
+      'Weekly UNLOAD to S3 and Spectrum as the live-share substitute',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Datashares expose live producer objects to a consumer. Consumer WLM runs the BI SQL, isolating the ETL workload. Direct producer access, producer MVs, and weekly copies either steal ETL CPU or add lag.',
+  },
+  {
+    id: 'dea-store-114',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'opensearch'],
+    question:
+      'Near-real-time search, ~1,000 QPS, low latency, and each team must tune its own instance size and cost:',
+    options: [
+      'A separate Amazon OpenSearch Service domain (cluster) per team, with indexing for queries',
+      'Athena on S3 prefixes as a 1,000 QPS search engine',
+      'Kinesis + Managed Flink as the document search store',
+      'Aurora I/O-Optimized as OpenSearch for full-text search',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'OpenSearch is the managed search/analytics engine; separate domains give independent capacity and cost knobs. Athena, Flink, and Aurora are not that search product.',
+  },
+  {
+    id: 'dea-store-115',
+    domain: 'store',
+    task: '2.3',
+    tags: ['dea-c01', 's3', 'lifecycle'],
+    question:
+      'New S3 objects must stay immediately readable for 30 days, then are rarely read but still need millisecond GET. Known pattern, cheapest:',
+    options: [
+      'Lifecycle transition from S3 Standard to S3 Standard-IA after 30 days',
+      'S3 Intelligent-Tiering as required when the 30-day hot window is already known',
+      'Glacier Deep Archive after 30 days while still needing millisecond reads',
+      'Standard-IA from day zero, paying the IA minimum duration on hot objects',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Standard for the hot month, then Standard-IA for infrequent millisecond access. Intelligent-Tiering fits unknown patterns. Deep Archive is restore-based. IA from day one bills IA on data you still touch daily.',
+  },
+  {
+    id: 'dea-store-116',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'redshift-serverless', 'quicksight'],
+    question:
+      'QuickSight direct query, a few hours per day with unpredictable spikes, needs warehouse-class latency without cluster babysitting:',
+    options: [
+      'Amazon Redshift Serverless loading into Redshift managed storage',
+      'Athena on Parquet as the only warehouse with RMS-style performance SLAs',
+      'A provisioned Redshift cluster sized for the spike and idle the rest of the day',
+      'Aurora PostgreSQL as the enterprise analytics warehouse for this BI pattern',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Serverless Redshift scales RPUs for bursty BI and stores data in RMS. Athena is lake SQL, not a loaded warehouse. Provisioned clusters waste idle hours. Aurora is OLTP-oriented compared with this warehouse use.',
+  },
+  {
+    id: 'dea-store-117',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'diststyle'],
+    question:
+      'A Redshift join of a 10-billion-row sales table to a 900-million-row sales table is slow after the merge. Improve the join without replicating the 900 M table: (Select TWO.)',
+    options: [
+      'DISTSTYLE KEY on both tables using a high-cardinality join column so matching rows land on the same slices',
+      'Amazon Redshift Advisor, then apply its dist-key / ALTER TABLE recommendations',
+      'KEY both tables on a low-cardinality column (skews slices)',
+      'DISTSTYLE ALL on the 900-million-row table (copies it to every node)',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'KEY on a high-cardinality join key collocates rows and avoids a large redistribute. Advisor suggests beneficial dist styles from workload. Low-cardinality KEY skews. ALL on hundreds of millions of rows blows storage and load time. EVEN on the large table still shuffles the join.',
+  },
+  {
+    id: 'dea-store-118',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'athena', 'partitions'],
+    question:
+      'You moved every S3 object out of Hive partition status=01 into status=02. Glue still lists the empty status=01 partition. Command that actually removes it:',
+    options: [
+      'ALTER TABLE … DROP PARTITION for status=01',
+      'MSCK REPAIR TABLE, which only adds partitions it newly sees under the prefix',
+      'ALTER TABLE SET TBLPROPERTIES as a partition delete',
+      'ALTER TABLE CHANGE COLUMN as a partition delete',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'MSCK REPAIR TABLE registers new prefixes; it does not drop catalog rows for empty ones. DROP PARTITION removes the stale Glue/Athena partition so queries stop reading a dead location.',
+  },
+  {
+    id: 'dea-store-119',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'diststyle'],
+    question:
+      'A growing denormalized Redshift table has no good distribution-key column. Least ongoing dist-style babysitting:',
+    options: [
+      'DISTSTYLE AUTO so Redshift picks and can later change the style as the table grows',
+      'DISTSTYLE ALL on the large, growing table',
+      'DISTSTYLE KEY on a column you already know is a poor key',
+      'EVEN forever with no review, even after AUTO exists',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AUTO is the low-maintenance default: Redshift chooses EVEN/ALL/KEY from table data and can adjust as size changes. ALL on a large table wastes disk. KEY without a suitable column causes skew. EVEN is fine until a better key appears, but AUTO is the “do not keep retuning” answer.',
+  },
+  {
+    id: 'dea-store-120',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'athena', 'partitions'],
+    question:
+      'You already know two S3 prefixes to register as Athena partitions and must not list the table location:',
+    options: [
+      'ALTER TABLE ADD PARTITION for those two locations',
+      'MSCK REPAIR TABLE, which scans the prefix to discover Hive-style folders',
+      'A Glue crawler as the only command that can add two known partitions',
+      'CREATE TABLE as a partition add',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ADD PARTITION writes catalog rows for locations you specify. MSCK REPAIR TABLE walks S3. A crawler also lists objects. Use ADD PARTITION when the paths are already known.',
+  },
+  {
+    id: 'dea-store-121',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'redshift', 'super'],
+    question:
+      'Warehouse users must query nested JSON together with dimensional tables without flattening it in Glue first:',
+    options: [
+      'Load JSON into a SUPER column and query it with PartiQL in Redshift',
+      'Force Glue to explode every key into columns before COPY',
+      'Lambda flatten into CSV as the required SUPER substitute',
+      'Store the JSON as TEXT and hope joins parse it',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'SUPER holds semi-structured JSON in-place so you skip a flatten ETL. TEXT/CSV explosion is extra work the type was built to avoid.',
+  },
+  {
+    id: 'dea-store-122',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'dynamodb', 'dax'],
+    question:
+      'A DynamoDB document table is read-heavy and needs microsecond eventually consistent reads without rewriting the app’s DynamoDB API:',
+    options: [
+      'DynamoDB Accelerator (DAX) in front of the table',
+      'ElastiCache with a custom protocol as the required DAX replacement',
+      'S3 Standard as a microsecond document store',
+      'Athena on DynamoDB exports for single-digit-ms item gets',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DAX is a DynamoDB-compatible write-through cache. Other caches need a different client. S3 and Athena are not that item cache.',
+  },
+  {
+    id: 'dea-store-123',
+    domain: 'store',
+    task: '2.3',
+    tags: ['dea-c01', 's3', 'storage-lens'],
+    question:
+      'Find incomplete multipart uploads and buckets piling up noncurrent versions across the org, least CLI:',
+    options: [
+      'Amazon S3 Storage Lens dashboards for those cost metrics',
+      'Hand-built aws s3api inventory on every account as the first choice',
+      'S3 Inventory only, with no org-wide dashboard',
+      'CloudTrail as a storage-class optimizer',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Storage Lens rolls up incomplete MPU bytes and version waste. Inventory and CLI can list objects but are more ops for the same org view.',
+  },
+  {
+    id: 'dea-store-124',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'athena', 'capacity'],
+    question:
+      'Athena SQL queues at peak because on-demand processing is saturated. Queries must start without waiting:',
+    options: [
+      'Provisioned capacity (DPUs) on the workgroup sized for that concurrent peak',
+      'Raise the result-row limit, which does not add compute',
+      'A larger S3 bucket as Athena capacity',
+      'Redshift Spectrum as the only way to add Athena DPUs',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Provisioned capacity reserves Athena DPUs so queued queries can start. Result limits and bucket size are not capacity. Spectrum is a different engine.',
+  },
+  {
+    id: 'dea-store-125',
+    domain: 'store',
+    task: '2.2',
+    tags: ['dea-c01', 'glue', 'catalog-views'],
+    question:
+      'Athena and Redshift must see the same governed view that masks PII, without each engine keeping its own view DDL:',
+    options: [
+      'Glue Data Catalog views (multi-dialect, definer semantics) plus Lake Formation grants on the view',
+      'A Redshift-only view that Athena cannot use',
+      'Copy the table per engine and mask in each copy',
+      'QuickSight row-level security as the lake view engine',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Catalog views are stored once and queried by supported engines as the view owner, so consumers need view grants rather than table grants. Per-engine copies drift.',
+  },
+  {
+    id: 'dea-store-126',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'neptune'],
+    question:
+      'Amazon Neptune must answer both property-graph and RDF queries. Languages: (Select TWO.)',
+    options: [
+      'Gremlin',
+      'SPARQL',
+      'Spark SQL as a Neptune graph language',
+      'ANSI SQL as the Neptune RDF language',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Neptune speaks Gremlin (and openCypher) for property graphs and SPARQL for RDF. Spark SQL and warehouse SQL are not Neptune query languages.',
+  },
+  {
+    id: 'dea-store-127',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'sortkey'],
+    question:
+      'Queries always filter Region ID and Department ID, sometimes Role ID. Compound SORTKEY order:',
+    options: [
+      'Region ID, then Department ID, then Role ID so predicates hit a leading prefix',
+      'Role ID first because it has the highest cardinality',
+      'Department ID only; compound keys ignore leading columns',
+      'No sort key; WHERE column order in SQL is what Redshift uses as the sort key',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Compound sort keys help when filters constrain a left-hand prefix. Predicate order in the SQL text is not the sort key. Putting a rarely filtered high-cardinality column first wastes the prefix.',
+  },
+  {
+    id: 'dea-store-128',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'copy'],
+    question:
+      'Redshift must COPY files that live under several unrelated S3 prefixes, in parallel, as one load:',
+    options: [
+      'One COPY that points at a manifest listing every object key',
+      'One COPY per prefix, run concurrently on the same table (they serialize)',
+      'INSERT SELECT from S3 as the bulk path',
+      'Glue as required whenever prefixes differ',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'A manifest lists keys across folders for a single parallel COPY. Multiple COPY onto one table queue. INSERT is slower than COPY for bulk files.',
+  },
+  {
+    id: 'dea-store-129',
+    domain: 'store',
+    task: '2.3',
+    tags: ['dea-c01', 's3', 'glacier-select'],
+    question:
+      'Audit SQL needs a subset of objects already in S3 Glacier Flexible Retrieval without restoring every byte:',
+    options: [
+      'S3 Glacier Select against the archive, returning only matching rows',
+      'Restore the entire prefix to Standard for every audit',
+      'Athena directly on Glacier objects with no restore or Select',
+      'S3 Select on Standard as if the objects were not in Glacier',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glacier Select runs limited SQL on archived objects and returns a subset. Full restores and Athena-on-Glacier without retrieval are the expensive or invalid paths.',
+  },
+  {
+    id: 'dea-store-130',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'concurrency-scaling'],
+    question:
+      'An RA3 cluster’s WLM queue spikes above concurrency. Eligible reads and writes should burst without resizing the main cluster:',
+    options: [
+      'Set the queue’s concurrency scaling mode to auto',
+      'Classic resize at every spike',
+      'Enable concurrency scaling on DC2 as if RA3 were not the requirement',
+      'Add more WLM queues with no scaling, hoping queries stop waiting',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Concurrency scaling is a WLM-queue setting (auto). RA3 supports it for eligible read and write. Extra queues without burst clusters still wait.',
+  },
+  {
+    id: 'dea-store-131',
+    domain: 'store',
+    task: '2.1',
+    tags: ['dea-c01', 'redshift', 'spectrum', 'federated'],
+    question:
+      'Keep last 15 months hot in Redshift, older facts in S3, and still JOIN live Aurora PostgreSQL:',
+    options: [
+      'Redshift Federated Query to Aurora; UNLOAD aged rows to S3 and query them with Spectrum',
+      'Keep 15 years in local RMS and federate S3 with DMS',
+      'Athena as the only join engine for Aurora plus Redshift',
+      'Copy Aurora into S3 nightly as the live operational join',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Federated Query hits live Aurora. UNLOAD plus Spectrum keeps the warehouse slim. Nightly copies and “Athena-only” drop warehouse-local performance for current months.',
+  },
+  {
+    id: 'dea-store-132',
+    domain: 'store',
+    task: '2.3',
+    tags: ['dea-c01', 's3', 'intelligent-tiering'],
+    question:
+      'Access patterns are unknown. Every GET must stay millisecond, including after objects go cold. Intelligent-Tiering catch:',
+    options: [
+      'Use Intelligent-Tiering; leave optional Deep Archive Access off (that tier needs a restore)',
+      'Turn on Deep Archive Access because it is still millisecond',
+      'Glacier Deep Archive as Intelligent-Tiering’s default hot tier',
+      'Standard-IA from day zero when the pattern is unknown',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Archive Instant Access is millisecond. Optional Archive/Deep Archive Access tiers require restore. Known 30-day heat is a Lifecycle to IA problem, not this one.',
+  },
+  {
+    id: 'dea-store-133',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'data-modeling', 'erd'],
+    question:
+      'Before physical tables exist, you need a picture of customers, orders, and how those objects relate. Artifact:',
+    options: [
+      'An entity-relationship diagram (entities, attributes, and relationships)',
+      'An ETL job that is the diagram',
+      'An S3 prefix, which is physical storage, not a logical model',
+      'A DataBrew recipe as the ERD',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ERDs document logical entities and their relationships. They do not store bytes, cleanse data, or replace ETL.',
+  },
+  {
+    id: 'dea-store-134',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'avro', 'schema-evolution'],
+    question:
+      'Producers will add optional fields over time and many languages must read the same files. Row format that carries a self-describing schema:',
+    options: [
+      'Apache Avro (schema in the file/registry, designed for evolution and cross-language readers)',
+      'CSV, which has no embedded schema',
+      'JSON documents with no contract, hoping every producer stays compatible',
+      'Parquet as the first choice when the need is schema evolution rather than columnar scans (Parquet is the analytics layout; Avro is the evolution-friendly row format)',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Avro is a row format with a first-class schema and evolution rules, which is why streaming and Schema Registry default to it. Parquet/ORC win Athena/Redshift scans. CSV/JSON lack Avro’s compatibility contract.',
+  },
 ]

@@ -1176,4 +1176,1041 @@ export const operationsCards: Card[] = [
     explanation:
       'Idempotent loads reuse a stable business key so a second write replaces the same item. Random UUIDs, timestamps, and versioned new items create duplicates instead of making retries safe.',
   },
+  {
+    id: 'dea-ops-075',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'athena', 'spark-notebook'],
+    question:
+      'Analysts must explore a Glue-cataloged lake with PySpark, Matplotlib, and Spark SQL in a serverless notebook. Athena SQL workgroups keep failing because the editor is SQL-only. Exam skill 3.2.4:',
+    options: [
+      'Create an Athena workgroup that uses the Apache Spark engine and open an Athena Spark notebook (engine type cannot be changed later)',
+      'Reuse the existing Athena SQL workgroup—the query editor runs PySpark if you prefix cells with %%spark',
+      'Athena SQL views are always queryable from Spark notebooks, so stay on the SQL workgroup',
+      'Amazon QuickSight SPICE is the Spark notebook runtime',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Spark exploration needs a Spark-enabled Athena workgroup and notebook session. SQL workgroups cannot run the notebook editor; Spark workgroups cannot use the SQL query editor; SQL views are not cross-engine compatible with Spark.',
+  },
+  {
+    id: 'dea-ops-076',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'athena', 'sql-views'],
+    question:
+      'A curated Athena SQL view is used by QuickSight. A data scientist wants the same view inside an Athena Spark notebook. Result:',
+    options: [
+      'It will not work: Athena SQL views are not queryable from Athena for Spark (and the reverse is also unsupported)',
+      'It always works because both engines share one view catalog',
+      'Spark automatically rewrites the SQL view into a DataFrame with no extra work',
+      'Enable Cross-engine views in the Athena workgroup checkbox',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'AWS documents that cross-engine view queries are not supported. Recreate the logic in Spark (temp view / DataFrame) or query the underlying tables, and keep SQL views for SQL workgroups and QuickSight.',
+  },
+  {
+    id: 'dea-ops-077',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'sampling'],
+    question:
+      'A 40 TB fact table is 95% US rows. You need a cheap null-rate estimate that still represents EU and APAC. Sampling technique (skill 3.4.4):',
+    options: [
+      'Stratified sampling by region (or TABLESAMPLE / reservoir sampling per stratum) so rare regions are not missed',
+      'A single LIMIT 1000 with no ORDER, which is guaranteed representative of every region',
+      'Full table COUNT(*) on every column, because sampling is out of scope for DEA-C01',
+      'Delete 99% of EU rows first so the remaining sample is smaller',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Simple random or LIMIT samples are biased when strata are imbalanced. Stratified (or per-partition) sampling estimates quality without a petabyte scan. The exam lists sampling as a data-quality skill.',
+  },
+  {
+    id: 'dea-ops-078',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'amazon-q', 'quicksight'],
+    question:
+      'Executives ask “show returns by region last quarter” in plain English and expect a chart, not a Glue script. Visualization path:',
+    options: [
+      'Amazon Q in QuickSight against a prepared dataset (or topic) that already maps to Athena/Redshift/RDS',
+      'Amazon Q data integration in Glue, which renders executive dashboards',
+      'Amazon Kendra as the BI visualization engine',
+      'Amazon Managed Grafana as the only in-scope way to chart warehouse facts for executives',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Q in QuickSight is conversational analytics/visualization. Q in Glue generates ETL. Kendra searches documents. Grafana is operations dashboards over metrics/logs, not the primary executive BI tool on the exam.',
+  },
+  {
+    id: 'dea-ops-079',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'grafana', 'cloudwatch'],
+    question:
+      'The platform team already lives in Grafana and needs one dashboard of Glue, EMR, and Redshift CloudWatch metrics across accounts. In-scope service:',
+    options: [
+      'Amazon Managed Grafana with CloudWatch as a data source (IAM to read metrics/logs; Organizations/cross-account when required)',
+      'Amazon QuickSight SPICE as a drop-in Grafana replacement for SRE metrics',
+      'AWS Glue DataBrew as a metrics time-series store',
+      'Amazon Kendra as the operations dashboard',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Managed Grafana is on the DEA-C01 in-scope list for visualizing operational metrics, including CloudWatch. QuickSight is BI; DataBrew prepares datasets; Kendra is search.',
+  },
+  {
+    id: 'dea-ops-080',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'databrew', 'glue-dq'],
+    question:
+      'Analysts who do not write Spark need visual profiling and point-and-click quality rules. Engineers need the same checks inside Glue ETL with a rules language. Split (skills 3.1.6 / 3.4.2):',
+    options: [
+      'AWS Glue DataBrew (and SageMaker Data Wrangler / Unified Studio) for visual prep; Glue Data Quality DQDL in jobs or on catalog tables for engineers',
+      'DataBrew DQDL inside Spark executors as the only option',
+      'Amazon Macie rulesets as Glue Data Quality',
+      'Amazon Managed Grafana as a data-quality rules engine',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'v1.1 calls out DataBrew and SageMaker Unified Studio for preparing data, and DataBrew/Glue quality rules for checks. DQDL is Glue Data Quality, not DataBrew. Macie finds PII; Grafana graphs metrics.',
+  },
+  {
+    id: 'dea-ops-081',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'amazon-q', 'bedrock'],
+    question:
+      'A custom app must turn “top 10 customers by spend in 2024” into SQL against Redshift or Glue Catalog tables, without building a QuickSight topic. Pattern:',
+    options: [
+      'Amazon Bedrock Knowledge Bases structured-data retrieval (text-to-SQL on Redshift or the Glue Data Catalog)',
+      'Amazon Q in QuickSight embedded as the only text-to-SQL API for custom apps',
+      'Amazon Kendra generating Redshift COPY statements',
+      'Amazon Athena Spark notebooks as a required always-on SQL service',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Bedrock Knowledge Bases can convert natural language to SQL over supported structured stores without embedding the data. Q in QuickSight is the BI UI path. Kendra does not author warehouse SQL. Spark notebooks are interactive compute, not a text-to-SQL API.',
+  },
+  {
+    id: 'dea-ops-082',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'cicd', 'codebuild'],
+    question:
+      'A failing Glue job must not reach prod: lint, unit tests, and a Data Quality score gate run on every commit. Pipeline shape:',
+    options: [
+      'CodeBuild in a CodePipeline stage (tests + DQ check), then deploy the Glue job/script only if the stage succeeds',
+      'Push directly to the production Glue job from a laptop because CodeBuild cannot invoke tests',
+      'Amazon EventBridge Scheduler as a test runner with no artifacts',
+      'Amazon SNS as the build system that compiles PySpark',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'CodeBuild is the in-scope build/test compute; CodePipeline orchestrates promote-on-green. EventBridge schedules; SNS notifies. Skipping CI is the anti-pattern the programming-concepts task tests.',
+  },
+  {
+    id: 'dea-ops-083',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'glue-dq'],
+    question:
+      'A Glue ETL job must keep rows only when ship_date > order_date and delivery_date > ship_date, and write failures to a second S3 prefix. Most cost-effective in-job check:',
+    options: [
+      'AWS Glue Data Quality (custom DQDL comparing the three columns) inside the job, then route failed rows to the reject prefix',
+      'AWS Glue DataBrew DATEDIFF as a required extra preparation product for this Spark job',
+      'A separate Athena query after the job as the only way to compare columns',
+      'A Glue crawler filter, which does not evaluate row-level date inequalities',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Evaluate Data Quality in the Glue job applies custom rules and can split passing vs failing rows without standing up DataBrew or a second Athena workflow. Crawlers catalog files; they do not enforce those predicates.',
+  },
+  {
+    id: 'dea-ops-084',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'glue-dq', 'datazone'],
+    question:
+      'Table-level Glue Data Quality scores must appear in Amazon DataZone for Glue-cataloged S3 assets. Configuration that DataZone can ingest:',
+    options: [
+      'A scheduled DQDL ruleset on the Glue table, a DataZone project with a Glue data source, and data-quality enabled on that source',
+      'Only Evaluate Data Quality inside ETL, with the DataZone source pointed at Redshift',
+      'A Redshift data source in DataZone as the place Glue table scores are published',
+      'ETL-only rules with no scheduled catalog ruleset and no Glue source in the project',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DataZone pulls Glue Data Quality results for Glue data sources when DQ is enabled. A scheduled catalog ruleset produces the table-level scores the portal shows. In-ETL Evaluate is a different path; a Redshift source does not publish those Glue table scores.',
+  },
+  {
+    id: 'dea-ops-085',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'glue', 'small-files'],
+    question:
+      'Glue Spark is slow on millions of 1 KB JSON objects before Parquet-to-Redshift. In-job grouping that avoids a separate compaction fleet:',
+    options: [
+      'DynamicFrame groupFiles / groupSize so many tiny objects become larger in-memory partitions',
+      'COPY the 1 KB JSON files straight into Redshift and transform there as the first optimization',
+      'Stand up EMR only to concatenate files when Glue grouping is available',
+      'A Lambda that rewrites every object into another 1 KB file',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue can group small S3 inputs into larger splits for Spark, which is the intended cheap fix for this pattern. COPY of millions of tiny JSON files and a second EMR cluster add cost; rewriting 1 KB to 1 KB does nothing.',
+  },
+  {
+    id: 'dea-ops-086',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'sql'],
+    question:
+      'A 100-column Redshift table must be selected in full except company_id and unique_system_id. Syntax Redshift supports:',
+    options: [
+      'SELECT * EXCLUDE company_id, unique_system_id FROM schema.table',
+      'SELECT * NOT IN (company_id, unique_system_id) FROM schema.table',
+      'SELECT * EXCEPT company_id, unique_system_id FROM schema.table as native Redshift',
+      'SELECT * TRUNCATE company_id, unique_system_id FROM schema.table',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Redshift implements SELECT * EXCLUDE column_list for wide tables. NOT IN, EXCEPT, and TRUNCATE are not column-exclusion clauses in this context (EXCEPT is set-difference; TRUNCATE removes rows).',
+  },
+  {
+    id: 'dea-ops-087',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'emr', 'spark', 'yarn'],
+    question:
+      'An EMR Spark app in YARN cluster mode fails. The driver stderr is needed. Where the driver actually ran:',
+    options: [
+      'The ApplicationMaster (first YARN container); open that container log from the persistent application UI / Spark UI',
+      'YARN ResourceManager logs only, which always include full driver stdout',
+      'EMR step logs in S3 exclusively, which replace YARN container logs for cluster-mode Spark',
+      'SSH to the primary node Spark history server as the only place cluster-mode driver logs exist',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'In cluster mode the driver lives in the ApplicationMaster container, so the first YARN container log is the driver log. Persistent application UIs expose those containers. Client-mode mental models (driver on the primary) do not apply.',
+  },
+  {
+    id: 'dea-ops-088',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'glue-dq', 'eventbridge', 'sns'],
+    question:
+      'A daily report sometimes runs before the S3 load finishes. Incomplete catalog datasets must SNS-alert with the least new infrastructure:',
+    options: [
+      'Glue Data Quality completeness rules on the catalog tables, Glue workflows (or EventBridge) on failed evaluations, EventBridge to the existing SNS topic',
+      'A new MWAA environment whose only job is to email SNS',
+      'A dedicated EMR cluster running Spark SQL quality checks plus custom Step Functions email',
+      'Custom Lambda SQL plus a Step Functions state machine you operate solely for this alert',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue Data Quality can evaluate catalog tables and emit EventBridge events on failure; a rule forwards those to SNS. Standing up MWAA, EMR, or a custom Lambda/SFN stack is more operational overhead for the same signal.',
+  },
+  {
+    id: 'dea-ops-089',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'redshift', 'upsert'],
+    question:
+      'A Glue job that COPY/inserts into Redshift creates duplicates on rerun. Requirement is update-in-place, no extra Spark dropDuplicates:',
+    options: [
+      'Land into a staging table, then SQL MERGE (or UPDATE matching keys plus INSERT of new keys) into the target',
+      'Spark dropDuplicates() before write, which still inserts a second copy if the target already has the business key',
+      'Glue ResolveChoice, which is a type-choice transform, not a warehouse upsert',
+      'Load into MySQL, upsert there, then copy back to Redshift as the default pattern',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Redshift upserts are staging plus MERGE/update-insert on business keys. dropDuplicates only helps inside one Spark DataFrame. ResolveChoice maps types. A MySQL detour is unnecessary.',
+  },
+  {
+    id: 'dea-ops-090',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift-ml', 'sagemaker'],
+    question:
+      'Inventory SQL in Redshift must both train local models and call an existing SageMaker real-time endpoint. Pair: (Select TWO.)',
+    options: [
+      'Amazon Redshift ML (CREATE MODEL) for in-warehouse training and prediction',
+      'SQL that invokes the remote SageMaker endpoint for live scores',
+      'SageMaker Autopilot as a Redshift dashboard builder',
+      'UNLOAD the warehouse to S3 as a file system instead of scoring in SQL',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Redshift ML trains and predicts from SQL and can also invoke a SageMaker endpoint. Autopilot does not replace QuickSight/Redshift BI. Treating Redshift as a file archive is not the scoring path.',
+  },
+  {
+    id: 'dea-ops-091',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'step-functions', 'lambda', 'cloudwatch'],
+    question:
+      'Step Functions logging is FATAL only. A Lambda state named preprocessing throws. Where the stack trace is:',
+    options: [
+      'The Lambda log group /aws/lambda/preprocessing (or whatever the function name is)',
+      'Only Step Functions TaskFailed in /aws/vendedlogs/states, which at FATAL includes the full Lambda traceback',
+      'CloudTrail SendTaskFailure in CloudTrail/logs/preprocessing',
+      'TaskSucceeded in the states log group, because failures are stored as successes at FATAL',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'FATAL Step Functions logs keep high-level state status, not the Lambda exception body. Lambda always writes invocation logs to /aws/lambda/<function-name>. CloudTrail API history is not the function stderr.',
+  },
+  {
+    id: 'dea-ops-092',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'eventbridge', 'step-functions', 'sns'],
+    question:
+      'Dozens of Step Functions pipelines must SMS/email on every success or failure in real time, without custom notification Lambdas:',
+    options: [
+      'EventBridge rules on Step Functions status-change events, target Amazon SNS',
+      'Have each state machine write a marker object to S3 and use S3 notifications as the only status bus',
+      'CloudTrail → SNS as the primary “state machine succeeded” channel',
+      'Lambda writing notify.txt to S3 at the end of every branch',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Step Functions emits execution-status events to EventBridge. A rule can match SUCCEEDED/FAILED and publish SNS. S3 markers and CloudTrail add lag or miss the native event.',
+  },
+  {
+    id: 'dea-ops-093',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'lambda', 's3-events', 'sns'],
+    question:
+      'A transform runs under one minute whenever a user uploads one S3 object per hour, then emails the engineer. Most operationally efficient:',
+    options: [
+      'S3 event notification → Lambda (transform) → publish Amazon SNS; subscribe email to the topic',
+      'A small EC2 instance polling the bucket on a cron',
+      'An ECS task polling S3 every minute',
+      'A standing EMR cluster plus EMRFS for a one-file-per-hour job',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Event-driven Lambda matches sparse, short work and can publish SNS for email. Polling EC2/ECS/EMR leaves compute running between hourly files.',
+  },
+  {
+    id: 'dea-ops-094',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'glue-dq', 'eventbridge'],
+    question:
+      'Glue Data Quality failed a completeness rule on a catalog table. Native next hop to paging without a custom poller:',
+    options: [
+      'The evaluation result event on Amazon EventBridge, which a rule can send to SNS, Chatbot, or a Lambda',
+      'Only CloudTrail management events, which include row-level completeness scores',
+      'Amazon Macie findings, which are Glue DQ completeness results',
+      'S3 Inventory as the Data Quality event bus',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue Data Quality publishes evaluation outcomes to EventBridge. CloudTrail records API calls, not dataset completeness. Macie is PII discovery. S3 Inventory lists objects.',
+  },
+  {
+    id: 'dea-ops-095',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'firehose', 'cloudwatch', 'splunk'],
+    question:
+      'VPC flow logs already land in CloudWatch Logs and must reach Splunk in near real time with the least new compute:',
+    options: [
+      'A CloudWatch Logs subscription filter to a Kinesis Data Firehose delivery stream whose destination is the Splunk HTTP Event Collector',
+      'A Kinesis Data Streams application you operate as the Splunk sink, plus a Lambda that tails log groups',
+      'Firehose to Splunk but with a Lambda that polls CloudWatch Logs instead of a subscription filter',
+      'Kinesis Data Streams as a Splunk destination natively, the way Firehose HTTP endpoints work',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Subscription filters can push log events to Firehose; Firehose has a native Splunk destination. That avoids Lambda pollers and Kinesis shard management. Data Streams is not a drop-in Splunk HEC destination.',
+  },
+  {
+    id: 'dea-ops-096',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'redshift', 'query-editor'],
+    question:
+      'A tested Redshift stored procedure on a non-critical table must run once a day. Cheapest scheduler:',
+    options: [
+      'Amazon Redshift Query Editor v2 scheduled query that CALL the procedure',
+      'Lambda cron that opens JDBC only to sleep until the next day',
+      'An EC2 Spot instance running the Data API in a loop',
+      'A Glue Python shell job whose only work is CALL',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Query Editor v2 can schedule SQL (including CALL) inside Redshift with no extra compute fleet. Lambda, EC2, and Glue all add billed runtimes you do not need for a daily procedure.',
+  },
+  {
+    id: 'dea-ops-097',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'glue-dq', 'dqdl'],
+    question:
+      'Glue Data Quality must fail when fewer than 90% of Email values look like addresses (nulls count as invalid). DQDL shape:',
+    options: [
+      'ColumnValues "Email" matches "[%@%.%]" with threshold > 0.9',
+      'Uniqueness "Email" matches "[%@%.%]" with threshold > 0.9 (Uniqueness is distinctness, not format)',
+      'ColumnValues "Email" matches "[%@%.%]" with threshold > 0.1 (that passes when only 11% are valid)',
+      'UniqueValueRatio "Email" matches "[%@%.%]" with threshold > 0.1',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ColumnValues tests a column against a regex. Threshold > 0.9 means more than 90% must match; nulls fail a positive match. Uniqueness/UniqueValueRatio measure distinct values, not email syntax.',
+  },
+  {
+    id: 'dea-ops-098',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'glue', 'bookmark'],
+    question:
+      'A Glue Spark job has bookmarks on, max concurrency 1, and writes Redshift fine, but every run re-reads old S3 objects. Most likely miss:',
+    options: [
+      'The script never calls job.commit(), so bookmark state is not saved after a successful run',
+      'Max concurrency of 1, which is documented as the reason bookmarks always replay',
+      'Missing s3:GetObjectAcl, which AWS lists as required for bookmark checkpoints',
+      'An older Glue version number in the job, which disables bookmarks even when enabled',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Bookmarks persist only when the job commits bookmark state (job.commit() in the script). Concurrency 1 is the safe setting, not the bug. ACL and “old version” are distractors for this symptom.',
+  },
+  {
+    id: 'dea-ops-099',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'cloudwatch', 'subscription-filter'],
+    question:
+      'Near-real-time shipping of an existing CloudWatch log group to another service should start with:',
+    options: [
+      'A CloudWatch Logs subscription filter (Firehose, Lambda, or OpenSearch as the supported destination type)',
+      'A Lambda that GetLogEvents in a tight poll loop as the default',
+      'Downloading the log group nightly with the console export and emailing it',
+      'Enabling VPC Flow Logs a second time instead of a filter on the group that already exists',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Subscription filters stream ingested log events to Firehose, Lambda, or OpenSearch. Polling GetLogEvents and console exports add lag and ops. Flow Logs are a source, not a generic shipper for an arbitrary log group.',
+  },
+  {
+    id: 'dea-ops-100',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'glue-dq', 'api'],
+    question:
+      'One thousand Glue Data Quality rulesets must change after a policy update. Least ops:',
+    options: [
+      'Call UpdateDataQualityRuleset (for example from Lambda) for each named ruleset',
+      'A Glue ETL job per table that rewrites rules in Spark',
+      'An EMR cluster whose only job is to edit DQDL',
+      'One thousand manual console edits in the Data Catalog',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue Data Quality exposes APIs such as UpdateDataQualityRuleset. Automating that call scales; per-table ETL, EMR, and console clicks do not.',
+  },
+  {
+    id: 'dea-ops-101',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'redshift', 'stl'],
+    question:
+      'Redshift’s optimizer flagged nested loops, missing stats, or bad distribution. System view that logs those alerts:',
+    options: [
+      'STL_ALERT_EVENT_LOG',
+      'STL_USAGE_CONTROL',
+      'STL_QUERY_METRICS as the alert board',
+      'STL_PLAN_INFO as the anomaly ticker',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'STL_ALERT_EVENT_LOG records optimizer warnings that often predict slow queries. The other STL views cover usage limits, metrics, or plan fragments, not that alert stream.',
+  },
+  {
+    id: 'dea-ops-102',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'eventbridge', 'dlq'],
+    question:
+      'EventBridge Scheduler shows a high FailedInvocations count for one Glue workflow. First place to read ERROR_CODE / ERROR_MESSAGE:',
+    options: [
+      'The schedule’s dead-letter queue (failed deliveries after retries)',
+      'EventBridge archive/replay as the Scheduler DLQ',
+      'Lowering maximum retries so failures disappear from metrics',
+      'Raising maximum event age instead of inspecting the failed payload',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Scheduler DLQs keep undeliverable events plus target error fields. Archive/replay is a different EventBridge feature. Changing retry policy hides or delays the failure; it does not explain it.',
+  },
+  {
+    id: 'dea-ops-103',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'redshift', 'stored-procedure'],
+    question:
+      'A Redshift orders table must drop stale keys and insert the latest staging rows in one controlled refresh consumers can see:',
+    options: [
+      'A Redshift stored procedure that DELETE matching stale rows and INSERT from staging (or MERGE) in a transaction',
+      'Redshift Spectrum DELETE/INSERT as the in-cluster DML engine',
+      'UNLOAD both tables to S3, edit with Athena, COPY back as the default upsert',
+      'Athena federated queries that delete warehouse rows',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'In-cluster DML belongs in a stored procedure (or MERGE) so the orders table stays consistent. Spectrum/Athena/S3 round-trips are not the warehouse upsert path.',
+  },
+  {
+    id: 'dea-ops-104',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'glue', 'vpc', 's3-endpoint'],
+    question:
+      'A Glue job in a VPC fails with an S3 gateway endpoint error. Connection and IAM look fine. Routing fix:',
+    options: [
+      'Put the S3 gateway endpoint prefix-list route in the route table of the subnets Glue uses',
+      'Open inbound security-group rules to the gateway endpoint (gateway endpoints are not ENIs you ingress)',
+      'A bucket policy as the replacement for a missing route',
+      'An FQDN in the Glue connection string as a substitute for the route table',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'S3 gateway endpoints work by adding routes. Glue ENIs in subnets without that route cannot reach S3 privately. Security groups, extra bucket policies, and FQDNs do not install the route.',
+  },
+  {
+    id: 'dea-ops-105',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'athena', 'workgroups'],
+    question:
+      'Several Athena use cases in one account need isolated query history and IAM that can target each workload. Control:',
+    options: [
+      'An Athena workgroup per use case, tags on the workgroup, IAM policies that allow workgroup access by tag',
+      'A separate S3 bucket per user as the only isolation for query history',
+      'One IAM role “for Athena” shared by every team with no workgroups',
+      'A Glue Catalog resource policy as a substitute for Athena workgroup IAM',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Workgroups split saved queries, history, and engine settings. Tag-based IAM on workgroups scopes teams in the same account. Buckets and catalog policies do not isolate Athena’s query history.',
+  },
+  {
+    id: 'dea-ops-106',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'firehose', 'cloudwatch'],
+    question:
+      'Only matching CloudWatch Logs should reach S3 via Firehose, converted to the analysts’ format, without S3-side rewrites:',
+    options: [
+      'A log-group subscription filter (filter pattern) whose destination is Firehose, plus a Firehose Lambda transform before S3',
+      'S3 bucket policies that drop logs by timestamp after Firehose already wrote them',
+      'A subscription filter that “monitors” Firehose instead of sending to it',
+      'Tags on log groups as Firehose’s native include filter',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Subscription filter patterns select events; Firehose Lambda transforms them in flight. Bucket policies, inverted filters, and tags do not provide that managed select-and-convert path.',
+  },
+  {
+    id: 'dea-ops-107',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'glue', 'spark', 'shuffle'],
+    question:
+      'A Glue Spark job fails with “No space left on device.” You suspect shuffle skew. Cost-effective pair: (Select TWO.)',
+    options: [
+      'Spark UI and Glue metrics to confirm executor disk spill and skew',
+      'Enable --write-shuffle-files-to-s3 and salt hot keys so shuffle blocks leave local disk',
+      'Only add larger workers (vertical scale) as the documented shuffle-disk fix',
+      'CloudWatch error logs as a map of per-partition skew equivalent to the Spark UI',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Shuffle files fill executor disks. Glue can spill shuffle to S3; salting spreads skewed keys. The Spark UI shows the skew. Vertical scale and CloudWatch lines alone do not move shuffle off disk.',
+  },
+  {
+    id: 'dea-ops-108',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'step-functions', 'emr'],
+    question:
+      'An EMR ETL DAG must be orchestrated with the lowest standing cost (no Airflow environment):',
+    options: [
+      'AWS Step Functions calling EMR steps, billed per state transition',
+      'Amazon MWAA as the cheaper serverless default',
+      'EventBridge as a full DAG engine with EMR retries and branching',
+      'Glue workflows running EMR clusters as native Glue jobs',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Step Functions is serverless orchestration for EMR. MWAA is an Airflow environment you pay for even when idle. EventBridge schedules; it is not a rich DAG. Glue workflows orchestrate Glue, not general EMR graphs.',
+  },
+  {
+    id: 'dea-ops-109',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'efs', 'lambda', 'replication'],
+    question:
+      'Lambda in one Region must process files that live on EFS in several Regions, and data science data must not leave that one Region. Least effort:',
+    options: [
+      'EFS replication of each source file system into the data-science Region; Lambda there mounts the replicas',
+      'VPC peering plus Lambda in the science Region mounting every remote EFS (cross-Region mounts are the hard path)',
+      'Deploy Lambda in every source Region and write to S3, then pull results back',
+      'DataSync jobs you operate instead of managed EFS replication',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'EFS replication keeps a destination file system in the chosen Region. Local Lambda mounts stay in-Region. Peering remote EFS, multi-Region functions, and DataSync are more moving parts.',
+  },
+  {
+    id: 'dea-ops-110',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'athena', 'msck'],
+    question:
+      'Athena on year-partitioned CloudTrail in S3 returns no rows. First two checks: (Select TWO.)',
+    options: [
+      'Confirm the table’s S3 LOCATION is the prefix that actually holds the files',
+      'Run MSCK REPAIR TABLE (or add partitions) so Glue knows the year prefixes',
+      'Increase Athena query timeout as if empty results were a timeout',
+      'Restart the Athena service',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Athena reads whatever the table location plus catalog partitions describe. A wrong prefix or missing partition metadata yields zero rows. Timeouts and “restart Athena” are not that fix.',
+  },
+  {
+    id: 'dea-ops-111',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'emr', 'glue-catalog'],
+    question:
+      'Hadoop is moving to EMR and the on-cluster Hive metastore must become a serverless persistent catalog:',
+    options: [
+      'Point EMR Hive at the AWS Glue Data Catalog as the external metastore',
+      'DMS the Hive metastore into S3 and crawl it as if it were table data',
+      'Amazon Aurora MySQL as the required serverless Glue replacement',
+      'Keep a new Hive metastore only on the EMR primary node with no Glue',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue Data Catalog is the managed Hive-compatible metastore for EMR. Dumping Hive into S3, running Aurora yourself, or a node-local metastore is not the serverless catalog the exam wants.',
+  },
+  {
+    id: 'dea-ops-112',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'glue-studio', 'databrew', 'rds'],
+    question:
+      'Visual extract from S3, DataBrew quality + transforms, load queryable rows to RDS MySQL. Quality reports will not be queried in SQL. Cost-aware landing:',
+    options: [
+      'Processed rows into RDS; DataBrew quality outputs into S3',
+      'Both processed rows and quality reports into RDS',
+      'Both into S3 only, skipping the required relational store',
+      'Glue ETL plus Glue Data Quality with everything forced into RDS including unused quality JSON',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'RDS holds the relational data consumers will query. Quality-check artifacts that nobody joins belong in cheap S3, not extra RDS storage.',
+  },
+  {
+    id: 'dea-ops-113',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'glue-crawler', 'athena'],
+    question:
+      'Unpartitioned Athena on ALB access logs in S3 is getting slower. Least-effort partition metadata:',
+    options: [
+      'A Glue crawler with an ALB/log classifier (incremental crawls add new partitions to the catalog)',
+      'A custom Glue Spark job whose only job is writing partition rows',
+      'Lambda rewriting every ALB log to Parquet before Athena can run',
+      'Hive bucketed tables plus Lambda as the default ALB pattern',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Crawlers infer ALB log layout and register Hive-style partitions Athena can prune. Custom Spark/Lambda transforms are extra code when catalog partitions fix scan size.',
+  },
+  {
+    id: 'dea-ops-114',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'posix', 'sql'],
+    question:
+      'Redshift SQL must return Sales rows whose city_name starts with San or El. POSIX operator that matches the start of the string with alternation:',
+    options: [
+      "city_name ~ '^(San|El)'",
+      "city_name ~ '$(San|El)*' ($ anchors the end, not the start)",
+      "city_name ~ '^(San&El)*' (& is not POSIX alternation)",
+      "city_name LIKE 'San|El%' (LIKE does not treat | as OR)",
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Redshift POSIX ~ uses ^ for start-of-value and | for alternatives. $ is end-anchor. & is not OR. LIKE treats | as a literal character.',
+  },
+  {
+    id: 'dea-ops-115',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'databrew', 'profiling'],
+    question:
+      'Daily CSV/JSON drops have shifting schemas. Need scheduled, reusable, no-code profiling for nulls, formats, and outliers across many S3 datasets:',
+    options: [
+      'Glue DataBrew profiling jobs plus reusable recipes, scheduled per dataset',
+      'A Glue Studio Spark job you write to merge files and hand-code validators',
+      'DynamicFrame ResolveChoice as a quality profiler (it picks types, it does not score nulls/outliers)',
+      'DataBrew dashboards that someone must click through each morning with no schedule',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'DataBrew profiling jobs compute those stats with recipes you reuse, and you can schedule them. Custom PySpark and ResolveChoice are code or type-resolution, not scheduled profiling. Unscheduled dashboard review is not the repeatable process.',
+  },
+  {
+    id: 'dea-ops-116',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'kinesis', 'firehose', 'cloudwatch'],
+    question:
+      'Kinesis Data Streams plus Firehose into S3 must alarm on ingest and delivery health with the least custom code:',
+    options: [
+      'CloudWatch alarms on stream IncomingBytes/OutgoingBytes and Firehose DeliveryToS3.Success',
+      'Someone reading CloudWatch Logs by hand each shift',
+      'A daily Lambda that polls DescribeStream and emails SNS',
+      'Managed Flink whose only job is to graph those service metrics',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Both services publish those operational metrics. Alarms evaluate them continuously. Log-tailing, polling Lambdas, and a Flink app are extra work for the same health signal.',
+  },
+  {
+    id: 'dea-ops-117',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'athena', 'result-reuse'],
+    question:
+      'Athena workgroup users rerun the same parameterized SQL many times. Cut scan cost and latency when the result is still valid:',
+    options: [
+      'Enable query result reuse on the Athena workgroup so a matching prior result is returned',
+      'Convert the lake to JSON so repeated queries scan more bytes',
+      'Stand up EMR solely to cache identical Athena SQL',
+      'Switch those identical lake queries to Redshift Spectrum as a cache',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Workgroup result reuse serves a previous matching result instead of scanning S3 again. JSON and extra engines do not implement that Athena feature.',
+  },
+  {
+    id: 'dea-ops-118',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'glue', 'merge'],
+    question:
+      'Glue SQL runs MERGE INTO accounts t USING monthly_accounts_update s ON t.customer = s.customer WHEN MATCHED THEN DELETE. Effect:',
+    options: [
+      'Rows in accounts whose customer also exists in monthly_accounts_update are deleted from accounts',
+      'Only the intersection is kept in accounts (the opposite of DELETE)',
+      'monthly_accounts_update is dropped as a table',
+      'Glue rejects MERGE INTO as invalid DML',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'WHEN MATCHED THEN DELETE removes matching target rows. Glue supports MERGE for Iceberg/Hudi-style tables with full table access. It does not drop the source table or invert to a keep-only-matches.',
+  },
+  {
+    id: 'dea-ops-119',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'step-functions', 'emr', 'vpc'],
+    question:
+      'A hand-built Step Functions state machine cannot run EMR jobs that sit in a VPC and read S3 plus on-prem sources. First two checks: (Select TWO.)',
+    options: [
+      'The state machine role can call EMR APIs (and pass cluster roles) and the jobs can access the S3 prefixes they use',
+      'VPC Flow Logs plus EMR security-group rules: can the cluster reach the data-source IPs and ports?',
+      'Rewrite the pipeline to EMR on EKS as the required first debug step',
+      'Lengthen every retry interval and add an SNS topic without checking IAM or the network',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'SFN→EMR fails first on missing EMR/S3/iam:PassRole permissions, then on VPC path/security-group blocks to sources. Flow Logs show accepted vs rejected traffic. EKS, longer retries, and email pauses do not diagnose those two.',
+  },
+  {
+    id: 'dea-ops-120',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'sqs'],
+    question:
+      'Consumers go down for hours and SQS messages vanish before they recover. Two changes that keep the backlog: (Select TWO.)',
+    options: [
+      'Lengthen the queue message retention period (SQS deletes after that age)',
+      'Speed up processing so the drain finishes before expiry when the app returns',
+      'Raise visibility timeout only, which hides in-flight messages but does not keep unconsumed ones past retention',
+      'Switch to SNS as a durable queue',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Retention is how long SQS keeps unconsumed messages. Faster processing clears the pile after an outage. Visibility timeout is for in-flight hide time. SNS is pub/sub, not a queue.',
+  },
+  {
+    id: 'dea-ops-121',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'glue-dq', 'dqdl'],
+    question:
+      'Glue Data Quality must fail unless every city,state pair in the dataset exists in a reference table (exact set match):',
+    options: [
+      'DQDL ReferentialIntegrity mapping city,state to the reference columns with a threshold of 1.0',
+      'ColumnValues regex on city only',
+      'IsComplete on city, which tests nulls, not the reference set',
+      'A DataBrew COUNT_DISTINCT as ReferentialIntegrity',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ReferentialIntegrity checks that primary-dataset values are a subset of a reference dataset, including composite keys. Completeness and regex do not join a dimension table.',
+  },
+  {
+    id: 'dea-ops-122',
+    domain: 'operations',
+    task: '3.4',
+    tags: ['dea-c01', 'glue-dq', 'anomaly'],
+    question:
+      'Known DQDL rules catch expected defects; you also want Glue to flag unexpected metric shifts inside the same Spark job:',
+    options: [
+      'Glue Data Quality ML anomaly detection alongside the DQDL ruleset',
+      'Only custom Spark SQL you maintain as the ML detector',
+      'Great Expectations on EMR as required once Glue DQ exists',
+      'Macie anomaly scores as Glue Data Quality',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue DQ pairs declarative DQDL with optional ML anomaly detection in the job. Third-party stacks and Macie are different products.',
+  },
+  {
+    id: 'dea-ops-123',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'vacuum'],
+    question:
+      'An interleaved-sort Redshift table is bloated with deleted rows and the interleaved keys are stale. Command:',
+    options: [
+      'VACUUM REINDEX (reclaims space and reanalyzes interleaved sort keys)',
+      'VACUUM FULL, which does not reindex interleaved keys',
+      'VACUUM DELETE ONLY, which skips the interleaved analysis',
+      'VACUUM SORT ONLY, which does not reclaim deleted-row space',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'REINDEX is the interleaved maintenance path: reclaim plus a fresh key analysis. FULL/DELETE ONLY/SORT ONLY each miss one of those two jobs.',
+  },
+  {
+    id: 'dea-ops-124',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'truncate'],
+    question:
+      'Empty a Redshift materialized view (or table) immediately without leaving rows that need VACUUM:',
+    options: [
+      'TRUNCATE, which does not scan and reclaims space right away',
+      'DELETE FROM … WHERE 1=1, which marks rows until VACUUM',
+      'VACUUM as the empty command',
+      'DROP DATABASE as the daily reset',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'TRUNCATE is the fast empty. DELETE leaves ghost rows until VACUUM. VACUUM reclaims; it does not replace TRUNCATE for this.',
+  },
+  {
+    id: 'dea-ops-125',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'athena', 'explain'],
+    question:
+      'You need Athena’s distributed plan plus per-operator runtime cost for SELECT * FROM sales:',
+    options: [
+      'EXPLAIN ANALYZE SELECT * FROM sales',
+      'EXPLAIN only, which is the plan without runtime stats',
+      'MSCK REPAIR TABLE as a query profiler',
+      'CloudWatch Logs as EXPLAIN ANALYZE',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'EXPLAIN ANALYZE runs the statement and returns the plan with computational cost. EXPLAIN is compile-time only.',
+  },
+  {
+    id: 'dea-ops-126',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'athena', 'ctas'],
+    question:
+      'Create an Athena table with the same columns as old_table but zero rows:',
+    options: [
+      'CREATE TABLE new_table AS SELECT * FROM old_table WITH NO DATA',
+      'CREATE TABLE AS SELECT * (copies rows)',
+      'INSERT INTO new_table SELECT * FROM old_table',
+      'DROP TABLE old_table as a clone',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'CTAS WITH NO DATA copies the result schema and leaves the table empty. Plain CTAS inserts the SELECT output.',
+  },
+  {
+    id: 'dea-ops-127',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'dms', 'cdc'],
+    question:
+      'DMS CDC is lagging. CDCLatencySource is high while CDCLatencyTarget is not. Bottleneck:',
+    options: [
+      'Capturing changes from the source endpoint (source-side delay)',
+      'Applying changes on the target (that is CDCLatencyTarget)',
+      'CDCIncomingChanges being zero as a latency metric',
+      'The replication instance CPU as the only CDCLatencySource meaning',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'CDCLatencySource is time since the last source capture. CDCLatencyTarget is apply lag on the target. IncomingChanges is a backlog count, not that timer.',
+  },
+  {
+    id: 'dea-ops-128',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'mwaa', 'logs'],
+    question:
+      'An MWAA DAG task failed. First log group to open for the task-instance error:',
+    options: [
+      'CloudWatch Logs …-Task (Airflow task logs)',
+      'The environment’s webserver log only',
+      'S3 access logs as Airflow stdout',
+      'Glue job logs, even when the task never started Glue',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'MWAA ships task-instance output to a log group suffixed -Task. Webserver/scheduler logs are other components.',
+  },
+  {
+    id: 'dea-ops-129',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'athena', 'step-functions', 'lambda'],
+    question:
+      'Lambda has a 15-minute cap but Athena SQL can run longer. Submit and wait without blocking the function: (Select TWO.)',
+    options: [
+      'Lambda calls StartQueryExecution and returns the query id',
+      'Step Functions Wait (then GetQueryExecution) until SUCCEEDED or FAILED',
+      'Lambda synchronously loops GetQueryExecution for an hour',
+      'Athena workgroups as a Wait state',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Athena is asynchronous. Lambda should start the query; Step Functions can Wait between polls. A 15-minute Lambda cannot babysit a long query.',
+  },
+  {
+    id: 'dea-ops-130',
+    domain: 'operations',
+    task: '3.3',
+    tags: ['dea-c01', 'glue', 'eventbridge', 'sns'],
+    question:
+      'Email the on-call when a Glue job hits FAILED, no Lambda. Trap:',
+    options: [
+      'EventBridge rule on Glue Job State Change FAILED → SNS standard topic (email works on standard, not FIFO)',
+      'SNS FIFO email, which FIFO topics do not support',
+      'SQS as an email subscription protocol',
+      'CloudTrail as the Glue FAILED event bus',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue emits state-change events to EventBridge. SNS standard can email. FIFO cannot subscribe email. SQS is a queue, not an inbox.',
+  },
+  {
+    id: 'dea-ops-131',
+    domain: 'operations',
+    task: '3.1',
+    tags: ['dea-c01', 'lambda', 'layers'],
+    question:
+      'Eight Lambda functions share the same Python helpers. Update that code once, not in eight zips:',
+    options: [
+      'A Lambda layer with the shared package; point each function at a new layer version',
+      'Copy the helpers into every deployment package forever',
+      'A Glue Python shell job as a Lambda layer',
+      'EFS as required before layers exist',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Layers centralize dependencies. New layer versions are immutable; you attach the new version to each function. Duplicated zips drift.',
+  },
+  {
+    id: 'dea-ops-132',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'redshift', 'compression'],
+    question:
+      'Pick better column encodings for an already-loaded Redshift table from actual data:',
+    options: [
+      'ANALYZE COMPRESSION, then ALTER encodings from its recommendations',
+      'ANALYZE, which gathers planner stats, not encoding advice',
+      'VACUUM REINDEX as a compression advisor',
+      'VACUUM RECLUSTER as a compression advisor',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'ANALYZE COMPRESSION samples the table and suggests encodings. ANALYZE and VACUUM are stats and row-cleanup/reorder, not encoding design.',
+  },
+  {
+    id: 'dea-ops-133',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'glue', 'partition-index'],
+    question:
+      'Athena spends planning time loading every Glue partition of a huge table even with projection off. Catalog-side speedup:',
+    options: [
+      'Glue partition indexes plus partition filtering so Athena retrieves a subset of partition metadata',
+      'Disable all partitions so planning lists every object',
+      'MSCK REPAIR TABLE as an index builder',
+      'Redshift DISTSTYLE on the Glue table',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Partition indexes let GetPartitions filter in the catalog. Projection avoids catalog lookups entirely when the layout is generated; indexes help when you still store partitions in Glue.',
+  },
+  {
+    id: 'dea-ops-134',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'athena', 'joins'],
+    question:
+      'Athena equality join OOMs. Build vs probe side:',
+    options: [
+      'Put the larger table on the left (probe) and the smaller table on the right (build/hash)',
+      'Always put the larger table on the right so Athena hashes the big side',
+      'Broadcast the 2 TB fact as the build side',
+      'Disable joins; Athena cannot hash-join',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Athena hashes the right (build) side into memory. A small right table fits; a huge right table spills or fails. Left is the probe stream.',
+  },
+  {
+    id: 'dea-ops-135',
+    domain: 'operations',
+    task: '3.2',
+    tags: ['dea-c01', 'sql', 'pivot'],
+    question:
+      'A long fact table has one row per (region, month, metric). A report needs months as columns. SQL reshape:',
+    options: [
+      'Pivot: many rows become many columns (in Redshift, typically SUM(CASE WHEN month = …) plus GROUP BY region)',
+      'Unpivot / UNION of columns into rows, which is the opposite reshape',
+      'One column copied into one row as “pivot”',
+      'A window PARTITION BY as a pivot that creates new columns',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Pivot (wide reports) turns repeating row values into columns. Unpivot goes the other way. PARTITION BY does not create month columns. Redshift usually implements this with conditional aggregation, not a PostgreSQL CROSSTAB extension.',
+  },
 ]
