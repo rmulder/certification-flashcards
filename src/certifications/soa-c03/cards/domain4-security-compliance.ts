@@ -178,10 +178,10 @@ function getSecurityItems(): SecurityItem[] {
   { slug: 'waf', task: '4.5', tags: ['waf', 'web-security'], resource: 'AWS WAF documentation', focus: 'L7 web ACL design and managed rule usage', url: 'https://docs.aws.amazon.com/waf/' },
   { slug: 'shield', task: '4.5', tags: ['shield', 'ddos'], resource: 'AWS Shield documentation', focus: 'DDoS protections and response workflows', url: 'https://docs.aws.amazon.com/waf/latest/developerguide/shield-chapter.html' },
   { slug: 'network-firewall', task: '4.5', tags: ['network-firewall', 'vpc'], resource: 'AWS Network Firewall Developer Guide', focus: 'stateful network filtering in VPC architectures', url: 'https://docs.aws.amazon.com/network-firewall/' },
-  { slug: 'artifact', task: '4.6', tags: ['artifact', 'audit'], resource: 'AWS Artifact documentation', focus: 'compliance reports and agreement retrieval', url: 'https://docs.aws.amazon.com/artifact/' },
+  { slug: 'session-manager-logging', task: '4.6', tags: ['session-manager', 'audit-logging'], resource: 'Session Manager logging and auditing documentation', focus: 'session logging to S3 and CloudWatch Logs for command/audit trails', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-logging.html' },
   { slug: 'detective', task: '4.3', tags: ['detective', 'investigations'], resource: 'Amazon Detective User Guide', focus: 'security investigations from linked findings', url: 'https://docs.aws.amazon.com/detective/' },
   { slug: 'access-analyzer', task: '4.1', tags: ['access-analyzer', 'iam'], resource: 'IAM Access Analyzer documentation', focus: 'external-access analysis for policies and resources', url: 'https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html' },
-  { slug: 'cloudtrail-lake', task: '4.6', tags: ['cloudtrail', 'audit-analytics'], resource: 'CloudTrail Lake documentation', focus: 'audit event retention, delegated administration, and event analytics', url: 'https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake.html' },
+  { slug: 'iam-passrole', task: '4.1', tags: ['iam', 'passrole', 'troubleshooting'], resource: 'IAM PassRole documentation', focus: 'scoping iam:PassRole permissions to expected role resources during troubleshooting', url: 'https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html' },
   ]
 }
 

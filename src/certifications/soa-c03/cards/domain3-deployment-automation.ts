@@ -163,15 +163,15 @@ type AutomationItem = {
 function getAutomationItems(): AutomationItem[] {
   return [
   { slug: 'cloudformation', task: '3.1', tags: ['cloudformation', 'iac'], resource: 'AWS CloudFormation User Guide', focus: 'stack lifecycle, drift detection, rollback behavior, and change sets', url: 'https://docs.aws.amazon.com/cloudformation/' },
-  { slug: 'cdk', task: '3.1', tags: ['cdk', 'iac'], resource: 'AWS CDK Developer Guide', focus: 'high-level IaC patterns mapped to CloudFormation', url: 'https://docs.aws.amazon.com/cdk/' },
+  { slug: 'cli-config', task: '3.1', tags: ['aws-cli', 'operations-basics'], resource: 'AWS CLI User Guide', focus: 'CLI configuration defaults and command-line operations setup', url: 'https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html' },
   { slug: 'ssm-automation', task: '3.2', tags: ['systems-manager', 'automation'], resource: 'AWS Systems Manager Automation documentation', focus: 'runbooks and operational task automation', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html' },
   { slug: 'patch-manager', task: '3.2', tags: ['patch-manager', 'systems-manager'], resource: 'Systems Manager Patch Manager documentation', focus: 'fleet patching baselines and patch windows', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-patch.html' },
   { slug: 'state-manager', task: '3.2', tags: ['state-manager', 'systems-manager'], resource: 'Systems Manager State Manager documentation', focus: 'continuous instance configuration enforcement', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state.html' },
   { slug: 'codepipeline', task: '3.3', tags: ['codepipeline', 'cicd'], resource: 'AWS CodePipeline User Guide', focus: 'pipeline orchestration and release stages', url: 'https://docs.aws.amazon.com/codepipeline/' },
   { slug: 'codedeploy', task: '3.3', tags: ['codedeploy', 'deployment-strategies'], resource: 'AWS CodeDeploy User Guide', focus: 'blue/green and rolling deployment operations', url: 'https://docs.aws.amazon.com/codedeploy/' },
   { slug: 'config', task: '3.4', tags: ['config', 'compliance'], resource: 'AWS Config Developer Guide', focus: 'config rules, drift checks, and conformance packs', url: 'https://docs.aws.amazon.com/config/' },
-  { slug: 'control-tower', task: '3.4', tags: ['control-tower', 'multi-account'], resource: 'AWS Control Tower documentation', focus: 'landing zone governance, guardrails, and account lifecycle', url: 'https://docs.aws.amazon.com/controltower/' },
-  { slug: 'service-catalog', task: '3.5', tags: ['service-catalog', 'self-service'], resource: 'AWS Service Catalog Administrator Guide', focus: 'standardized product portfolios and approvals', url: 'https://docs.aws.amazon.com/servicecatalog/' },
+  { slug: 'session-manager', task: '3.4', tags: ['systems-manager', 'session-manager', 'vpc-endpoints'], resource: 'AWS Systems Manager Session Manager documentation', focus: 'secure instance access without bastion hosts using Session Manager and VPC endpoints', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html' },
+  { slug: 'cloudshell', task: '3.5', tags: ['cloudshell', 'cli'], resource: 'AWS CloudShell User Guide', focus: 'browser-based CLI environment with preauthenticated AWS credentials and common tools', url: 'https://docs.aws.amazon.com/cloudshell/latest/userguide/welcome.html' },
   ]
 }
 
