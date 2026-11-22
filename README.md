@@ -10,7 +10,7 @@ A local study app for IT certification exams. Runs entirely in your browser with
 | AIF-C01 | AWS Certified AI Practitioner | **Available** (356 cards) — *start here* |
 | DVA-C02 | AWS Certified Developer - Associate | **Available** (190 cards) |
 | SAA-C03 | AWS Certified Solutions Architect - Associate | **Available** (190 cards) |
-| SOA-C03 | AWS Certified SysOps Administrator - Associate (CloudOps Engineer) | **Available** (48 cards) |
+| SOA-C03 | AWS Certified SysOps Administrator - Associate (CloudOps Engineer) | **Available** (190 cards) |
 | MLA-C01 | AWS Certified Machine Learning Engineer - Associate | **Available** (190 cards) |
 | AIP-C01 | AWS Certified Generative AI Developer - Professional | **Available** (190 cards) |
 | DOP-C02 | AWS Certified DevOps Engineer - Professional | **Available** (190 cards) |

@@ -39,5 +39,5 @@ export const soaC03Meta: CertificationMeta = {
     questionCount: 65,
     passPercent: 72,
   },
-  cardCount: 48,
+  cardCount: 190,
 }
