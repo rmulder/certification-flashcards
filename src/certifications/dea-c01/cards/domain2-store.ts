@@ -2180,4 +2180,21 @@ export const storeCards: Card[] = [
     explanation:
       'Avro is a row format with a first-class schema and evolution rules, which is why streaming and Schema Registry default to it. Parquet/ORC win Athena/Redshift scans. CSV/JSON lack Avro’s compatibility contract.',
   },
+  {
+    id: 'dea-store-scr-001',
+    domain: 'store',
+    task: '2.4',
+    tags: ['dea-c01', 'redshift', 'glue-crawler', 'catalog', 'screenshots'],
+    question:
+      'A data engineer needs a cataloging solution that tracks schema changes in an Amazon Redshift table. Which option is correct?',
+    options: [
+      'Schedule an AWS Glue crawler to run daily by using JDBC for Redshift and configure it to update the AWS Glue Data Catalog',
+      'Use AWS DataSync to log table metadata to the Data Catalog and run Glue crawlers only for refresh',
+      'Use AWS SCT to publish table metadata to an Apache Hive metastore and update it with EventBridge Scheduler',
+      'Schedule a Glue crawler to update only an Apache Hive metastore without updating the Glue Data Catalog',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Glue crawlers can connect to Redshift through JDBC, discover table metadata, and update the AWS Glue Data Catalog. DataSync and SCT are not catalog-sync solutions for this requirement.',
+  },
 ]

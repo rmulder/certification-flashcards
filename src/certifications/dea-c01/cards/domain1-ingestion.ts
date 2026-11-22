@@ -2954,4 +2954,38 @@ export const ingestionCards: Card[] = [
     explanation:
       'DMS can full-load and then CDC while the source stays up. Heterogeneous engines need SCT (and usually some manual DDL cleanup). DMS does not silently rewrite MySQL into PostgreSQL.',
   },
+  {
+    id: 'dea-ing-scr-001',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'redshift', 'kinesis', 'streaming-ingestion', 'screenshots'],
+    question:
+      'A team needs near-real-time analytics in Amazon Redshift from Amazon Kinesis Data Streams with the least operational overhead. Which approach fits best?',
+    options: [
+      'Create an external schema in Redshift for the Kinesis stream, create a materialized view over the stream, and enable auto refresh',
+      'Stage stream data to S3 first, then run frequent COPY commands into Redshift',
+      'Use Firehose to stage to S3 and manage COPY jobs on a tight schedule',
+      'Query Kinesis directly with standard SQL and manually refresh views from the stream',
+    ],
+    correctAnswers: [0],
+    explanation:
+      'Redshift streaming ingestion can consume Kinesis Data Streams through an external schema and materialized views, reducing operational overhead versus S3 staging and recurring COPY orchestration.',
+  },
+  {
+    id: 'dea-ing-scr-002',
+    domain: 'ingestion',
+    task: '1.2',
+    tags: ['dea-c01', 'glue-crawler', 'catalog', 's3-prefix', 'screenshots'],
+    question:
+      'An AWS Glue crawler over S3 objects is creating multiple tables, but the team expects only one table. Which two actions most directly improve one-table grouping? (Select TWO.)',
+    options: [
+      'Keep object format, compression type, and schema consistent across objects intended for one table',
+      'Keep S3 prefix/path structure consistent for the objects that should group together',
+      'Use object names that look similar while allowing different formats and compression',
+      'Keep only schema consistent and ignore format/compression consistency',
+    ],
+    correctAnswers: [0, 1],
+    explanation:
+      'Glue crawler grouping uses data compatibility and path structure. Consistent format/compression/schema plus consistent prefix layout helps compatible files group into one table.',
+  },
 ]
