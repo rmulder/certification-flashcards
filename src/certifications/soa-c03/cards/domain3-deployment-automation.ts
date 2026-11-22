@@ -148,4 +148,87 @@ export const deploymentAutomationCards: Card[] = [
     explanation:
       'AWS re:Post contains vetted AWS troubleshooting discussions: https://repost.aws/',
   },
+  ...buildDeploymentAutomationExtras(),
 ]
+
+type AutomationItem = {
+  slug: string
+  task: string
+  tags: string[]
+  resource: string
+  focus: string
+  url: string
+}
+
+const automationItems: AutomationItem[] = [
+  { slug: 'cloudformation', task: '3.1', tags: ['cloudformation', 'iac'], resource: 'AWS CloudFormation User Guide', focus: 'stack lifecycle, drift detection, and rollback behavior', url: 'https://docs.aws.amazon.com/cloudformation/' },
+  { slug: 'cdk', task: '3.1', tags: ['cdk', 'iac'], resource: 'AWS CDK Developer Guide', focus: 'high-level IaC patterns mapped to CloudFormation', url: 'https://docs.aws.amazon.com/cdk/' },
+  { slug: 'ssm-automation', task: '3.2', tags: ['systems-manager', 'automation'], resource: 'AWS Systems Manager Automation documentation', focus: 'runbooks and operational task automation', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html' },
+  { slug: 'patch-manager', task: '3.2', tags: ['patch-manager', 'systems-manager'], resource: 'Systems Manager Patch Manager documentation', focus: 'fleet patching baselines and patch windows', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-patch.html' },
+  { slug: 'state-manager', task: '3.2', tags: ['state-manager', 'systems-manager'], resource: 'Systems Manager State Manager documentation', focus: 'continuous instance configuration enforcement', url: 'https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state.html' },
+  { slug: 'codepipeline', task: '3.3', tags: ['codepipeline', 'cicd'], resource: 'AWS CodePipeline User Guide', focus: 'pipeline orchestration and release stages', url: 'https://docs.aws.amazon.com/codepipeline/' },
+  { slug: 'codedeploy', task: '3.3', tags: ['codedeploy', 'deployment-strategies'], resource: 'AWS CodeDeploy User Guide', focus: 'blue/green and rolling deployment operations', url: 'https://docs.aws.amazon.com/codedeploy/' },
+  { slug: 'config', task: '3.4', tags: ['config', 'compliance'], resource: 'AWS Config Developer Guide', focus: 'config rules, drift checks, and conformance packs', url: 'https://docs.aws.amazon.com/config/' },
+  { slug: 'control-tower', task: '3.4', tags: ['control-tower', 'multi-account'], resource: 'AWS Control Tower documentation', focus: 'landing zone governance and guardrails', url: 'https://docs.aws.amazon.com/controltower/' },
+  { slug: 'service-catalog', task: '3.5', tags: ['service-catalog', 'self-service'], resource: 'AWS Service Catalog Administrator Guide', focus: 'standardized product portfolios and approvals', url: 'https://docs.aws.amazon.com/servicecatalog/' },
+]
+
+function buildDeploymentAutomationExtras(): Card[] {
+  const cards: Card[] = []
+  let n = 13
+
+  for (const item of automationItems) {
+    cards.push({
+      id: `soa-automation-${String(n).padStart(3, '0')}`,
+      domain: 'deployment-automation',
+      task: item.task,
+      tags: ['soa-c03', ...item.tags, 'resource-drill'],
+      question: `Which official AWS resource is best for ${item.focus} in SOA-C03 prep?`,
+      options: [
+        item.resource,
+        'Only AWS keynote summaries',
+        'Random cheat sheets',
+        'A blog post without source links',
+      ],
+      correctAnswers: [0],
+      explanation: `Primary source: ${item.resource}. Start here: ${item.url}`,
+    })
+    n++
+
+    cards.push({
+      id: `soa-automation-${String(n).padStart(3, '0')}`,
+      domain: 'deployment-automation',
+      task: item.task,
+      tags: ['soa-c03', ...item.tags, 'resource-authority'],
+      question: `You are reviewing ${item.focus}. Which source should you prioritize first?`,
+      options: [
+        'Only old screenshots of the console',
+        item.resource,
+        'A non-AWS forum thread',
+        'An unrelated service FAQ',
+      ],
+      correctAnswers: [1],
+      explanation: `Use first-party AWS documentation for exam-aligned accuracy: ${item.url}`,
+    })
+    n++
+
+    cards.push({
+      id: `soa-automation-${String(n).padStart(3, '0')}`,
+      domain: 'deployment-automation',
+      task: item.task,
+      tags: ['soa-c03', ...item.tags, 'resource-priority'],
+      question: `For dependable study of ${item.focus}, where should you begin first?`,
+      options: [
+        'Only social posts',
+        'Only trial-and-error in production',
+        item.resource,
+        'Only AI-generated summaries',
+      ],
+      correctAnswers: [2],
+      explanation: `Start with the official guide before secondary prep sources: ${item.url}`,
+    })
+    n++
+  }
+
+  return cards
+}

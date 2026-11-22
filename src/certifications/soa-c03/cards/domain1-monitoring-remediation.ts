@@ -183,4 +183,149 @@ export const monitoringRemediationCards: Card[] = [
     explanation:
       'Review exam policies, scoring, and logistics in the FAQ: https://aws.amazon.com/certification/faqs/',
   },
+  ...buildMonitoringRemediationExtras(),
 ]
+
+type MonitoringItem = {
+  slug: string
+  task: string
+  tags: string[]
+  resource: string
+  focus: string
+  url: string
+}
+
+const monitoringItems: MonitoringItem[] = [
+  {
+    slug: 'cloudwatch-core',
+    task: '1.2',
+    tags: ['cloudwatch', 'metrics', 'alarms'],
+    resource: 'Amazon CloudWatch User Guide',
+    focus: 'metrics, alarms, and dashboards',
+    url: 'https://docs.aws.amazon.com/cloudwatch/',
+  },
+  {
+    slug: 'cloudtrail-core',
+    task: '1.2',
+    tags: ['cloudtrail', 'audit', 'api-activity'],
+    resource: 'AWS CloudTrail User Guide',
+    focus: 'API auditing and account activity history',
+    url: 'https://docs.aws.amazon.com/awscloudtrail/',
+  },
+  {
+    slug: 'eventbridge-core',
+    task: '1.3',
+    tags: ['eventbridge', 'events', 'automation'],
+    resource: 'Amazon EventBridge User Guide',
+    focus: 'event-driven remediation and routing',
+    url: 'https://docs.aws.amazon.com/eventbridge/',
+  },
+  {
+    slug: 'systems-manager-ops',
+    task: '1.5',
+    tags: ['systems-manager', 'opscenter', 'incident-manager'],
+    resource: 'AWS Systems Manager User Guide',
+    focus: 'OpsCenter and Incident Manager workflows',
+    url: 'https://docs.aws.amazon.com/systems-manager/',
+  },
+  {
+    slug: 'xray-observability',
+    task: '1.3',
+    tags: ['xray', 'tracing', 'observability'],
+    resource: 'AWS X-Ray Developer Guide',
+    focus: 'distributed tracing and latency analysis',
+    url: 'https://docs.aws.amazon.com/xray/',
+  },
+  {
+    slug: 'health-events',
+    task: '1.4',
+    tags: ['health-dashboard', 'service-events', 'incident-response'],
+    resource: 'AWS Health User Guide',
+    focus: 'account-specific AWS health events',
+    url: 'https://docs.aws.amazon.com/health/',
+  },
+  {
+    slug: 'trusted-advisor',
+    task: '1.4',
+    tags: ['trusted-advisor', 'best-practices', 'cost-security'],
+    resource: 'AWS Trusted Advisor documentation',
+    focus: 'cost, performance, and security checks',
+    url: 'https://docs.aws.amazon.com/awssupport/latest/user/trusted-advisor.html',
+  },
+  {
+    slug: 'cloudwatch-synthetics',
+    task: '1.2',
+    tags: ['cloudwatch', 'synthetics', 'monitoring'],
+    resource: 'CloudWatch Synthetics documentation',
+    focus: 'canary-based endpoint and journey monitoring',
+    url: 'https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries.html',
+  },
+  {
+    slug: 'logs-insights',
+    task: '1.2',
+    tags: ['cloudwatch-logs', 'logs-insights', 'querying'],
+    resource: 'CloudWatch Logs Insights documentation',
+    focus: 'interactive log analysis and troubleshooting',
+    url: 'https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html',
+  },
+]
+
+function buildMonitoringRemediationExtras(): Card[] {
+  const cards: Card[] = []
+  let n = 13
+
+  for (const item of monitoringItems) {
+    cards.push({
+      id: `soa-monitoring-${String(n).padStart(3, '0')}`,
+      domain: 'monitoring-remediation',
+      task: item.task,
+      tags: ['soa-c03', ...item.tags, 'resource-drill'],
+      question: `Which official AWS resource is best for ${item.focus} in SOA-C03 prep?`,
+      options: [
+        item.resource,
+        'AWS Pricing Calculator documentation',
+        'Random exam dump notes',
+        'A third-party blog with no citations',
+      ],
+      correctAnswers: [0],
+      explanation: `Primary source: ${item.resource}. Start with: ${item.url}`,
+    })
+    n++
+
+    cards.push({
+      id: `soa-monitoring-${String(n).padStart(3, '0')}`,
+      domain: 'monitoring-remediation',
+      task: item.task,
+      tags: ['soa-c03', ...item.tags, 'resource-authority'],
+      question: `You are reviewing ${item.focus}. Which source is most authoritative for exam alignment?`,
+      options: [
+        'A short social post summary',
+        item.resource,
+        'Old unrelated AWS FAQ snippets',
+        'A private study note with no links',
+      ],
+      correctAnswers: [1],
+      explanation: `Use AWS first-party references for high-confidence prep: ${item.url}`,
+    })
+    n++
+
+    cards.push({
+      id: `soa-monitoring-${String(n).padStart(3, '0')}`,
+      domain: 'monitoring-remediation',
+      task: item.task,
+      tags: ['soa-c03', ...item.tags, 'resource-priority'],
+      question: `For reliable study of ${item.focus}, where should you begin first?`,
+      options: [
+        'Only release-note headlines',
+        'Only community polls',
+        item.resource,
+        'Only trial-and-error in production',
+      ],
+      correctAnswers: [2],
+      explanation: `Start with the official guide before secondary resources: ${item.url}`,
+    })
+    n++
+  }
+
+  return cards.slice(0, 26)
+}
