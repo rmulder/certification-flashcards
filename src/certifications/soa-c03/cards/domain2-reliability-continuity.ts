@@ -194,18 +194,18 @@ function getReliabilityItems(): ReliabilityItem[] {
   return [
   { slug: 'backup', task: '2.1', tags: ['backup', 'vaults'], resource: 'AWS Backup Developer Guide', focus: 'backup plans, vaults, and restore workflows', url: 'https://docs.aws.amazon.com/aws-backup/' },
   { slug: 'ebs', task: '2.1', tags: ['ebs', 'snapshots'], resource: 'Amazon EBS snapshots documentation', focus: 'snapshot strategy and restore mechanics', url: 'https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html' },
-  { slug: 'ami', task: '2.1', tags: ['ami', 'ec2'], resource: 'Amazon EC2 AMI lifecycle documentation', focus: 'golden AMI operations and image governance', url: 'https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html' },
+  { slug: 'ami', task: '2.1', tags: ['ami', 'ec2'], resource: 'Amazon EC2 AMI lifecycle documentation', focus: 'golden AMI operations and patch-ready image governance', url: 'https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html' },
   { slug: 'asg', task: '2.3', tags: ['autoscaling', 'ec2'], resource: 'Amazon EC2 Auto Scaling User Guide', focus: 'health checks, lifecycle hooks, and scaling policies', url: 'https://docs.aws.amazon.com/autoscaling/ec2/userguide/' },
   { slug: 'elb', task: '2.3', tags: ['elb', 'alb', 'nlb'], resource: 'Elastic Load Balancing documentation', focus: 'target health and resilient traffic distribution', url: 'https://docs.aws.amazon.com/elasticloadbalancing/' },
   { slug: 'route53', task: '2.2', tags: ['route53', 'dns-failover'], resource: 'Amazon Route 53 Developer Guide', focus: 'DNS failover and health-check routing policies', url: 'https://docs.aws.amazon.com/route53/' },
   { slug: 'rds', task: '2.2', tags: ['rds', 'multi-az'], resource: 'Amazon RDS User Guide', focus: 'Multi-AZ and read replica operations', url: 'https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/' },
-  { slug: 'aurora-global', task: '2.2', tags: ['aurora', 'global-database'], resource: 'Amazon Aurora Global Database documentation', focus: 'cross-Region database continuity patterns', url: 'https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html' },
+  { slug: 'aurora-global', task: '2.2', tags: ['aurora', 'global-database'], resource: 'Amazon Aurora Global Database documentation', focus: 'cross-Region failover and low-RPO database continuity', url: 'https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html' },
   { slug: 's3-replication', task: '2.4', tags: ['s3', 'replication'], resource: 'Amazon S3 Replication documentation', focus: 'cross-Region replication and data durability operations', url: 'https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html' },
   { slug: 'efs', task: '2.4', tags: ['efs', 'storage'], resource: 'Amazon EFS User Guide', focus: 'durable shared storage and backup integrations', url: 'https://docs.aws.amazon.com/efs/' },
   { slug: 'fsx', task: '2.4', tags: ['fsx', 'storage'], resource: 'Amazon FSx documentation', focus: 'managed file-system reliability trade-offs', url: 'https://docs.aws.amazon.com/fsx/' },
   { slug: 'dr-whitepaper', task: '2.5', tags: ['dr', 'rto-rpo'], resource: 'Disaster Recovery of Workloads on AWS whitepaper', focus: 'RTO/RPO-based disaster recovery strategies', url: 'https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-workloads-on-aws.html' },
   { slug: 'resilience-hub', task: '2.5', tags: ['resilience-hub', 'assessments'], resource: 'AWS Resilience Hub documentation', focus: 'workload resilience scoring and recommendations', url: 'https://docs.aws.amazon.com/resilience-hub/' },
-  { slug: 'fis', task: '2.6', tags: ['fis', 'chaos-engineering'], resource: 'AWS Fault Injection Service documentation', focus: 'controlled reliability experiments and game days', url: 'https://docs.aws.amazon.com/fis/' },
+  { slug: 'fis', task: '2.6', tags: ['fis', 'chaos-engineering'], resource: 'AWS Fault Injection Service documentation', focus: 'controlled resilience experiments and game-day validation', url: 'https://docs.aws.amazon.com/fis/' },
   ]
 }
 
@@ -219,15 +219,15 @@ function buildReliabilityContinuityExtras(): Card[] {
       domain: 'reliability-continuity',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-drill'],
-      question: `Which official AWS resource is best for ${item.focus} in SOA-C03 prep?`,
+      question: `A workload owner is defining runbooks for ${item.focus}. Which source should anchor those procedures first?`,
       options: [
         item.resource,
-        'AWS pricing announcement archives',
-        'Random exam memory dumps',
-        'A generic cloud article with no AWS links',
+        'A third-party summary that omits AWS limits',
+        'An old slide deck from a prior project',
+        'A social post with no references',
       ],
       correctAnswers: [0],
-      explanation: `Primary source: ${item.resource}. Start with: ${item.url}`,
+      explanation: `Runbooks should reference canonical service behavior from AWS documentation: ${item.url}.`,
     })
     n++
 
@@ -236,15 +236,15 @@ function buildReliabilityContinuityExtras(): Card[] {
       domain: 'reliability-continuity',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-authority'],
-      question: `You are studying ${item.focus}. Which source should you trust first?`,
+      question: `During a game-day review for ${item.focus}, teams disagree on expected behavior. Which source should resolve the disagreement?`,
       options: [
         'Only forum answers',
         item.resource,
-        'An unrelated AWS marketing page',
-        'A short clip with no references',
+        'A short training clip with no citations',
+        'Internal tribal knowledge only',
       ],
       correctAnswers: [1],
-      explanation: `Use official AWS docs and whitepapers first: ${item.url}`,
+      explanation: `For resilience decisions, prioritize AWS first-party docs/whitepapers over anecdotal guidance: ${item.url}.`,
     })
     n++
 
@@ -253,15 +253,15 @@ function buildReliabilityContinuityExtras(): Card[] {
       domain: 'reliability-continuity',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-priority'],
-      question: `For continuity decisions about ${item.focus}, where should you begin?`,
+      question: `For continuity planning around ${item.focus}, what first step best improves exam and real-world readiness?`,
       options: [
-        'Only cost calculators',
-        'Only social media polls',
+        'Tune cost first, then consider recovery later',
+        'Jump directly to production changes without docs',
         item.resource,
-        'Only unsourced flashcard decks',
+        'Rely only on unsourced flashcards',
       ],
       correctAnswers: [2],
-      explanation: `Start with the AWS source material, then layer labs/practice: ${item.url}`,
+      explanation: `Begin with service-specific AWS guidance, then validate with labs and recovery drills: ${item.url}.`,
     })
     n++
   }

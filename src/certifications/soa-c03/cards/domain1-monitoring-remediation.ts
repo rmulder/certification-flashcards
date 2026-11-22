@@ -202,7 +202,7 @@ function getMonitoringItems(): MonitoringItem[] {
     task: '1.2',
     tags: ['cloudwatch', 'metrics', 'alarms'],
     resource: 'Amazon CloudWatch User Guide',
-    focus: 'metrics, alarms, and dashboards',
+    focus: 'metrics, alarm states, and dashboard design',
     url: 'https://docs.aws.amazon.com/cloudwatch/',
   },
   {
@@ -230,12 +230,12 @@ function getMonitoringItems(): MonitoringItem[] {
     url: 'https://docs.aws.amazon.com/systems-manager/',
   },
   {
-    slug: 'xray-observability',
+    slug: 'cloudwatch-agent',
     task: '1.3',
-    tags: ['xray', 'tracing', 'observability'],
-    resource: 'AWS X-Ray Developer Guide',
-    focus: 'distributed tracing and latency analysis',
-    url: 'https://docs.aws.amazon.com/xray/',
+    tags: ['cloudwatch-agent', 'ec2', 'observability'],
+    resource: 'CloudWatch agent documentation',
+    focus: 'OS metrics/log collection from EC2 and on-prem hosts',
+    url: 'https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html',
   },
   {
     slug: 'health-events',
@@ -254,12 +254,12 @@ function getMonitoringItems(): MonitoringItem[] {
     url: 'https://docs.aws.amazon.com/awssupport/latest/user/trusted-advisor.html',
   },
   {
-    slug: 'cloudwatch-synthetics',
+    slug: 'cloudwatch-composite-alarms',
     task: '1.2',
-    tags: ['cloudwatch', 'synthetics', 'monitoring'],
-    resource: 'CloudWatch Synthetics documentation',
-    focus: 'canary-based endpoint and journey monitoring',
-    url: 'https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries.html',
+    tags: ['cloudwatch', 'composite-alarms', 'noise-reduction'],
+    resource: 'CloudWatch composite alarms documentation',
+    focus: 'multi-signal alarm strategy and alert-noise reduction',
+    url: 'https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Composite_Alarm.html',
   },
   {
     slug: 'logs-insights',
@@ -282,15 +282,15 @@ function buildMonitoringRemediationExtras(): Card[] {
       domain: 'monitoring-remediation',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-drill'],
-      question: `Which official AWS resource is best for ${item.focus} in SOA-C03 prep?`,
+      question: `An operations team needs a runbook for ${item.focus}. Which source should they trust first when designing production procedures?`,
       options: [
         item.resource,
-        'AWS Pricing Calculator documentation',
-        'Random exam dump notes',
-        'A third-party blog with no citations',
+        'An internal wiki with no external references',
+        'A random exam dump with no change history',
+        'A marketing page without implementation details',
       ],
       correctAnswers: [0],
-      explanation: `Primary source: ${item.resource}. Start with: ${item.url}`,
+      explanation: `Use first-party AWS guidance for operational accuracy and up-to-date behavior. Primary source: ${item.resource} (${item.url}).`,
     })
     n++
 
@@ -299,15 +299,15 @@ function buildMonitoringRemediationExtras(): Card[] {
       domain: 'monitoring-remediation',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-authority'],
-      question: `You are reviewing ${item.focus}. Which source is most authoritative for exam alignment?`,
+      question: `You are troubleshooting an incident and must confirm AWS service behavior for ${item.focus}. Which source should break the tie between conflicting advice?`,
       options: [
-        'A short social post summary',
+        'A short social post thread',
         item.resource,
-        'Old unrelated AWS FAQ snippets',
-        'A private study note with no links',
+        'A cached copy of old forum comments',
+        'A personal note from a prior project',
       ],
       correctAnswers: [1],
-      explanation: `Use AWS first-party references for high-confidence prep: ${item.url}`,
+      explanation: `During incident response, use canonical service docs instead of unverified commentary: ${item.url}.`,
     })
     n++
 
@@ -316,15 +316,15 @@ function buildMonitoringRemediationExtras(): Card[] {
       domain: 'monitoring-remediation',
       task: item.task,
       tags: ['soa-c03', ...item.tags, 'resource-priority'],
-      question: `For reliable study of ${item.focus}, where should you begin first?`,
+      question: `For SOA-C03 prep, what is the best first step before doing hands-on labs for ${item.focus}?`,
       options: [
-        'Only release-note headlines',
-        'Only community polls',
+        'Memorize acronyms from flashcards only',
+        'Skip docs and start with production changes',
         item.resource,
-        'Only trial-and-error in production',
+        'Depend on one short video with no references',
       ],
       correctAnswers: [2],
-      explanation: `Start with the official guide before secondary resources: ${item.url}`,
+      explanation: `Read the official AWS source first, then reinforce with labs and scenarios. Start here: ${item.url}.`,
     })
     n++
   }
