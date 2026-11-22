@@ -190,7 +190,8 @@ type ReliabilityItem = {
   url: string
 }
 
-const reliabilityItems: ReliabilityItem[] = [
+function getReliabilityItems(): ReliabilityItem[] {
+  return [
   { slug: 'backup', task: '2.1', tags: ['backup', 'vaults'], resource: 'AWS Backup Developer Guide', focus: 'backup plans, vaults, and restore workflows', url: 'https://docs.aws.amazon.com/aws-backup/' },
   { slug: 'ebs', task: '2.1', tags: ['ebs', 'snapshots'], resource: 'Amazon EBS snapshots documentation', focus: 'snapshot strategy and restore mechanics', url: 'https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html' },
   { slug: 'ami', task: '2.1', tags: ['ami', 'ec2'], resource: 'Amazon EC2 AMI lifecycle documentation', focus: 'golden AMI operations and image governance', url: 'https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html' },
@@ -205,13 +206,14 @@ const reliabilityItems: ReliabilityItem[] = [
   { slug: 'dr-whitepaper', task: '2.5', tags: ['dr', 'rto-rpo'], resource: 'Disaster Recovery of Workloads on AWS whitepaper', focus: 'RTO/RPO-based disaster recovery strategies', url: 'https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-workloads-on-aws.html' },
   { slug: 'resilience-hub', task: '2.5', tags: ['resilience-hub', 'assessments'], resource: 'AWS Resilience Hub documentation', focus: 'workload resilience scoring and recommendations', url: 'https://docs.aws.amazon.com/resilience-hub/' },
   { slug: 'fis', task: '2.6', tags: ['fis', 'chaos-engineering'], resource: 'AWS Fault Injection Service documentation', focus: 'controlled reliability experiments and game days', url: 'https://docs.aws.amazon.com/fis/' },
-]
+  ]
+}
 
 function buildReliabilityContinuityExtras(): Card[] {
   const cards: Card[] = []
   let n = 13
 
-  for (const item of reliabilityItems) {
+  for (const item of getReliabilityItems()) {
     cards.push({
       id: `soa-reliability-${String(n).padStart(3, '0')}`,
       domain: 'reliability-continuity',

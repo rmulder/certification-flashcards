@@ -195,7 +195,8 @@ type MonitoringItem = {
   url: string
 }
 
-const monitoringItems: MonitoringItem[] = [
+function getMonitoringItems(): MonitoringItem[] {
+  return [
   {
     slug: 'cloudwatch-core',
     task: '1.2',
@@ -268,13 +269,14 @@ const monitoringItems: MonitoringItem[] = [
     focus: 'interactive log analysis and troubleshooting',
     url: 'https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html',
   },
-]
+  ]
+}
 
 function buildMonitoringRemediationExtras(): Card[] {
   const cards: Card[] = []
   let n = 13
 
-  for (const item of monitoringItems) {
+  for (const item of getMonitoringItems()) {
     cards.push({
       id: `soa-monitoring-${String(n).padStart(3, '0')}`,
       domain: 'monitoring-remediation',
