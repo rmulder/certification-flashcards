@@ -5,6 +5,7 @@ import { reactStudyConfig } from './react-study'
 import { openjsNodeConfig } from './openjs-node'
 import { dvaC02Meta } from './dva-c02/meta'
 import { saaC03Meta } from './saa-c03/meta'
+import { soaC03Meta } from './soa-c03/meta'
 import { mlaC01Meta } from './mla-c01/meta'
 import { aipC01Meta } from './aip-c01/meta'
 import { dopC02Meta } from './dop-c02/meta'
@@ -54,6 +55,7 @@ export const CERTIFICATIONS: CertificationMeta[] = [
   toMeta(aifC01Config),
   dvaC02Meta,
   saaC03Meta,
+  soaC03Meta,
   mlaC01Meta,
   aipC01Meta,
   dopC02Meta,
@@ -101,6 +103,7 @@ const configCache = new Map<string, CertificationConfig>(
 const LAZY_LOADERS: Record<string, () => Promise<CertificationConfig>> = {
   'dva-c02': () => import('./dva-c02').then((m) => m.dvaC02Config),
   'saa-c03': () => import('./saa-c03').then((m) => m.saaC03Config),
+  'soa-c03': () => import('./soa-c03').then((m) => m.soaC03Config),
   'mla-c01': () => import('./mla-c01').then((m) => m.mlaC01Config),
   'aip-c01': () => import('./aip-c01').then((m) => m.aipC01Config),
   'dop-c02': () => import('./dop-c02').then((m) => m.dopC02Config),
