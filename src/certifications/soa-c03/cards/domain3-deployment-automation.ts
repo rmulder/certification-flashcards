@@ -132,7 +132,7 @@ export const deploymentAutomationCards: Card[] = [
     task: '3.6',
     tags: ['workshops', 'labs', 'hands-on'],
     question: 'A learner wants no-cost, guided hands-on labs for IaC and operations skills. Which source is MOST appropriate?',
-    options: ['AWS Workshops', 'Only social media notes', 'Only exam dump sites', 'Only certification logos'],
+    options: ['AWS Workshops', 'Unverified community snippets without context', 'Unsourced third-party answer banks', 'Service overview slides without implementation details'],
     correctAnswers: [0],
     explanation:
       'Hands-on workshops with guided steps: https://workshops.aws/',
@@ -143,7 +143,7 @@ export const deploymentAutomationCards: Card[] = [
     task: '3.6',
     tags: ['repost', 'knowledge-base', 'troubleshooting'],
     question: 'An engineer needs AWS-focused troubleshooting discussions and practical fixes from the community. Which official forum is best?',
-    options: ['AWS re:Post', 'Random forum archives', 'Generic Q&A with no AWS context', 'Local shell history only'],
+    options: ['AWS re:Post', 'AWS re:Post accepted answers', 'Generic Q&A with no AWS context', 'AWS Knowledge Center troubleshooting articles'],
     correctAnswers: [0],
     explanation:
       'AWS re:Post contains vetted AWS troubleshooting discussions: https://repost.aws/',
@@ -179,6 +179,8 @@ function getAutomationItems(): AutomationItem[] {
 function buildDeploymentAutomationExtras(): Card[] {
   const cards: Card[] = []
   let n = 13
+  const items = getAutomationItems()
+  const resources = items.map((i) => i.resource)
   const standardizePrompts = [
     (focus: string) =>
       `A platform team must standardize ${focus}. Which source should they use first to build dependable automation?`,
@@ -212,8 +214,13 @@ function buildDeploymentAutomationExtras(): Card[] {
       `Use official service guidance first, then validate assumptions with sandbox testing: ${url}.`,
   ]
 
-  for (const [index, item] of getAutomationItems().entries()) {
+  for (const [index, item] of items.entries()) {
     const variation = index % 3
+    const distractors = [
+      resources[(index + 1) % resources.length],
+      resources[(index + 2) % resources.length],
+      resources[(index + 3) % resources.length],
+    ]
     cards.push({
       id: `soa-automation-${String(n).padStart(3, '0')}`,
       domain: 'deployment-automation',
@@ -222,9 +229,9 @@ function buildDeploymentAutomationExtras(): Card[] {
       question: standardizePrompts[variation](item.focus),
       options: [
         item.resource,
-        'A random cheat sheet copied between repos',
-        'A one-page blog summary with no references',
-        'Only old architecture screenshots',
+        distractors[0],
+        distractors[1],
+        distractors[2],
       ],
       correctAnswers: [0],
       explanation: explanationLines[variation](item.url),
@@ -238,10 +245,10 @@ function buildDeploymentAutomationExtras(): Card[] {
       tags: ['soa-c03', ...item.tags, 'resource-authority'],
       question: disagreementPrompts[variation](item.focus),
       options: [
-        'Only old screenshots of the console',
+        distractors[0],
         item.resource,
-        'A community thread with no citations',
-        'An unrelated AWS FAQ page',
+        distractors[1],
+        distractors[2],
       ],
       correctAnswers: [1],
       explanation: explanationLines[(variation + 1) % 3](item.url),
@@ -255,10 +262,10 @@ function buildDeploymentAutomationExtras(): Card[] {
       tags: ['soa-c03', ...item.tags, 'resource-priority'],
       question: baselinePrompts[variation](item.focus),
       options: [
-        'Rely on copied snippets from chat threads',
-        'Try changes directly in production first',
+        distractors[0],
+        distractors[1],
         item.resource,
-        'Memorize an answer key without context',
+        distractors[2],
       ],
       correctAnswers: [2],
       explanation: explanationLines[(variation + 2) % 3](item.url),

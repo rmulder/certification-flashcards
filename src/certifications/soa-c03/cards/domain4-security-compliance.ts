@@ -145,7 +145,7 @@ export const securityComplianceCards: Card[] = [
     question: 'A candidate wants an official, structured path to prepare for SOA-C03 and related labs. Which page should they use?',
     options: [
       'AWS Certification exam prep and ramp-up guides',
-      'Only random video playlists',
+      'AWS Skill Builder role-based learning plan',
       'Only personal notes',
       'Only release notes',
     ],
@@ -558,8 +558,15 @@ function getSecurityItems(): SecurityItem[] {
 function buildSecurityComplianceExtras(): Card[] {
   const cards: Card[] = []
   let n = 13
+  const items = getSecurityItems()
+  const resources = items.map((i) => i.resource)
 
-  for (const item of getSecurityItems()) {
+  for (const [index, item] of items.entries()) {
+    const distractors = [
+      resources[(index + 1) % resources.length],
+      resources[(index + 2) % resources.length],
+      resources[(index + 3) % resources.length],
+    ]
     cards.push({
       id: `soa-security-${String(n).padStart(3, '0')}`,
       domain: 'security-compliance',
@@ -568,9 +575,9 @@ function buildSecurityComplianceExtras(): Card[] {
       question: `A security operations team is formalizing controls for ${item.focus}. Which source should define the baseline?`,
       options: [
         item.resource,
-        'Only third-party exam notes',
-        'An unsourced cloud-security blog',
-        'Only screenshot-based runbooks',
+        distractors[0],
+        distractors[1],
+        distractors[2],
       ],
       correctAnswers: [0],
       explanation: `Security controls should be anchored to first-party AWS guidance for correct behavior and limits: ${item.url}.`,
@@ -584,10 +591,10 @@ function buildSecurityComplianceExtras(): Card[] {
       tags: ['soa-c03', ...item.tags, 'resource-authority'],
       question: `During an incident postmortem, teams disagree on expected AWS behavior for ${item.focus}. Which source should resolve it?`,
       options: [
-        'Only community comments',
+        distractors[0],
         item.resource,
-        'Only AI summaries with no source links',
-        'Only old, unrelated service docs',
+        distractors[1],
+        distractors[2],
       ],
       correctAnswers: [1],
       explanation: `For security decisions and exam alignment, prioritize canonical AWS service documentation: ${item.url}.`,
@@ -601,10 +608,10 @@ function buildSecurityComplianceExtras(): Card[] {
       tags: ['soa-c03', ...item.tags, 'resource-priority'],
       question: `For dependable SOA-C03 prep on ${item.focus}, which first step is best before labs and practice tests?`,
       options: [
-        'Rely only on unsourced study groups',
-        'Rely only on short-form videos',
+        distractors[0],
+        distractors[1],
         item.resource,
-        'Use only release-note headlines',
+        distractors[2],
       ],
       correctAnswers: [2],
       explanation: `Read the canonical AWS source first, then reinforce with hands-on labs and scenario drills: ${item.url}.`,

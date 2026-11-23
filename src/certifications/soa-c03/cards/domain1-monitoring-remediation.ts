@@ -8,10 +8,10 @@ export const monitoringRemediationCards: Card[] = [
     tags: ['soa-c03', 'exam-guide', 'aws-training'],
     question: 'A new SysOps candidate needs to align study to tested objectives before doing practice exams. What should they review first?',
     options: [
-      'Community cheat sheet only',
+      'AWS Whitepapers library',
       'Official AWS SOA-C03 exam guide',
       'Random practice exam bank',
-      'Service marketing pages only',
+      'AWS service FAQs and release notes',
     ],
     correctAnswers: [1],
     explanation:
@@ -68,7 +68,7 @@ export const monitoringRemediationCards: Card[] = [
     question: 'A team wants event-driven remediation workflows triggered by operational events. Which service guidance should anchor the design?',
     options: [
       'Amazon EventBridge User Guide',
-      'AWS Cost Explorer API docs only',
+      'AWS Systems Manager Automation docs',
       'AWS Glue DataBrew docs',
       'AWS App Runner docs',
     ],
@@ -113,7 +113,7 @@ export const monitoringRemediationCards: Card[] = [
       'Personal Health Dashboard documentation',
       'AWS Pricing Calculator docs',
       'AWS IQ FAQ',
-      'CloudFront marketing page only',
+      'AWS Service Health dashboard docs',
     ],
     correctAnswers: [0],
     explanation:
@@ -144,7 +144,7 @@ export const monitoringRemediationCards: Card[] = [
     options: [
       'AWS Well-Architected Framework',
       'Only the AWS re:Post homepage',
-      'Only AWS startup blog posts',
+      'AWS Architecture Center reference patterns',
       'Only EC2 instance type tables',
     ],
     correctAnswers: [0],
@@ -160,7 +160,7 @@ export const monitoringRemediationCards: Card[] = [
     options: [
       'AWS Workshops labs',
       'Only certification badge images',
-      'Only social media threads',
+      'AWS re:Post knowledge center articles',
       'Only release notes',
     ],
     correctAnswers: [0],
@@ -175,9 +175,9 @@ export const monitoringRemediationCards: Card[] = [
     question: 'Before scheduling SOA-C03, a candidate wants to confirm retake rules, logistics, and scoring policy. Which page should they read?',
     options: [
       'AWS Certification FAQ',
-      'AWS Activate credits page only',
+      'AWS Training and Certification overview',
       'AWS Store checkout page',
-      'AWS Outposts hardware specs only',
+      'AWS exam prep official page',
     ],
     correctAnswers: [0],
     explanation:
@@ -277,7 +277,7 @@ function buildModule9SystemHealthCards(): Card[] {
         'A centralized operations team monitors several accounts. Which approach best supports a single pane of glass?',
       options: [
         'CloudWatch dashboards using cross-account observability views',
-        'Separate browser tabs per account only',
+        'CloudWatch cross-account observability setup',
         'Manual spreadsheet updates',
         'One-time exports to CSV',
       ],
@@ -607,7 +607,7 @@ function buildModule15CourseSummaryCards(): Card[] {
         'A team wants to meet the course objective for repeatable deployments of recurring tasks. What is the BEST approach?',
       options: [
         'Automate procedures with versioned runbooks and infrastructure definitions',
-        'Rely on manual console steps documented in screenshots',
+        'Rely on ad-hoc console steps documented in static notes',
         'Execute changes only from memory during incidents',
         'Disable change logs to move faster',
       ],
@@ -1200,6 +1200,8 @@ function getMonitoringItems(): MonitoringItem[] {
 function buildMonitoringRemediationExtras(): Card[] {
   const cards: Card[] = []
   let n = 13
+  const items = getMonitoringItems()
+  const resources = items.map((i) => i.resource)
   const runbookPrompts = [
     (focus: string) =>
       `An operations team needs a runbook for ${focus}. Which source should they trust first when designing production procedures?`,
@@ -1233,8 +1235,13 @@ function buildMonitoringRemediationExtras(): Card[] {
       `For exam prep and production runbooks, prefer canonical docs before third-party summaries. Reference: ${url}.`,
   ]
 
-  for (const [index, item] of getMonitoringItems().entries()) {
+  for (const [index, item] of items.entries()) {
     const variation = index % 3
+    const distractors = [
+      resources[(index + 1) % resources.length],
+      resources[(index + 2) % resources.length],
+      resources[(index + 3) % resources.length],
+    ]
     cards.push({
       id: `soa-monitoring-${String(n).padStart(3, '0')}`,
       domain: 'monitoring-remediation',
@@ -1243,9 +1250,9 @@ function buildMonitoringRemediationExtras(): Card[] {
       question: runbookPrompts[variation](item.focus),
       options: [
         item.resource,
-        'An internal wiki with no external references',
-        'A random exam dump with no change history',
-        'A marketing page without implementation details',
+        distractors[0],
+        distractors[1],
+        distractors[2],
       ],
       correctAnswers: [0],
       explanation: explanationLines[variation](item.resource, item.url),
@@ -1259,10 +1266,10 @@ function buildMonitoringRemediationExtras(): Card[] {
       tags: ['soa-c03', ...item.tags, 'resource-authority'],
       question: incidentPrompts[variation](item.focus),
       options: [
-        'A short social post thread',
+        distractors[0],
         item.resource,
-        'A cached copy of old forum comments',
-        'A personal note from a prior project',
+        distractors[1],
+        distractors[2],
       ],
       correctAnswers: [1],
       explanation: explanationLines[(variation + 1) % 3](item.resource, item.url),
@@ -1276,10 +1283,10 @@ function buildMonitoringRemediationExtras(): Card[] {
       tags: ['soa-c03', ...item.tags, 'resource-priority'],
       question: prepPrompts[variation](item.focus),
       options: [
-        'Memorize acronyms from flashcards only',
-        'Skip docs and start with production changes',
+        distractors[0],
+        distractors[1],
         item.resource,
-        'Depend on one short video with no references',
+        distractors[2],
       ],
       correctAnswers: [2],
       explanation: explanationLines[(variation + 2) % 3](item.resource, item.url),

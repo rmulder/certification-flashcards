@@ -124,7 +124,7 @@ export const reliabilityContinuityCards: Card[] = [
       'Disaster Recovery of Workloads on AWS whitepaper',
       'Only service release changelogs',
       'Only billing invoices',
-      'Only cloud provider comparison blogs',
+      'A generic third-party cloud comparison article',
     ],
     correctAnswers: [0],
     explanation:
@@ -216,6 +216,8 @@ function getReliabilityItems(): ReliabilityItem[] {
 function buildReliabilityContinuityExtras(): Card[] {
   const cards: Card[] = []
   let n = 13
+  const items = getReliabilityItems()
+  const resources = items.map((i) => i.resource)
   const runbookPrompts = [
     (focus: string) =>
       `A workload owner is defining runbooks for ${focus}. Which source should anchor those procedures first?`,
@@ -249,8 +251,13 @@ function buildReliabilityContinuityExtras(): Card[] {
       `Begin with official guidance, then validate with labs and recovery drills: ${url}.`,
   ]
 
-  for (const [index, item] of getReliabilityItems().entries()) {
+  for (const [index, item] of items.entries()) {
     const variation = index % 3
+    const distractors = [
+      resources[(index + 1) % resources.length],
+      resources[(index + 2) % resources.length],
+      resources[(index + 3) % resources.length],
+    ]
     cards.push({
       id: `soa-reliability-${String(n).padStart(3, '0')}`,
       domain: 'reliability-continuity',
@@ -259,9 +266,9 @@ function buildReliabilityContinuityExtras(): Card[] {
       question: runbookPrompts[variation](item.focus),
       options: [
         item.resource,
-        'A third-party summary that omits AWS limits',
-        'An old slide deck from a prior project',
-        'A social post with no references',
+        distractors[0],
+        distractors[1],
+        distractors[2],
       ],
       correctAnswers: [0],
       explanation: explanationLines[variation](item.url),
@@ -275,10 +282,10 @@ function buildReliabilityContinuityExtras(): Card[] {
       tags: ['soa-c03', ...item.tags, 'resource-authority'],
       question: gameDayPrompts[variation](item.focus),
       options: [
-        'Only forum answers',
+        distractors[0],
         item.resource,
-        'A short training clip with no citations',
-        'Internal tribal knowledge only',
+        distractors[1],
+        distractors[2],
       ],
       correctAnswers: [1],
       explanation: explanationLines[(variation + 1) % 3](item.url),
@@ -292,10 +299,10 @@ function buildReliabilityContinuityExtras(): Card[] {
       tags: ['soa-c03', ...item.tags, 'resource-priority'],
       question: planningPrompts[variation](item.focus),
       options: [
-        'Tune cost first, then consider recovery later',
-        'Jump directly to production changes without docs',
+        distractors[0],
+        distractors[1],
         item.resource,
-        'Rely only on unsourced flashcards',
+        distractors[2],
       ],
       correctAnswers: [2],
       explanation: explanationLines[(variation + 2) % 3](item.url),
